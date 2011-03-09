@@ -70,7 +70,29 @@
 	}
 
 
+	///// Function `keys` ////////////////////////////////////////////////////
+	//
+	//     keys(Obj:obj) → Array
+	//
+	// Returns an array of all **own** enumerable properties found upon a given
+	// object, in the same order as that provided by a for-in loop.
+	//
+	// > This doesn't list the properties found on the prototype chain, as the
+	// > for-in loop does.
+	//
+	function keys(obj) {
+		var rv = []
+		  , prop
+
+		for (prop in obj)
+			if (obj.hasOwnProperty(prop)) rv.push(prop)
+
+		return rv
+	}
+
+
 	///// Provides the fallbacks /////////////////////////////////////////////
 	fallback({ create:         create
-	         , getPrototypeOf: get_proto })
+	         , getPrototypeOf: get_proto
+	         , keys:           keys })
 })(this)
