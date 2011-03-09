@@ -12,7 +12,7 @@
 
 	// Error message, variables, alias and such
 	var EObjExpected = "Object prototype may only be an Object or null"
-      , ENonObjProto = "Object.getPrototypeOf called on non-object"
+	  , ENonObjProto = "Object.getPrototypeOf called on non-object"
 
 	  , has_proto    = typeof "".__proto__ == "object"
 
@@ -51,7 +51,7 @@
 
 		return obj
 	}
-	
+
 
 	///// Function `getPrototypeOf` //////////////////////////////////////////
 	//
@@ -64,7 +64,7 @@
 	//
 	function get_proto(obj) {
 		if (typeof obj != "object") throw new ENonObjProto
-	
+
 		if (has_proto) return object.__proto__
 		else           return object.constructor.prototype
 	}
@@ -74,11 +74,12 @@
 	//
 	//     keys(Obj:obj) → Array
 	//
-	// Returns an array of all **own** enumerable properties found upon a given
-	// object, in the same order as that provided by a for-in loop.
+	// Returns an array of all **own** enumerable properties found upon
+	// a given object, in the same order as that provided by a for-in
+	// loop.
 	//
-	// > This doesn't list the properties found on the prototype chain, as the
-	// > for-in loop does.
+	// > This doesn't list the properties found on the prototype chain,
+	// > as the for-in loop does.
 	//
 	function keys(obj) {
 		var rv = []
