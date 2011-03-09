@@ -11,7 +11,10 @@
 (function (root) {
 
 	// Error message, variables, alias and such
-	var ENullObj = "Object prototype may only be an Object or null"
+	var EObjExpected = "Object prototype may only be an Object or null"
+      , ENonObjProto = "Object.getPrototypeOf called on non-object"
+
+	  , has_proto    = typeof "".__proto__ == "object"
 
 
 	///// Function `fallback` ////////////////////////////////////////////////
@@ -33,10 +36,10 @@
 	//
 	//     create(Obj:proto[, Obj:props]) → Obj
 	//
-	// Creates a new Object with the specified prototype and properties.
+	// Creates a new Object with the specified [[Prototype]] and properties.
 	//
 	function create(proto, props) {
-		if (typeof proto != "object") throw new TypeError(ENullObj)
+		if (typeof proto != "object") throw new TypeError(EObjExpected)
 
 		var Empty = function(){ }
 		  , obj, prop
@@ -50,6 +53,24 @@
 	}
 	
 
+	///// Function `getPrototypeOf` //////////////////////////////////////////
+	//
+	//     getPrototypeOf(Obj:obj) → Obj
+	//
+	// Returns the [[Prototype]] of the specified object.
+	//
+	// Kinda stolen from John Resig's blog :3
+	// http://ejohn.org/blog/objectgetprototypeof/
+	//
+	function get_proto(obj) {
+		if (typeof obj != "object") throw new ENonObjProto
+	
+		if (has_proto) return object.__proto__
+		else           return object.constructor.prototype
+	}
+
+
 	///// Provides the fallbacks /////////////////////////////////////////////
-	fallback({ create: create })
+	fallback({ create:         create
+	         , getPrototypeOf: get_proto })
 })(this)
