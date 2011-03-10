@@ -10,26 +10,20 @@
 
 (function (root) {
 
+	// Get the fallback function
+	if (typeof exports != "undefined")
+		fallback = require('./core').fallback
+	else
+		fallback = b.lack.fallback
+
+
 	// Error message, variables, alias and such
 	var EObjExpected = "Object prototype may only be an Object or null"
 	  , ENonObjProto = "Object.getPrototypeOf called on non-object"
 
 	  , has_proto    = typeof "".__proto__ == "object"
+	  , fallback
 
-
-	///// Function `fallback` ////////////////////////////////////////////////
-	//
-	//     fallback(map)
-	//
-	// Provides a fallback implementation to the Object's attribute if
-	// it's not implemented natively (or by another library) in the
-	// browser.
-	//
-	function fallback(map) {
-		var attr
-		for (attr in map)
-			if (!Object[attr]) Object[attr] = map[attr]
-	}
 
 
 	///// Function `create` //////////////////////////////////////////////////
@@ -93,7 +87,7 @@
 
 
 	///// Provides the fallbacks /////////////////////////////////////////////
-	fallback({ create:         create
-	         , getPrototypeOf: get_proto
-	         , keys:           keys })
+	fallback(Object, { create:         create
+	                 , getPrototypeOf: get_proto
+	                 , keys:           keys })
 })(this)
