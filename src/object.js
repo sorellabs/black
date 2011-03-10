@@ -11,10 +11,8 @@
 (function (root) {
 
 	// Get the fallback function
-	if (typeof exports != "undefined")
-		fallback = require('./core').fallback
-	else
-		fallback = b.lack.fallback
+	if (typeof exports != "undefined")  fallback = require('./core').fallback
+	else                                fallback = b.lack.fallback
 
 
 	// Error message, variables, alias and such
