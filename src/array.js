@@ -18,6 +18,7 @@
 	var classOf = Object.prototype.toString
 	  , abs     = Math.abs
 	  , max     = Math.max
+	  , min     = Math.min
 	  , fallback
 
 
@@ -27,7 +28,7 @@
 	//
 	// Returns `true` if a variable is an array, `false` if it is not.
 	//
-	function isArray(obj) {
+	function arrayp(obj) {
 		return classOf.call(obj) == '[object Array]'
 	}
 
@@ -47,7 +48,7 @@
 	// 
 	// Follows the algorithm described in ES-262 15.4.4.14
 	//
-	function index_of(value, start) {
+	function search(value, start) {
 		var obj = Object(this)
 		  , len = obj.length >> 0
 		  , key
@@ -62,6 +63,38 @@
 		return -1
 	}
 
+
+	///// Function `lastIndexOf` /////////////////////////////////////////////
+	//
+	//     #lastIndexOf(value[, Num:start]) → Num
+	//
+	// Compares `value` to the elements of the array, in descending
+	// order, using the Strict Equality Comparison algorithm. If a match
+	// is found, that match is returned, otherwise, -1 is returned.
+	// 
+	// The optional `start` argument defines the array index at which
+	// the search should start. If it's not present, or if it's great or
+	// equal to the length of the array, the whole array will be
+	// searched, otherwise, only the part starting at the given index
+	// will be searched.
+	// 
+	// Follows the algorithm described in ES-262 15.4.4.15
+	//
+	function search_right(value, start) {
+		function get_start() { return clamp((!isNaN(+start)) ? +start : len)  }
+		function clamp(n)    { return (n >= 0) ? min(n, len-1) : len - abs(n) }
+
+		var obj = Object(this)
+		  , len = obj.length >> 0
+		  , key
+
+		if (!len) return -1
+
+		for (key = get_start(); key < len; --key)
+			if (key in obj && obj[key] === value) return key
+
+		return -1
+	}
 
 
 })(this);
