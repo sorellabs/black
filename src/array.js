@@ -97,4 +97,10 @@
 	}
 
 
+	///// Provides the fallbacks /////////////////////////////////////////////
+	fallback(Array, { isArray: arrayp })
+
+	fallback(Array.prototype, { indexOf:     search
+	                          , lastIndexOf: search_right })
+
 })(this);
