@@ -37,14 +37,14 @@
 	//
 	//     #indexOf(value[, Num:start]) → Num
 	//
-	// Compares `value` to the elements of the array, in ascending order, using
-	// the Strict Equality Comparison algorithm. If a match is found, that
-	// match is returned, otherwise, -1 is returned.
+	// Compares `value` to the elements of the array, in ascending
+	// order, using the Strict Equality Comparison algorithm. If a match
+	// is found, that match is returned, otherwise, -1 is returned.
 	// 
-	// The optional `start` argument defines the array index at which the
-	// search should start. If it's not present, or 0, the whole array will be
-    // searched, otherwise, only the part starting at the given index will be
-	// searched.
+	// The optional `start` argument defines the array index at which
+	// the search should start. If it's not present, or 0, the whole
+	// array will be searched, otherwise, only the part starting at the
+	// given index will be searched.
 	// 
 	// Follows the algorithm described in ES-262 15.4.4.14
 	//
