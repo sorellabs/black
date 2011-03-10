@@ -55,4 +55,4 @@
 	fallback(String.prototype, { trim:      trim
 	                           , trimLeft:  trim_left
 	                           , trimRight: trim_right })
-})(this)
+})(this);

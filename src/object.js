@@ -88,4 +88,4 @@
 	fallback(Object, { create:         create
 	                 , getPrototypeOf: get_proto
 	                 , keys:           keys })
-})(this)
+})(this);
