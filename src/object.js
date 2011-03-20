@@ -55,8 +55,7 @@
 	function get_proto(obj) {
 		if (typeof obj != "object") throw new ENonObjProto
 
-		if (has_proto) return object.__proto__
-		else           return object.constructor.prototype
+		return object.__proto__ || object.constructor.prototype
 	}
 
 
