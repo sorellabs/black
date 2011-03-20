@@ -7,7 +7,6 @@
  *       Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  *****************************************************************************/
 
-
 (function (root) {
 
 	// Get the fallback function
@@ -18,8 +17,7 @@
 	// Error message, variables, alias and such
 	var EObjExpected = "Object prototype may only be an Object or null"
 	  , ENonObjProto = "Object.getPrototypeOf called on non-object"
-
-	  , has_proto    = typeof "".__proto__ == "object"
+	  , has          = Object.prototype.hasOwnProperty
 	  , fallback
 
 
@@ -39,7 +37,7 @@
 		Empty.prototype = proto
 		obj             = new Empty
 		for (prop in props)
-			if (obj.hasOwnProperty(prop)) obj[prop] = props[prop]
+			if (has.call(obj, prop)) obj[prop] = props[prop]
 
 		return obj
 	}
@@ -78,7 +76,7 @@
 		  , prop
 
 		for (prop in obj)
-			if (obj.hasOwnProperty(prop)) rv.push(prop)
+			if (has.call(obj, prop)) rv.push(prop)
 
 		return rv
 	}
