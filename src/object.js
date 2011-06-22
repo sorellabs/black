@@ -8,6 +8,7 @@
 void function (root) { var __old, obj
 
     , keys  = Object.keys
+    , slice = Array.prototype.slice
 
 
     // Checks if an object has a key set in itself
@@ -54,6 +55,21 @@ void function (root) { var __old, obj
 
         return true
     }
+    
+    // Extends an object with properties from multiple sources
+    function extend(target) {
+        slice.call(arguments, 1).forEach(function(source) {
+            keys(source).reduce(function(acc, key) {
+                target[key] = source[key]
+                return target }, target )})
+
+        return target
+    }
+
+    // Makes a shallow copy of an object
+    function copy(obj) {
+        return extend({ }, obj)
+    }
 
 
 
@@ -78,5 +94,7 @@ void function (root) { var __old, obj
     obj.attr        = attr
     obj.set_default = set_default
     obj.pop         = pop
+    obj.extend      = extend
+    obj.copy        = copy
 
 }(this)
