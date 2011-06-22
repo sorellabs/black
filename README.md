@@ -28,6 +28,7 @@ Black uses [Jakefiles][Jake] for build tasks. If you want them, you'll need:
 * [NodeJS][]       - for running the build tool;
     
 **Note:**
+
 > You'll need UglifyJS 1.0.2+, since the previous versions frowned upon
 > form feeds. 
     
