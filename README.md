@@ -31,6 +31,10 @@ Black uses [Jakefiles][Jake] for build tasks. If you want them, you'll need:
 > You'll need UglifyJS 1.0.2+, since the previous versions frowned upon
 > form feeds. 
     
+[Jake]:     https://github.com/mde/jake
+[UglifyJS]: https://github.com/mishoo/UglifyJS
+[NodeJS]:   https://nodejs.org
+
     
 #### Listing the available tasks
    
@@ -55,10 +59,6 @@ To build both the distribution scripts and documentation:
 
 Individual things are placed inside the `build` namespace. You can just
 `jake --tasks build` from the command line to get a list of them.
-
-[Jake]:     https://github.com/mde/jake
-[UglifyJS]: https://github.com/mishoo/UglifyJS
-[Node.js]:  https://nodejs.org
 
 
 ### Documentation
