@@ -55,6 +55,11 @@ void function (root) { var __old, obj
 
         return true
     }
+
+    // Returns the number of own properties (enumerables)
+    function size(obj) {
+        return keys(obj).length
+    }
     
     // Extends an object with properties from multiple sources
     function extend(target) {
