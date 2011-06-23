@@ -77,12 +77,12 @@ void function (root) { var __old, obj
     if (typeof exports == 'undefined') {
         if (!root.black) root.black = { }
 
-        __old = root.obj.obj
-        obj = root.obj.obj = { }
+        __old = root.black.obj
+        obj   = root.black..obj = { }
 
         ///// Method obj.make_local ////////////////////////////////////////////
         obj.make_local = function() {
-            root.obj = __old
+            root.black.obj = __old
             return obj }}
     else
         obj = exports
