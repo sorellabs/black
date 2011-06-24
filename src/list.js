@@ -60,7 +60,7 @@ void function (root) { var __old, list
 
     function make_list(size, value) { var result
         result = Array(size + 1).join('.').split('.')
-        if (value !== void 0)
+        if (value !== '')
             result = result.map(function(){ return value })
 
         return result
