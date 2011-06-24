@@ -39,7 +39,6 @@ void function (root) { var __old, black
         keys(this).forEach(function(module) {
             module = this[module]
             if (!fnp(module))  unpack( kind
-                                     , this
                                      , global || top
                                      , module.$box
                                      , module) }, this)
