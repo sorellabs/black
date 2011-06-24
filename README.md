@@ -35,7 +35,7 @@ After loading the black modules, you can use their methods directly:
     true
     
     >>> obj.size(obj)
-    13
+    14
     
 By loading the `core` module, you can unpack the methods to use them in
 a nice way:
@@ -58,13 +58,27 @@ a nice way:
     // Object.emptyp and so on
     >>> black.unpack_all(['utils', 'generic'])
     >>> Object.size(black.obj)
-    13
+    14
     
     // By unpacking the own methods, you get all methods as instance
     // methods, burned in their respective built-in prototypes.
     >>> black.unpack_all(['utils', 'method'])
     >>> black.obj.size()
-    13    
+    14
+    
+    // You can get more control on the unpacking by calling the
+    // underlying `unpack' method directly. For example, you could
+    // unpack the generic black.obj methods in a custom object, and the
+    // own methods in this custom object's prototype.
+    >>> var $ = Object.create({ })
+    >>> black.unpack(['generic', 'method'], global, $, $.__proto__, black.obj)
+    >>> $.size($)
+    14
+    
+    >>> var $$ = Object.create($.__proto__)
+    >>> $$.emptyp()
+    true
+    
 
 
 
