@@ -17,6 +17,57 @@ repository:
 [snapshot]: https://github.com/killdream/black/zipball/master
     
     
+### Usage
+
+After loading the black modules, you can use their methods directly:
+
+    >>> var obj = require('black').obj
+    >>> obj.items(obj)
+    [ ['keys', [Function: keys] ]
+    , ['values', [Function: values] ]
+    , ['items', [Function: items] ]
+    , ... ]
+    
+    >>> obj.emptyp(obj)
+    false
+    
+    >>> obj.emptyp({ })
+    true
+    
+    >>> obj.size(obj)
+    13
+    
+By loading the `core` module, you can unpack the methods to use them in
+a nice way:
+
+    >>> var black = require('black')
+    
+    >>> black.unpack_all(['utils'])
+    
+    // all methods marked as utilities are now in the global scope
+    >>> keys(black)
+    [ 'unpack', 'unpack_all', 'obj', ... ]
+    
+    // You can also unpack utilities to a different object
+    >>> black.unpack_all(['utils'], _ = { })
+    >>> _.keys(black)
+    [ 'unpack', 'unpack_all', 'obj', ... ]
+    
+    // By unpacking the generic methods, you get all methods burned in
+    // the respective built-in. So black.obj.emptyp goes to
+    // Object.emptyp and so on
+    >>> black.unpack_all(['utils', 'generic'])
+    >>> Object.size(black.obj)
+    13
+    
+    // By unpacking the own methods, you get all methods as instance
+    // methods, burned in their respective built-in prototypes.
+    >>> black.unpack_all(['utils', 'method'])
+    >>> black.obj.size()
+    13    
+
+
+
 ### The build system
     
 #### Pre-requisites
