@@ -5,10 +5,11 @@
  *     _________________________________________________________________      *
  *        Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  ******************************************************************************/
-void function (root) { var __old, obj
+void function (root, black) { var __old, obj
 
-    , keys  = Object.keys
-    , slice = Array.prototype.slice
+    , keys   = Object.keys
+    , slice  = Array.prototype.slice
+    , define = black.define || require('./core').define
 
 
     // Checks if an object has a key set in itself
@@ -80,10 +81,8 @@ void function (root) { var __old, obj
 
     ///// Exports //////////////////////////////////////////////////////////////
     if (typeof exports == 'undefined') {
-        if (!root.black) root.black = { }
-
         __old = root.black.obj
-        obj   = root.black..obj = { }
+        obj   = root.black.obj = { }
 
         ///// Method obj.make_local ////////////////////////////////////////////
         obj.make_local = function() {
@@ -101,5 +100,15 @@ void function (root) { var __old, obj
     obj.pop         = pop
     obj.extend      = extend
     obj.copy        = copy
+    obj.size        = size
+    obj.has         = has
+    obj.emptyp      = emptyp
 
-}(this)
+    obj.$box   = Object
+    obj.$utils = { keys:   keys
+                 , values: values
+                 , items:  items
+                 , extend: extend
+                 , copy:   copy }
+
+}(this, this.black || {})
