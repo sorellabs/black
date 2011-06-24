@@ -34,15 +34,15 @@ void function (root) { var __old, black
         return target
     }
 
-    // Unpacks all modules in source. Utils go in `target` or the global obj
-    function unpack_all(kind, source, target) {
-        keys(root).forEach(function(module) {
-            module = root[module]
+    // Unpacks all modules in black. Utils go in `target` or the global obj
+    function unpack_all(kind, global) {
+        keys(this).forEach(function(module) {
+            module = root[this]
             if (!fnp(module))  unpack( kind
-                                     , source
-                                     , target || top
+                                     , this
+                                     , global || top
                                      , module.$box
-                                     , module) })
+                                     , module) }, this)
     }
 
     // Transforms a generic method into a SLOOOOOOOOOOOW instance method.
