@@ -7,9 +7,9 @@
  ******************************************************************************/
 void function (root, black) { var __old, obj
 
-    , keys   = Object.keys
-    , slice  = Array.prototype.slice
-
+    , keys  = Object.keys
+    , slice = Array.prototype.slice
+    , proto = Object.getPrototypeOf
 
     // Checks if an object has a key set in itself
     function has(obj, key) {
@@ -104,6 +104,7 @@ void function (root, black) { var __old, obj
     obj.emptyp      = emptyp
 
     obj.$box   = Object
+    obj.$proto = proto({ })
     obj.$utils = { keys:   keys
                  , values: values
                  , items:  items

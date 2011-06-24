@@ -7,7 +7,6 @@
  ******************************************************************************/
 void function (root) { var __old, black
 
-    , proto = Object.getPrototypeOf
     , slice = Array.prototype.slice
     , keys  = Object.keys
     , top   = typeof global == 'undefined'? window : global
@@ -20,9 +19,9 @@ void function (root) { var __old, black
     function fnp(obj)       { return typeof obj == 'function' }
 
     // Unpacks a black module so it's used in a sane way
-    function unpack(kind, root, target, source){
+    function unpack(kind, root, target, proto, source){
+        if (methodp(kind))   do_unpack(proto, source, methodize)
         if (genericp(kind))  do_unpack(target, source)
-        if (methodp(kind))   do_unpack(proto(target), source, methodize)
         if (utilsp(kind))    do_unpack(root, source.$utils)
     }
     function do_unpack(target, source, mapper) {
@@ -41,6 +40,7 @@ void function (root) { var __old, black
             if (!fnp(module))  unpack( kind
                                      , global || top
                                      , module.$box
+                                     , module.$proto
                                      , module) }, this)
     }
 
