@@ -16,7 +16,7 @@ void function (root) { var __old, black
     function genericp(kind) { return ~kind.indexOf('generic') }
     function methodp(kind)  { return ~kind.indexOf('method')  }
     function utilsp(kind)   { return ~kind.indexOf('utils')   }
-    function specialp(key)  { return /^$/.test(key)           }
+    function specialp(key)  { return /^\$/.test(key)           }
     function fnp(obj)       { return typeof obj == 'function' }
 
     // Unpacks a black module so it's used in a sane way
