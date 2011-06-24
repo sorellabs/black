@@ -37,7 +37,7 @@ void function (root) { var __old, black
     // Unpacks all modules in black. Utils go in `target` or the global obj
     function unpack_all(kind, global) {
         keys(this).forEach(function(module) {
-            module = root[this]
+            module = this[module]
             if (!fnp(module))  unpack( kind
                                      , this
                                      , global || top
