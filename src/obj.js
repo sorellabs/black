@@ -9,7 +9,6 @@ void function (root, black) { var __old, obj
 
     , keys   = Object.keys
     , slice  = Array.prototype.slice
-    , define = black.define || require('./core').define
 
 
     // Checks if an object has a key set in itself
