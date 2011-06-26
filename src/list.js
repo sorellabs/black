@@ -7,7 +7,6 @@
  ******************************************************************************/
 void function (root) { var __old, list
 
-    , proto = Object.getPrototypeOf
     , listp = Array.isArray
 
 
@@ -150,6 +149,7 @@ void function (root) { var __old, list
         return obj && obj.length
     }
 
+
 
     ///// Exports //////////////////////////////////////////////////////////////
     if (typeof exports == 'undefined') {
@@ -192,7 +192,7 @@ void function (root) { var __old, list
 
 
     list.$box      = Array
-    list.$proto    = proto([])
+    list.$proto    = Array.prototype
     list.$utils    = { make_list: make_list
                      , car:       car
                      , cdr:       cdr

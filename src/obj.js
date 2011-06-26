@@ -105,7 +105,7 @@ void function (root, black) { var __old, obj
     obj.emptyp      = emptyp
 
     obj.$box   = Object
-    obj.$proto = proto({ })
+    obj.$proto = Object.prototype
     obj.$utils = { keys:   keys
                  , values: values
                  , items:  items
