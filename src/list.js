@@ -152,18 +152,9 @@ void function (root) { var __old, list
 
 
     ///// Exports //////////////////////////////////////////////////////////////
-    if (typeof exports == 'undefined') {
-        __old = root.black.list
-        list  = root.black.list = { }
+    list = typeof exports == 'undefined'? root.black.list = { }
+                                        : exports
 
-        ///// Method list.make_local ///////////////////////////////////////////
-        list.make_local = function() {
-            root.list = __old
-            return list }}
-    else
-        list = exports
-
-    ///// -Properties under list ///////////////////////////////////////////////
     list.car       = car
     list.cdr       = cdr
     list.caar      = caar

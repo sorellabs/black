@@ -79,19 +79,9 @@ void function (root, black) { var __old, obj
 
 
     ///// Exports //////////////////////////////////////////////////////////////
-    if (typeof exports == 'undefined') {
-        __old = root.black.obj
-        obj   = root.black.obj = { }
+    obj = typeof exports == 'undefined'? root.black.obj = { }
+                                       : exports
 
-        ///// Method obj.make_local ////////////////////////////////////////////
-        obj.make_local = function() {
-            root.black.obj = __old
-            return obj }}
-    else
-        obj = exports
-
-
-    ///// -Properties under obj ////////////////////////////////////////////////
     obj.keys        = keys
     obj.values      = values
     obj.items       = items

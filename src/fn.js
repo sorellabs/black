@@ -34,18 +34,9 @@ void function (root) { var __old, fn
 
 
     ///// Exports //////////////////////////////////////////////////////////////
-    if (typeof exports == 'undefined') {
-        __old = root.black.fn
-        fn    = root.black.fn = { }
+    fn = typeof exports == 'undefined'? root.black.fn = { }
+                                      : exports
 
-        ///// Method fn.make_local /////////////////////////////////////////////
-        fn.make_local = function() {
-            root.black.fn = __old
-            return fn }}
-    else
-        fn = exports
-
-    ///// -Properties under fn /////////////////////////////////////////////////
     fn.partial = partial
     fn.delay   = delay
     fn.defer   = defer
