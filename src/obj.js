@@ -12,7 +12,7 @@ void function (root, black) { var __old, obj
     , proto = Object.getPrototypeOf
 
     // Checks if an object has a key set in itself
-    function has(obj, key) {
+    function hasp(obj, key) {
         return obj.hasOwnProperty(key)
     }
 
@@ -51,7 +51,7 @@ void function (root, black) { var __old, obj
     // Checks if the object is empty
     function emptyp(obj) { var key
         for (key in obj)
-            if (has(obj, key)) return false
+            if (hasp(obj, key)) return false
 
         return true
     }
@@ -90,6 +90,7 @@ void function (root, black) { var __old, obj
     else
         obj = exports
 
+
     ///// -Properties under obj ////////////////////////////////////////////////
     obj.keys        = keys
     obj.values      = values
@@ -100,7 +101,7 @@ void function (root, black) { var __old, obj
     obj.extend      = extend
     obj.copy        = copy
     obj.size        = size
-    obj.has         = has
+    obj.hasp        = hasp
     obj.emptyp      = emptyp
 
     obj.$box   = Object
