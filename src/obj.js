@@ -103,6 +103,7 @@ void function (root, black) { var __old, obj
     obj.size        = size
     obj.hasp        = hasp
     obj.emptyp      = emptyp
+    obj.proto       = proto
 
     obj.$box   = Object
     obj.$proto = Object.prototype
@@ -110,6 +111,7 @@ void function (root, black) { var __old, obj
                  , values: values
                  , items:  items
                  , extend: extend
+                 , proto:  proto
                  , copy:   copy }
 
 }(this, this.black || {})
