@@ -37,7 +37,7 @@ void function (root) {
 
     ///// Function make_list ///////////////////////////////////////////////////
     //
-    //   (size:Num[, default_value]) -> List
+    //   (size:Num[, default_value]) ⇒ List
     // 
     // Allocates a list with the given size, optionally filled with the
     // default value.
@@ -54,7 +54,7 @@ void function (root) {
 
     ///// Function range ///////////////////////////////////////////////////////
     //
-    //   (start:Num, end:Num[, step:Num]) -> List
+    //   (start:Num, end:Num[, step:Num]) ⇒ List
     // 
     // Makes a list with numeric values ranging from `start` to `end`.
     // 
@@ -72,7 +72,7 @@ void function (root) {
 
     ///// Function to_array ////////////////////////////////////////////////////
     //
-    //   (obj:List) -> Array
+    //   (obj:List) ⇒ Array
     // 
     // Returns an *actual* array from the list-like object.
     //
@@ -90,7 +90,7 @@ void function (root) {
 
     ///// Function size ////////////////////////////////////////////////////////
     //
-    //   (list:List) -> Num
+    //   (list:List) ⇒ Num
     // 
     // Returns the size of a list.
     //
@@ -101,7 +101,7 @@ void function (root) {
 
     ///// Function emptyp //////////////////////////////////////////////////////
     //
-    //   (list:List) -> Bool
+    //   (list:List) ⇒ Bool
     // 
     // Checks if a list is empty or not.
     //
@@ -112,7 +112,7 @@ void function (root) {
 
     ///// Function hasp ////////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred:Fn]) -> Bool
+    //   (list:List, value[, pred:Fn]) ⇒ Bool
     // 
     // Checks if a list contains the given value or not.
     // 
@@ -129,7 +129,7 @@ void function (root) {
 
     ///// Function count ///////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred:Fn]) -> Num
+    //   (list:List, value[, pred:Fn]) ⇒ Num
     // 
     // Returns the number of occurrences of `value' in the given list,
     // optionally filtered by a predicate.
@@ -229,7 +229,7 @@ void function (root) {
 
     ///// Function slice ///////////////////////////////////////////////////////
     //
-    //   (list:List[, start:Num][, end:Num]) -> List
+    //   (list:List[, start:Num][, end:Num]) ⇒ List
     // 
     // Extracts a subsection of the list that goes from `start` to `end`.
     // 
@@ -251,7 +251,7 @@ void function (root) {
 
     ///// Function rest ////////////////////////////////////////////////////////
     //
-    //   (list:List) -> List
+    //   (list:List) ⇒ List
     // 
     // Returns a new list without the first element.
     //
@@ -261,7 +261,7 @@ void function (root) {
 
     ///// Function but_last ////////////////////////////////////////////////////
     //
-    //   (list:List) -> List
+    //   (list:List) ⇒ List
     // 
     // Returns a new list without the last element.
     //
@@ -271,7 +271,7 @@ void function (root) {
 
     ///// Function drop ////////////////////////////////////////////////////////
     //
-    //   (list:List, num:Num) -> List
+    //   (list:List, num:Num) ⇒ List
     // 
     // Returns a list without the first `num` elements.
     //
@@ -281,7 +281,7 @@ void function (root) {
 
     ///// Function keep ////////////////////////////////////////////////////////
     //
-    //   (list:List, num:Num) -> List
+    //   (list:List, num:Num) ⇒ List
     // 
     // Returns a list with just the first `num` elements.
     //
@@ -291,7 +291,7 @@ void function (root) {
 
     ///// Function remove //////////////////////////////////////////////////////
     //
-    //   (list:List, index:Num) -> List
+    //   (list:List, index:Num) ⇒ List
     // 
     // Returns a list without the item at `index`.
     //
@@ -303,7 +303,7 @@ void function (root) {
 
     ///// Function without /////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred:Fn]) -> List
+    //   (list:List, value[, pred:Fn]) ⇒ List
     // 
     // Returns a list without elements that match `value`, with the
     // comparison optionally defined by a predicate function.
@@ -323,7 +323,7 @@ void function (root) {
 
     ///// Function insert //////////////////////////////////////////////////////
     //
-    //   (list:List, index:Num[, values...]) -> List
+    //   (list:List, index:Num[, values...]) ⇒ List
     // 
     // Returns a list with the given elements inserted at the given
     // index.
@@ -338,7 +338,7 @@ void function (root) {
 
     ///// Function cat /////////////////////////////////////////////////////////
     //
-    //   (list[, lists...]) -> List
+    //   (list[, lists...]) ⇒ List
     // 
     // Returns a list with the given lists concatened.
     //
@@ -353,7 +353,7 @@ void function (root) {
 
     ///// Function replace /////////////////////////////////////////////////////
     //
-    //   (list:List, value, sub[, pred:Fn]) -> List
+    //   (list:List, value, sub[, pred:Fn]) ⇒ List
     // 
     // Returns a list with the elements tha match `value` replaced by
     // `sub`.
@@ -371,7 +371,7 @@ void function (root) {
 
     ///// Function replace_at //////////////////////////////////////////////////
     //
-    //   (list:List, index:Num, sub) -> List
+    //   (list:List, index:Num, sub) ⇒ List
     // 
     // Replaces the item at index by `sub`.
     //
@@ -381,7 +381,7 @@ void function (root) {
 
     ///// Function sorted //////////////////////////////////////////////////////
     //
-    //   (list:List[, comparison:Fn]) -> List
+    //   (list:List[, comparison:Fn]) ⇒ List
     // 
     // Returns a sorted list according to the comparison function.
     // 
@@ -394,7 +394,7 @@ void function (root) {
 
     ///// Function reversed ////////////////////////////////////////////////////
     //
-    //   (list:List) -> List
+    //   (list:List) ⇒ List
     // 
     // Returns the a reversed representation of the list.
     // 
@@ -410,7 +410,7 @@ void function (root) {
     
     ///// Function map /////////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) -> List
+    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ List
     // 
     // Returns a list with its elements transformed by the predicate
     // function.
@@ -422,7 +422,7 @@ void function (root) {
 
     ///// Function each ////////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) ->
+    //   (list:List, pred:Fn[, ctx:Obj]) ⇒
     // 
     // Executes the predicate function for every item in the list.
     //
@@ -433,7 +433,7 @@ void function (root) {
 
     ///// Function filter //////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) -> List
+    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ List
     // 
     // Returns a list without the elements that don't pass the predicate
     // test.
@@ -445,7 +445,7 @@ void function (root) {
 
     ///// Function reduce //////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, initial][, ctx:Obj]) -> *mixed*
+    //   (list:List, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
     // 
     // Apply the predicate against each pair in the array (left to
     // right) so to return a single accumulated value.
@@ -462,7 +462,7 @@ void function (root) {
     
     ///// Function reduce_right ////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, initial][, ctx:Obj]) -> *mixed*
+    //   (list:List, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
     // 
     // Apply the predicate against each pair in the array (right to
     // left) so to return a single accumulated value.
@@ -479,7 +479,7 @@ void function (root) {
 
     ///// Function some ////////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) -> *mixed*
+    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ *mixed*
     // 
     // Checks whether some element in the array passes the predicate
     // function's test.
@@ -491,7 +491,7 @@ void function (root) {
 
     ///// Function every ///////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) -> *mixed*
+    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ *mixed*
     // 
     // Checks whether all of the elements in the array passes the
     // predicate function's test.
@@ -507,7 +507,7 @@ void function (root) {
 
     ///// Function pluck ///////////////////////////////////////////////////////
     //
-    //   (list:List, attr:String) -> List
+    //   (list:List, attr:String) ⇒ List
     // 
     // Returns a list with all elements replaced by their attribute
     // `attr`.
@@ -522,7 +522,7 @@ void function (root) {
 
     ///// Function invoke //////////////////////////////////////////////////////
     //
-    //   (list:List, method:String[, args...]) -> List
+    //   (list:List, method:String[, args...]) ⇒ List
     // 
     // Returns a list with the result of invoking the given method name
     // for all objects.
