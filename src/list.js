@@ -29,6 +29,7 @@ void function (root) {
     // Typechecking aliases
     , not_nilp = type.not_nil
     , objp     = type.objp
+    , callablep = type.callablep
 
 
     //// -Misc information about a list and its elements ///////////////////////
@@ -260,6 +261,59 @@ void function (root) {
         return filter(list, function(item, index) {
             return pred?  pred(item, index, list)
                        :  item === value })
+    }
+
+    ///// Function replace /////////////////////////////////////////////////////
+    //
+    //   (list:List, value, sub[, pred:Fn]) -> List
+    // 
+    // Returns a list with the elements tha match `value` replaced by
+    // `sub`.
+    // 
+    // If a predicate function is not given, the strict equality
+    // comparison (`===`) will be used.
+    //
+    function replace(list, value, sub, pred) {
+        if (!callablep(pred))  pred = function(x) { return value === x }
+
+        return map(list, function(item, index) {
+            return pred(item, index, list)?  sub
+                                          :  item })
+    }
+
+    ///// Function replace_at //////////////////////////////////////////////////
+    //
+    //   (list:List, index:Num, sub) -> List
+    // 
+    // Replaces the item at index by `sub`.
+    //
+    function replace_at(list, index, sub) {
+        return slice(list).splice(index, 1, sub)
+    }
+
+    ///// Function sorted //////////////////////////////////////////////////////
+    //
+    //   (list:List[, comparison:Fn]) -> List
+    // 
+    // Returns a sorted list according to the comparison function.
+    // 
+    // If a comparison function is not given, the items will be sorted
+    // lexographically.
+    //
+    function sorted(list, comparison) {
+        return slice(list).sort(comparison)
+    }
+
+    ///// Function reversed ////////////////////////////////////////////////////
+    //
+    //   (list:List) -> List
+    // 
+    // Returns the a reversed representation of the list.
+    // 
+    // That is, last items first, first items last.
+    //
+    function reversed(list) {
+        return slice(list).reverse()
     }
 
 
