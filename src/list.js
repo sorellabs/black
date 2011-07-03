@@ -28,7 +28,7 @@ void function (root) {
 
     // Typechecking aliases
     , not_nilp = type.not_nil
-    , objp     = type.objp
+    , objp = type.objp
     , callablep = type.callablep
 
 
@@ -413,6 +413,44 @@ void function (root) {
                          :  false
     }
 
+
+
+    //// -Special mapping functions ////////////////////////////////////////////
+
+    ///// Function pluck ///////////////////////////////////////////////////////
+    //
+    //   (list:List, attr:String) -> List
+    // 
+    // Returns a list with all elements replaced by their attribute
+    // `attr`.
+    // 
+    // Non-object items are mapped to `undefined`.
+    //
+    function pluck(list, attr) {
+        return map(list, function(value) {
+            return value?  value[attr]
+                        :  void 0 })
+    }
+
+    ///// Function invoke //////////////////////////////////////////////////////
+    //
+    //   (list:List, method:String[, args...]) -> List
+    // 
+    // Returns a list with the result of invoking the given method name
+    // for all objects.
+    // 
+    // Items that have no such method are mapped to `undefined`.
+    //
+    function invoke(list, method) { var args
+        args = slice(arguments, 2)
+
+        return map(list, function(value) {
+            return !value?                    void 0
+                 : callablep(value[method])?  value[method].apply(this, args)
+                 :                            void 0 })
+    }
+
+    
 
 
     ///// Exports //////////////////////////////////////////////////////////////
