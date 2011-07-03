@@ -205,13 +205,13 @@ void function (root) {
         return slice(list, 1)
     }
 
-    ///// Function pop /////////////////////////////////////////////////////////
+    ///// Function but_last ////////////////////////////////////////////////////
     //
     //   (list:List) -> List
     // 
     // Returns a new list without the last element.
     //
-    function pop(list) {
+    function but_last(list) {
         return slice(list, 0, -1)
     }
 
