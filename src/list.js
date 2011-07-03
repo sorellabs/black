@@ -67,6 +67,21 @@ void function (root) {
              :                     !!~__index.call(list, value)
     }
 
+    ///// Function count ///////////////////////////////////////////////////////
+    //
+    //   (list:List, value[, pred:Fn]) -> Num
+    // 
+    // Returns the number of occurrences of `value' in the given list,
+    // optionally filtered by a predicate.
+    //
+    function count(list, value, pred) { var result, i
+        result = 0
+        for (i = size(list); i--;)
+            if (pred(value))  result++
+
+        return result
+    }
+
 
 
     //// -Acessing individual members //////////////////////////////////////////
