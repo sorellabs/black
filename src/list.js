@@ -186,13 +186,13 @@ void function (root) {
                                :  __slice.call(list, 1)
     }
 
-    ///// Function but_last ////////////////////////////////////////////////////
+    ///// Function pop /////////////////////////////////////////////////////////
     //
     //   (list:List) -> List
     // 
     // Returns a new list without the last element.
     //
-    function but_last(list) {
+    function pop(list) {
         return sliceablep(list)?  list.slice(0, -1)
                                :  __slice.call(list, 0, -1)
     }
