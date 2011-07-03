@@ -15,9 +15,13 @@ void function (root) {
     , type = typeof require != 'undefined'?  require('./type') : black.type
 
     // Aliases
-    , listp   = Array.isArray
-    , __slice = Array.prototype.slice
-    , __index = Array.prototype.indexOf
+    , listp    = Array.isArray
+    , __slice  = Array.prototype.slice
+    , __index  = Array.prototype.indexOf
+    , __filter = Array.prototype.filter
+    , __map    = Array.prototype.map
+    , __each   = Array.prototype.forEach
+    , __reduce = Array.prototype.reduce
 
     // Typechecking aliases
     , not_nilp    = type.not_nil
@@ -34,8 +38,8 @@ void function (root) {
     // Returns the size of a list.
     //
     function size(list) {
-        return list? list.length
-                   : 0
+        return list?  list.length
+                   :  0
     }
 
     ///// Function emptyp //////////////////////////////////////////////////////
@@ -45,8 +49,8 @@ void function (root) {
     // Checks if a list is empty or not.
     //
     function emptyp(list) {
-        return list? !list.length
-                   : true
+        return list?  !list.length
+                   :  true
     }
 
     ///// Function hasp ////////////////////////////////////////////////////////
@@ -61,10 +65,9 @@ void function (root) {
     // The predicate function does not work with `null` values.
     //
     function hasp(list, value, pred) {
-        return !list?              false
-             : pred?               find_first(list, value, pred) !== null
-             : searchablep(list)?  !!~list.indexOf(value)
-             :                     !!~__index.call(list, value)
+        return !list?  false
+             : pred?   find_first(list, value, pred) !== null
+             :         !!~__index.call(list, value)
     }
 
     ///// Function count ///////////////////////////////////////////////////////
@@ -93,8 +96,8 @@ void function (root) {
     // Returns the first element of the list.
     //
     function first(list) {
-        return list? list[0]
-                   : null
+        return list?  list[0]
+                   :  null
     }
 
     ///// Function last ////////////////////////////////////////////////////////
@@ -104,8 +107,8 @@ void function (root) {
     // Returns the last element of the list.
     //
     function last(list) {
-        return list? list[list.length - 1]
-                   : null
+        return list?  list[list.length - 1]
+                   :  null
     }
 
     ///// Function nth /////////////////////////////////////////////////////////
@@ -115,8 +118,8 @@ void function (root) {
     // Returns the element at the given index in the list.
     //
     function nth(list, index) {
-        return list? list[index]
-                   : null
+        return list?  list[index]
+                   :  null
     }
 
     ///// Function find_first //////////////////////////////////////////////////
@@ -186,8 +189,7 @@ void function (root) {
     // before the last, and so on.
     //
     function slice(list, start, end) {
-        return sliceablep(list)?  list.slice(start, end)
-                               :  __slice.call(list, start, end)
+        return __slice.call(list, start, end)
     }
 
     ///// Function rest ////////////////////////////////////////////////////////
@@ -197,8 +199,7 @@ void function (root) {
     // Returns a new list without the first element.
     //
     function rest(list) {
-        return sliceablep(list)?  list.slice(1)
-                               :  __slice.call(list, 1)
+        return slice(list, 1)
     }
 
     ///// Function pop /////////////////////////////////////////////////////////
@@ -208,8 +209,7 @@ void function (root) {
     // Returns a new list without the last element.
     //
     function pop(list) {
-        return sliceablep(list)?  list.slice(0, -1)
-                               :  __slice.call(list, 0, -1)
+        return slice(list, 0, -1)
     }
 
     ///// Function drop ////////////////////////////////////////////////////////
@@ -219,8 +219,7 @@ void function (root) {
     // Returns a list without the first `num` elements.
     //
     function drop(list, num) {
-        return sliceablep(list)?  list.slice(num + 1)
-                               :  __slice.call(list, num + 1)
+        return slice(list, num + 1)
     }
 
     ///// Function keep ////////////////////////////////////////////////////////
@@ -230,11 +229,68 @@ void function (root) {
     // Returns a list with just the first `num` elements.
     //
     function keep(list, num) {
-        return sliceablep(list)?  list.slice(0, num - 1)
-                               :  __slice.call(list, 0, num - 1)
+        return slice(list, 0, num -1)
     }
 
+    ///// Function remove //////////////////////////////////////////////////////
+    //
+    //   (list:List, index:Num) -> List
+    // 
+    // Returns a list without the item at `index`.
+    //
+    function remove(list, index) { var result
+        result = list.concat()
+        result.splice(index, 1)
+        return result
+    }
 
+    ///// Function without /////////////////////////////////////////////////////
+    //
+    //   (list:List, value[, pred:Fn]) -> List
+    // 
+    // Returns a list without elements that match `value`, with the
+    // comparison optionally defined by a predicate function.
+    // 
+    // If a predicate function is not given, the strict equality
+    // comparison (`===`) will be used.
+    //
+    function without(list, value, pred) {
+        return __filter.call(list, function(item, index) {
+            return pred?  pred(item, index, list)
+                       :  item === value })
+    }
+
+    ///// Function replace /////////////////////////////////////////////////////
+    //
+    //   (list:List, value[, pred:Fn]) -> 
+    //
+
+
+
+    //// -Iteration through a list /////////////////////////////////////////////
+    
+    ///// Function map /////////////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, ctx:Obj]) -> List
+    // 
+    // Returns a list with its elements transformed by the predicate
+    // function.
+    //
+    function map(list, pred, ctx) {
+        return list?  __map.call(list, pred, ctx)
+                   :  []
+    }
+
+    ///// Function each ////////////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, ctx:Obj]) ->
+    // 
+    // Executes the predicate function for every item in the list.
+    //
+    function each(list, pred, ctx) {
+        return list?  __each.call(list, pred, ctx)
+                   :  null
+    }
         
 
 
