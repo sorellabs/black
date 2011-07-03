@@ -545,6 +545,41 @@ void function (root) {
                                         :  exports
 
 
+    list.make_list    = make_list
+    list.range        = range
+    list.to_array     = to_array
+    list.size         = size
+    list.emptyp       = emptyp
+    list.hasp         = hasp
+    list.count        = count
+    list.first        = first
+    list.last         = last
+    list.nth          = nth
+    list.find_first   = find_first
+    list.find_last    = find_last
+    list.slice        = slice
+    list.rest         = rest
+    list.but_last     = but_last
+    list.drop         = drop
+    list.keep         = keep
+    list.remove       = remove
+    list.without      = without
+    list.insert       = insert
+    list.cat          = cat
+    list.replace      = replace
+    list.replace_at   = replace_at
+    list.sorted       = sorted
+    list.reversed     = reversed
+    list.map          = map
+    list.each         = each
+    list.filter       = filter
+    list.reduce       = reduce
+    list.reduce_right = reduce_right
+    list.some         = some
+    list.every        = every
+    list.pluck        = pluck
+    list.invoke       = invoke
+
 
     list.$black_box   = Array
     list.$black_proto = Array.prototype
