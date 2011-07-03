@@ -156,7 +156,7 @@ void function (root) {
     function find_last(list, pred, ctx) { var i
         pred = pred || not_nilp
 
-        for (i = size(list); --i;)
+        for (i = size(list); i--;)
             if (i in list && pred.call(ctx, list[i], i, list))
                 return list[i]
 
