@@ -15,18 +15,20 @@ void function (root) {
     , type = typeof require != 'undefined'?  require('./type') : black.type
 
     // Aliases
-    , listp    = Array.isArray
-    , __slice  = Array.prototype.slice
-    , __index  = Array.prototype.indexOf
+    , listp = Array.isArray
+    , __slice = Array.prototype.slice
+    , __index = Array.prototype.indexOf
     , __filter = Array.prototype.filter
-    , __map    = Array.prototype.map
-    , __each   = Array.prototype.forEach
+    , __map = Array.prototype.map
+    , __each = Array.prototype.forEach
     , __reduce = Array.prototype.reduce
+    , __reduce_right = Array.prototype.reduceRight
+    , __some = Array.prototype.some
+    , __every = Array.prototype.every
 
     // Typechecking aliases
-    , not_nilp    = type.not_nil
-    , sliceablep  = type.sliceablep
-    , searchablep = type.searchablep
+    , not_nilp = type.not_nil
+    , objp     = type.objp
 
 
     //// -Misc information about a list and its elements ///////////////////////
@@ -55,7 +57,7 @@ void function (root) {
 
     ///// Function hasp ////////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred]) -> Bool
+    //   (list:List, value[, pred:Fn]) -> Bool
     // 
     // Checks if a list contains the given value or not.
     // 
@@ -255,15 +257,10 @@ void function (root) {
     // comparison (`===`) will be used.
     //
     function without(list, value, pred) {
-        return __filter.call(list, function(item, index) {
+        return filter(list, function(item, index) {
             return pred?  pred(item, index, list)
                        :  item === value })
     }
-
-    ///// Function replace /////////////////////////////////////////////////////
-    //
-    //   (list:List, value[, pred:Fn]) -> 
-    //
 
 
 
@@ -277,8 +274,8 @@ void function (root) {
     // function.
     //
     function map(list, pred, ctx) {
-        return list?  __map.call(list, pred, ctx)
-                   :  []
+        return objp(list)?  __map.call(list, pred, ctx)
+                         :  []
     }
 
     ///// Function each ////////////////////////////////////////////////////////
@@ -288,10 +285,80 @@ void function (root) {
     // Executes the predicate function for every item in the list.
     //
     function each(list, pred, ctx) {
-        return list?  __each.call(list, pred, ctx)
-                   :  null
+        return objp(list)?  __each.call(list, pred, ctx)
+                         :  void 0
     }
-        
+
+    ///// Function filter //////////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, ctx:Obj]) -> List
+    // 
+    // Returns a list without the elements that don't pass the predicate
+    // test.
+    //
+    function filter(list, pred, ctx) {
+        return objp(list)?  __filter.call(list, pred, ctx)
+                         :  []
+    }
+
+    ///// Function reduce //////////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, initial][, ctx:Obj]) -> *mixed*
+    // 
+    // Apply the predicate against each pair in the array (left to
+    // right) so to return a single accumulated value.
+    // 
+    // An starting value can be given, in which case the array will work
+    // as if that item was inserted as the first element.
+    //
+    function reduce(list, pred, initial, ctx) {
+        if (objp(ctx))  pred = pred.bind(ctx)
+
+        return objp(list)?  __reduce.call(list, pred, initial)
+                         :  []
+    }
+    
+    ///// Function reduce_right ////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, initial][, ctx:Obj]) -> *mixed*
+    // 
+    // Apply the predicate against each pair in the array (right to
+    // left) so to return a single accumulated value.
+    // 
+    // An starting value can be given, in which case the array will work
+    // as if that item was inserted as the last element.
+    //
+    function reduce_right(list, pred, initial, ctx) {
+        if (objp(ctx))  pred = pred.bind(ctx)
+
+        return objp(list)?  __reduce_right.call(list, pred, initial)
+                         :  []
+    }
+
+    ///// Function some ////////////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, ctx:Obj]) -> *mixed*
+    // 
+    // Checks whether some element in the array passes the predicate
+    // function's test.
+    //
+    function some(list, pred, ctx) {
+        return objp(list)?  __some.call(list, pred, ctx)
+                         :  false
+    }
+
+    ///// Function every ///////////////////////////////////////////////////////
+    //
+    //   (list:List, pred:Fn[, ctx:Obj]) -> *mixed*
+    // 
+    // Checks whether all of the elements in the array passes the
+    // predicate function's test.
+    //
+    function every(list, pred, ctx) {
+        return objp(list)?  __every.call(list, pred, ctx)
+                         :  false
+    }
+
 
 
     ///// Exports //////////////////////////////////////////////////////////////
