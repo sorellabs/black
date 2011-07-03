@@ -70,6 +70,20 @@ void function (root) {
         return result
     }
 
+    ///// Function to_array ////////////////////////////////////////////////////
+    //
+    //   (obj:List) -> Array
+    // 
+    // Returns an *actual* array from the list-like object.
+    //
+    function to_array(obj) { var result, i
+        result = []
+        for (i = size(obj); i--;)
+            if (i in obj)  result[i] = obj[i]
+                             
+        return result
+    }
+
 
 
     //// -Misc information about a list and its elements ///////////////////////
@@ -303,6 +317,36 @@ void function (root) {
                        :  item === value })
     }
 
+
+
+    //// -Extending lists //////////////////////////////////////////////////////
+
+    ///// Function insert //////////////////////////////////////////////////////
+    //
+    //   (list:List, index:Num[, values...]) -> List
+    // 
+    // Returns a list with the given elements inserted at the given
+    // index.
+    //
+    function insert(list, index) { var values, result
+        values = slice(arguments, 2)
+        result = slice(list)
+        result.splice.apply(result, [index, 0].concat(values))
+
+        return result
+    }
+
+    ///// Function cat /////////////////////////////////////////////////////////
+    //
+    //   (list[, lists...]) -> List
+    // 
+    // Returns a list with the given lists concatened.
+    //
+    function cat() {
+        return reduce(arguments, function(result, list) {
+            if (!listp(result))  result = slice(result)
+            return result.concat(list) })
+    }
 
 
     //// -Structure handling ///////////////////////////////////////////////////
