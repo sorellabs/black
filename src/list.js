@@ -1,201 +1,235 @@
 /******************************************************************************
  *                                   ~list~                                   *
  *                                 ‾‾‾‾‾‾‾‾‾‾                                 *
- * Utilities for array manipulation.                                          *
+ * Utilities for handling sequence objects (Array and Arraylike)              *
  *     _________________________________________________________________      *
  *        Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  ******************************************************************************/
-void function (root) { var __old, list
 
-    , listp = Array.isArray
+/// Module list ////////////////////////////////////////////////////////////////
+void function (root) { 
 
+    var __old, list
 
-    // Accessors
-    function car(list)  { return list[0]          }
-    function cdr(list)  { return list.slice(1)    }
-    function caar(list) { return list[0][0]       }
-    function cadr(list) { return list[1][0]       }
-    function cdar(list) { return list[0].slice(1) }
-    function cddr(list) { return list[1].slice(1) }
+    // Imports
+    , type = typeof require != 'undefined'?  require('./type') : black.type
 
-    // Returns the last item of a list
-    function last(list) {
-        return list[list.length - 1]
+    // Aliases
+    , listp   = Array.isArray
+    , __slice = Array.prototype.slice
+    , __index = Array.prototype.indexOf
+
+    // Typechecking aliases
+    , not_nilp    = type.not_nil
+    , sliceablep  = type.sliceablep
+    , searchablep = type.searchablep
+
+
+    //// -Misc information about a list and its elements ///////////////////////
+
+    ///// Function size ////////////////////////////////////////////////////////
+    //
+    //   (list:List) -> Num
+    // 
+    // Returns the size of a list.
+    //
+    function size(list) {
+        return list? list.length
+                   : 0
     }
 
-    // Checks if the list has any items
+    ///// Function emptyp //////////////////////////////////////////////////////
+    //
+    //   (list:List) -> Bool
+    // 
+    // Checks if a list is empty or not.
+    //
     function emptyp(list) {
-        return !list.length
+        return list? !list.length
+                   : true
     }
 
-    // Returns a part of a list
-    function slice(list, start, end) {
-        return slice.call(list, start, end)
-    }
-
-    // Returns a shallow clone of the array
-    function clone(list) {
-        return list.concat()
-    }
-
-    // Returns a list with the element at idx removed
-    function remove(list, idx) {
-        return nremove(clone(list), idx)
-    }
-
-    // Removes element at idx from the list
-    function nremove(list, idx) {
-        list.splice(idx, 1)
-        return list
-    }
-
-    // Inserts element at idx
-    function ninsert(list, idx, value) {
-        list.splice(idx, 0, value)
-        return list
-    }
-
-    // Returns a list with element inserted at idx
-    function insert(list, idx, value) {
-        return ninsert(clone(list), idx)
-    }
-
-    // Count the number of occurrences of value in list
-    function count(list, value) {
-        return list.reduce(function(acc, item) {
-            return item === value? acc++
-                                 : acc }, 0)
-    }
-
-    // Checks if list has value
-    function hasp(list, value) {
-        return !!~list.indexOf(value)
-    }
-
-    // Return the minor value in the list
-    function min(list) {
-        return Math.min.apply(this, list)
-    }
-
-    // Returns the larger value in the list
-    function max(list) {
-        return Math.max.apply(this, list)
-    }
-
-    // Allocates a list with size, optionally initialised to value
-    function make_list(size, value) { var result
-        result = Array(size + 1).join('.').split('.')
-        if (value !== '')
-            result = result.map(function(){ return value })
-
-        return result
-    }
-
-    // Converts any object to a list
-    function to_list(obj) {
-        return slice(obj)
-    }
-
-    // Returns a list without values that match the predicate
-    function without(list, value, predicate) {
-        return list.filter(function(item) {
-            return predicate? predicate(item, value)
-                            : item === value })
-    }
-
-    // Returns a flat list
-    function flatten(list) { var pending, result, item
-        result  = [ ]
-        pending = list
-        
-        while (item || pending.length) {
-            item = pending.shift()
-            if (!item) break
-
-            if (listp(item))  pending.unshift.apply(pending, item)
-            else              result.push(item)
-        }
-
-        return result
-    }
-
-    // Returns a list by merging the values in each given list
-    function zip(list) { var others
-        others = slice(arguments, 1)
-
-        return list.reduce(function(result, value, idx) { var values
-            values = others.map(function(list){ return list[idx] })
-            values.unshift(value)
-            result.push(values)
-            return result }, [])        
-    }
-
-    // Returns a list without null/undefined values
-    function compact(list) {
-        return list.filter(function(item) {
-            return item == null })
-    }
-
-    // Returns the pair for which car matches the given key
-    function assoc(list, key, predicate) { var result
-        list.some(function(value) {
-            return result = predicate? predicate(car(value), key) && value
-                                     : car(value) === key         && value })
-        return result
-    }
-
-    // Checks if something looks like a list
-    function listlikep(obj) {
-        return obj && obj.length
+    ///// Function hasp ////////////////////////////////////////////////////////
+    //
+    //   (list:List, value[, pred]) -> Bool
+    // 
+    // Checks if a list contains the given value or not.
+    // 
+    // The comparison is done using the strict equality comparison
+    // (`===`), unless a diferent predicate function is given.
+    // 
+    // The predicate function does not work with `null` values.
+    //
+    function hasp(list, value, pred) {
+        return !list?              false
+             : pred?               find_first(list, value, pred) !== null
+             : searchablep(list)?  !!~list.indexOf(value)
+             :                     !!~__index.call(list, value)
     }
 
 
 
+    //// -Acessing individual members //////////////////////////////////////////
+    
+    ///// Function first ///////////////////////////////////////////////////////
+    //
+    //   (list:List) ⇒ *mixed*
+    // 
+    // Returns the first element of the list.
+    //
+    function first(list) {
+        return list? list[0]
+                   : null
+    }
+
+    ///// Function last ////////////////////////////////////////////////////////
+    //
+    //   (list:List) ⇒ *mixed*
+    // 
+    // Returns the last element of the list.
+    //
+    function last(list) {
+        return list? list[list.length - 1]
+                   : null
+    }
+
+    ///// Function nth /////////////////////////////////////////////////////////
+    //
+    //   (list:List, index:Num) ⇒ *mixed*
+    // 
+    // Returns the element at the given index in the list.
+    //
+    function nth(list, index) {
+        return list? list[index]
+                   : null
+    }
+
+    ///// Function find_first //////////////////////////////////////////////////
+    //
+    //   (list:List[, pred:Fn][, ctx:Object]) ⇒ *mixed*
+    // 
+    // Returns the first element of the list to pass the predicate function.
+    // 
+    // If the predicate is not given, the function will return the first
+    // non-null element from the list.
+    // 
+    // A context may be given as the last argument; if so, the predicate
+    // function will be called with the given object as the `[[this]]`.
+    //
+    function find_first(list, pred, ctx) { var i
+        pred = pred || not_nilp
+        
+        for (i = 0; i < size(list); ++i)
+            if (i in list && pred.call(ctx, list[i], i, list))
+                return list[i]
+
+        return null
+    }
+
+    ///// Function find_last ///////////////////////////////////////////////////
+    //
+    //   (list:List[, pred:Fn][, ctx:Object]) ⇒ *mixed*
+    // 
+    // Returns the last element of the list to pass the predicate function.
+    // 
+    // If the predicate is not given, the function will return the first
+    // non-null element from the list.
+    // 
+    // A context may be given as the last argument; if so, the predicate
+    // function will be called with the given object as the `[[this]]`.
+    //
+    function find_last(list, pred, ctx) { var i
+        pred = pred || not_nilp
+
+        for (i = size(list); --i;)
+            if (i in list && pred.call(ctx, list[i], i, list))
+                return list[i]
+
+        return null
+    }
+
+
+    
+    //// -Extracting sections of a list ////////////////////////////////////////
+
+    ///// Function slice ///////////////////////////////////////////////////////
+    //
+    //   (list:List[, start:Num][, end:Num]) -> List
+    // 
+    // Extracts a subsection of the list that goes from `start` to `end`.
+    // 
+    // When `start` is not given, the algorithm assumes the beginning of
+    // the list. When `end` is not given, the algorithm assumes the last
+    // item of the list.
+    // 
+    // At any rate, `start` and `end` are included in the resulting
+    // sublist.
+    // 
+    // If negative indexes are passed as either `start` or `end`,
+    // they're taken as a the difference from the length of the
+    // list. That is, a -1 index means the last element, -2 the one
+    // before the last, and so on.
+    //
+    function slice(list, start, end) {
+        return sliceablep(list)?  list.slice(start, end)
+                               :  __slice.call(list, start, end)
+    }
+
+    ///// Function rest ////////////////////////////////////////////////////////
+    //
+    //   (list:List) -> List
+    // 
+    // Returns a new list without the first element.
+    //
+    function rest(list) {
+        return sliceablep(list)?  list.slice(1)
+                               :  __slice.call(list, 1)
+    }
+
+    ///// Function but_last ////////////////////////////////////////////////////
+    //
+    //   (list:List) -> List
+    // 
+    // Returns a new list without the last element.
+    //
+    function but_last(list) {
+        return sliceablep(list)?  list.slice(0, -1)
+                               :  __slice.call(list, 0, -1)
+    }
+
+    ///// Function drop ////////////////////////////////////////////////////////
+    //
+    //   (list:List, num:Num) -> List
+    // 
+    // Returns a list without the first `num` elements.
+    //
+    function drop(list, num) {
+        return sliceablep(list)?  list.slice(num + 1)
+                               :  __slice.call(list, num + 1)
+    }
+
+    ///// Function keep ////////////////////////////////////////////////////////
+    //
+    //   (list:List, num:Num) -> List
+    // 
+    // Returns a list with just the first `num` elements.
+    //
+    function keep(list, num) {
+        return sliceablep(list)?  list.slice(0, num - 1)
+                               :  __slice.call(list, 0, num - 1)
+    }
+
+
+        
+
+
     ///// Exports //////////////////////////////////////////////////////////////
-    list = typeof exports == 'undefined'? root.black.list = { }
-                                        : exports
-
-    list.car       = car
-    list.cdr       = cdr
-    list.caar      = caar
-    list.cadr      = cadr
-    list.cdar      = cdar
-    list.cddr      = cddr
-    list.last      = last
-    list.listp     = listp
-    list.emptyp    = emptyp
-    list.hasp      = hasp
-    list.clone     = clone
-    list.remove    = remove
-    list.nremove   = nremove
-    list.insert    = insert
-    list.ninsert   = ninsert
-    list.without   = without
-    list.flatten   = flatten
-    list.zip       = zip
-    list.compact   = compact
-    list.assoc     = assoc
-    list.min       = min
-    list.max       = max
-    list.make_list = make_list
-    list.to_list   = to_list
-    list.listlikep = listlikep
+    list = typeof exports == 'undefined'?  root.black.list = { }
+                                        :  exports
 
 
-    list.$box      = Array
-    list.$proto    = Array.prototype
-    list.$utils    = { make_list: make_list
-                     , car:       car
-                     , cdr:       cdr
-                     , caar:      caar
-                     , cadr:      cadr
-                     , cdar:      cdar
-                     , cddr:      cddr
-                     , to_list:   to_list
-                     , zip:       zip
-                     , slice:     slice
-                     , assoc:     assoc 
-                     , listp:     listp
-                     , listlikep: listlikep }
+
+    list.$black_box   = Array
+    list.$black_proto = Array.prototype
 
 }(this)
