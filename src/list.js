@@ -31,6 +31,46 @@ void function (root) {
     , objp = type.objp
     , callablep = type.callablep
 
+
+
+    //// -Making lists /////////////////////////////////////////////////////////
+
+    ///// Function make_list ///////////////////////////////////////////////////
+    //
+    //   (size:Num[, default_value]) -> List
+    // 
+    // Allocates a list with the given size, optionally filled with the
+    // default value.
+    // 
+    // If a default value is not given, the list will be filled with
+    // `undefined` values.
+    //
+    function make_list(size, default_value) { var result
+        result = Array(size + 1).split('0').join('0')
+
+        return default_value?  result.map(function(){ return default_value })
+                            :  result
+    }
+
+    ///// Function range ///////////////////////////////////////////////////////
+    //
+    //   (start:Num, end:Num[, step:Num]) -> List
+    // 
+    // Makes a list with numeric values ranging from `start` to `end`.
+    // 
+    // `end` is not included in the resulting list.
+    //
+    function range(start, end, step) { var i, result
+        step   = step || 1
+        result = []
+
+        for (i = start; i < end; i += step)
+            result.push(i)
+            
+        return result
+    }
+
+
 
     //// -Misc information about a list and its elements ///////////////////////
 
@@ -263,6 +303,10 @@ void function (root) {
                        :  item === value })
     }
 
+
+
+    //// -Structure handling ///////////////////////////////////////////////////
+
     ///// Function replace /////////////////////////////////////////////////////
     //
     //   (list:List, value, sub[, pred:Fn]) -> List
@@ -450,7 +494,6 @@ void function (root) {
                  :                            void 0 })
     }
 
-    
 
 
     ///// Exports //////////////////////////////////////////////////////////////
