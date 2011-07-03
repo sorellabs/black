@@ -46,7 +46,7 @@ void function (root) {
     // `undefined` values.
     //
     function make_list(size, default_value) { var result
-        result = Array(size + 1).split('0').join('0')
+        result = Array(size + 1).join('0').split('0')
 
         return default_value?  result.map(function(){ return default_value })
                             :  result
