@@ -149,7 +149,7 @@ void function (root) {
     function count(list, value, pred) { var result, i
         result = 0
         for (i = size(list); i--;)
-            if (pred(value))  result++
+            if (i in list && pred(value))  result++
 
         return result
     }
