@@ -439,10 +439,34 @@ void function (root) {
         pending = slice(list)
         while (item || pending.length) {
             item = pending.shift()
-            if (!item)  break
 
+            if (!item)            break
             if (listlikep(item))  pending.unshift.apply(pending, item)
             else                  result.push(item) }
+
+        return result
+    }
+
+    ///// Function zip /////////////////////////////////////////////////////////
+    //
+    //   (list:List...) ⇒ List
+    // 
+    // Merges all lists into one, such that any given index of the
+    // resulting list is a list containing the values at that index in
+    // all the given lists.
+    // 
+    // :FIXME:
+    //    come up with a description that does not suck monkey
+    //    balls.
+    //
+    function zip() { var i, j, len, result, lists
+        lists  = slice(arguments)
+        len    = size(lists)
+        result = []
+        
+        for (i = 0; i < len; ++i) {
+            result[i] = []
+            for (j = 0; j < len; ++j)  result[i].push(lists[j][i]) }
 
         return result
     }
@@ -616,6 +640,7 @@ void function (root) {
     list.sorted       = sorted
     list.reversed     = reversed
     list.flatten      = flatten
+    list.zip          = zip
     list.map          = map
     list.each         = each
     list.filter       = filter
