@@ -15,21 +15,21 @@ void function (root) {
     , type = typeof require != 'undefined'?  require('./type') : black.type
 
     // Aliases
-    , listp = Array.isArray
-    , __slice = Array.prototype.slice
-    , __index = Array.prototype.indexOf
-    , __filter = Array.prototype.filter
-    , __map = Array.prototype.map
-    , __each = Array.prototype.forEach
-    , __reduce = Array.prototype.reduce
+    , listp          = Array.isArray
+    , __slice        = Array.prototype.slice
+    , __index        = Array.prototype.indexOf
+    , __filter       = Array.prototype.filter
+    , __map          = Array.prototype.map
+    , __each         = Array.prototype.forEach
+    , __reduce       = Array.prototype.reduce
     , __reduce_right = Array.prototype.reduceRight
-    , __some = Array.prototype.some
-    , __every = Array.prototype.every
+    , __some         = Array.prototype.some
+    , __every        = Array.prototype.every
 
     // Typechecking aliases
-    , not_nilp = type.not_nil
-    , objp = type.objp
-    , callablep = type.callablep
+    , not_nilp       = type.not_nil
+    , objp           = type.objp
+    , callablep      = type.callablep
 
 
 
@@ -82,6 +82,16 @@ void function (root) {
             if (i in obj)  result[i] = obj[i]
                              
         return result
+    }
+
+    ///// Function copy ////////////////////////////////////////////////////////
+    //
+    //   (list:List) ⇒ List
+    // 
+    // Returns a shallow copy of the list.
+    //
+    function copy(list) {
+        return list.concat()
     }
 
 
@@ -296,7 +306,7 @@ void function (root) {
     // Returns a list without the item at `index`.
     //
     function remove(list, index) { var result
-        result = list.concat()
+        result = copy(list)
         result.splice(index, 1)
         return result
     }
@@ -330,7 +340,7 @@ void function (root) {
     //
     function insert(list, index) { var values, result
         values = slice(arguments, 2)
-        result = slice(list)
+        result = copy(list)
         result.splice.apply(result, [index, 0].concat(values))
 
         return result
@@ -375,8 +385,10 @@ void function (root) {
     // 
     // Replaces the item at index by `sub`.
     //
-    function replace_at(list, index, sub) {
-        return slice(list).splice(index, 1, sub)
+    function replace_at(list, index, sub) { var result
+        result = copy(list)
+        result.splice(index, 1, sub)
+        return result
     }
 
     ///// Function sorted //////////////////////////////////////////////////////
@@ -389,7 +401,7 @@ void function (root) {
     // lexographically.
     //
     function sorted(list, comparison) {
-        return slice(list).sort(comparison)
+        return copy(list).sort(comparison)
     }
 
     ///// Function reversed ////////////////////////////////////////////////////
@@ -401,7 +413,7 @@ void function (root) {
     // That is, last items first, first items last.
     //
     function reversed(list) {
-        return slice(list).reverse()
+        return copy(list).reverse()
     }
 
 
@@ -548,6 +560,7 @@ void function (root) {
     list.make_list    = make_list
     list.range        = range
     list.to_array     = to_array
+    list.copy         = copy
     list.size         = size
     list.emptyp       = emptyp
     list.hasp         = hasp
