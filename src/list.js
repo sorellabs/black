@@ -27,8 +27,10 @@ void function (root) {
     , __every        = Array.prototype.every
 
     // Typechecking aliases
+    , nilp           = type.nilp
     , not_nilp       = type.not_nil
     , objp           = type.objp
+    , listlikep      = type.listlikep
     , callablep      = type.callablep
 
 
@@ -89,10 +91,10 @@ void function (root) {
     //   (list:List) ⇒ List
     // 
     // Returns a shallow copy of the list.
+    // 
+    // :alias: slice
     //
-    function copy(list) {
-        return list.concat()
-    }
+    var copy = slice
 
 
 
@@ -327,6 +329,16 @@ void function (root) {
                        :  item === value })
     }
 
+    ///// Function compact /////////////////////////////////////////////////////
+    //
+    //   (list:List) ⇒ List
+    // 
+    // Returns a list without null and undefined values in it.
+    //
+    function compact(list) {
+        return filter(list, nilp)
+    }
+
 
 
     //// -Extending lists //////////////////////////////////////////////////////
@@ -414,6 +426,25 @@ void function (root) {
     //
     function reversed(list) {
         return copy(list).reverse()
+    }
+
+    ///// Function flatten /////////////////////////////////////////////////////
+    //
+    //   (list:List) ⇒ List
+    // 
+    // Returns an one dimensional list, by inlineing all sublists.
+    //
+    function flatten(list) { var pending, result, item
+        result  = []
+        pending = slice(list)
+        while (item || pending.length) {
+            item = pending.shift()
+            if (!item)  break
+
+            if (listlikep(item))  pending.unshift.apply(pending, item)
+            else                  result.push(item) }
+
+        return result
     }
 
 
@@ -577,12 +608,14 @@ void function (root) {
     list.keep         = keep
     list.remove       = remove
     list.without      = without
+    list.compact      = compact
     list.insert       = insert
     list.cat          = cat
     list.replace      = replace
     list.replace_at   = replace_at
     list.sorted       = sorted
     list.reversed     = reversed
+    list.flatten      = flatten
     list.map          = map
     list.each         = each
     list.filter       = filter
