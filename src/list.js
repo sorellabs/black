@@ -15,7 +15,7 @@ void function (root) {
     , type = typeof require != 'undefined'?  require('./type') : black.type
 
     // Aliases
-    , listp          = Array.isArray
+    , arrayp         = Array.isArray
     , __slice        = Array.prototype.slice
     , __index        = Array.prototype.indexOf
     , __filter       = Array.prototype.filter
@@ -30,24 +30,24 @@ void function (root) {
     , nilp           = type.nilp
     , not_nilp       = type.not_nil
     , objp           = type.objp
-    , listlikep      = type.listlikep
+    , sequencep      = type.sequencep
     , callablep      = type.callablep
 
 
 
     //// -Making lists /////////////////////////////////////////////////////////
 
-    ///// Function make_list ///////////////////////////////////////////////////
+    ///// Function make_array //////////////////////////////////////////////////
     //
-    //   (size:Num[, default_value]) ⇒ List
+    //   (size:Num[, default_value]) ⇒ Array
     // 
-    // Allocates a list with the given size, optionally filled with the
+    // Allocates an array with the given size, optionally filled with the
     // default value.
     // 
-    // If a default value is not given, the list will be filled with
+    // If a default value is not given, the array will be filled with
     // `undefined` values.
     //
-    function make_list(size, default_value) { var result
+    function make_array(size, default_value) { var result
         result = Array(size + 1).join('0').split('0')
 
         return default_value?  result.map(function(){ return default_value })
@@ -56,11 +56,11 @@ void function (root) {
 
     ///// Function range ///////////////////////////////////////////////////////
     //
-    //   (start:Num, end:Num[, step:Num]) ⇒ List
+    //   (start:Num, end:Num[, step:Num]) ⇒ Array
     // 
-    // Makes a list with numeric values ranging from `start` to `end`.
+    // Makes an array with numeric values ranging from `start` to `end`.
     // 
-    // `end` is not included in the resulting list.
+    // `end` is not included in the resulting array.
     //
     function range(start, end, step) { var i, result
         step   = step || 1
@@ -74,9 +74,9 @@ void function (root) {
 
     ///// Function to_array ////////////////////////////////////////////////////
     //
-    //   (obj:List) ⇒ Array
+    //   (obj:Sequence) ⇒ Array
     // 
-    // Returns an *actual* array from the list-like object.
+    // Returns an *actual* array from any sequence object.
     //
     function to_array(obj) { var result, i
         result = []
@@ -88,9 +88,9 @@ void function (root) {
 
     ///// Function copy ////////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ List
+    //   (seq:Sequenece) ⇒ Array
     // 
-    // Returns a shallow copy of the list.
+    // Returns a shallow copy of the sequence, as an Array.
     // 
     // :alias: slice
     //
@@ -102,54 +102,54 @@ void function (root) {
 
     ///// Function size ////////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ Num
+    //   (seq:Sequence) ⇒ Num
     // 
-    // Returns the size of a list.
+    // Returns the size of a sequence.
     //
-    function size(list) {
-        return list?  list.length
-                   :  0
+    function size(seq) {
+        return seq?  seq.length
+                  :  0
     }
 
     ///// Function emptyp //////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ Bool
+    //   (seq:Sequence) ⇒ Bool
     // 
-    // Checks if a list is empty or not.
+    // Checks if a sequence is empty or not.
     //
-    function emptyp(list) {
-        return list?  !list.length
-                   :  true
+    function emptyp(seq) {
+        return seq?  !seq.length
+                  :  true
     }
 
     ///// Function hasp ////////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred:Fn]) ⇒ Bool
+    //   (seq:Sequence, value[, pred:Fn]) ⇒ Bool
     // 
-    // Checks if a list contains the given value or not.
+    // Checks if a sequqnce contains the given value or not.
     // 
     // The comparison is done using the strict equality comparison
     // (`===`), unless a diferent predicate function is given.
     // 
     // The predicate function does not work with `null` values.
     //
-    function hasp(list, value, pred) {
-        return !list?  false
-             : pred?   find_first(list, value, pred) !== null
-             :         !!~__index.call(list, value)
+    function hasp(seq, value, pred) {
+        return !seq?  false
+             : pred?  find_first(seq, value, pred) !== null
+             :        !!~__index.call(seq, value)
     }
 
     ///// Function count ///////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred:Fn]) ⇒ Num
+    //   (seq:Sequence, value[, pred:Fn]) ⇒ Num
     // 
-    // Returns the number of occurrences of `value' in the given list,
-    // optionally filtered by a predicate.
+    // Returns the number of occurrences of `value' in the given
+    // sequence, optionally filtered by a predicate.
     //
-    function count(list, value, pred) { var result, i
+    function count(seq, value, pred) { var result, i
         result = 0
-        for (i = size(list); i--;)
-            if (i in list && pred(value))  result++
+        for (i = size(seq); i--;)
+            if (i in seq && pred(value))  result++
 
         return result
     }
@@ -160,77 +160,79 @@ void function (root) {
     
     ///// Function first ///////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ *mixed*
+    //   (seq:Sequence) ⇒ *mixed*
     // 
-    // Returns the first element of the list.
+    // Returns the first element of the sequence.
     //
-    function first(list) {
-        return list?  list[0]
-                   :  null
+    function first(seq) {
+        return seq?  seq[0]
+                  :  null
     }
 
     ///// Function last ////////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ *mixed*
+    //   (seq:Sequence) ⇒ *mixed*
     // 
-    // Returns the last element of the list.
+    // Returns the last element of the sequence.
     //
-    function last(list) {
-        return list?  list[list.length - 1]
-                   :  null
+    function last(seq) {
+        return seq?  seq[seq.length - 1]
+                  :  null
     }
 
     ///// Function nth /////////////////////////////////////////////////////////
     //
-    //   (list:List, index:Num) ⇒ *mixed*
+    //   (seq:Sequence, index:Num) ⇒ *mixed*
     // 
-    // Returns the element at the given index in the list.
+    // Returns the element at the given index in the sequence.
     //
-    function nth(list, index) {
-        return list?  list[index]
-                   :  null
+    function nth(seq, index) {
+        return seq?  seq[index]
+                  :  null
     }
 
     ///// Function find_first //////////////////////////////////////////////////
     //
-    //   (list:List[, pred:Fn][, ctx:Object]) ⇒ *mixed*
+    //   (seq:Sequence[, pred:Fn][, ctx:Object]) ⇒ *mixed*
     // 
-    // Returns the first element of the list to pass the predicate function.
+    // Returns the first element of the sequence to pass the predicate
+    // function.
     // 
     // If the predicate is not given, the function will return the first
-    // non-null element from the list.
+    // non-null element from the sequence.
     // 
     // A context may be given as the last argument; if so, the predicate
     // function will be called with the given object as the `[[this]]`.
     //
-    function find_first(list, pred, ctx) { var i
+    function find_first(seq, pred, ctx) { var i
         pred = pred || not_nilp
         
-        for (i = 0; i < size(list); ++i)
-            if (i in list && pred.call(ctx, list[i], i, list))
-                return list[i]
+        for (i = 0; i < size(seq); ++i)
+            if (i in seq && pred.call(ctx, seq[i], i, seq))
+                return seq[i]
 
         return null
     }
 
     ///// Function find_last ///////////////////////////////////////////////////
     //
-    //   (list:List[, pred:Fn][, ctx:Object]) ⇒ *mixed*
+    //   (seq:Sequence[, pred:Fn][, ctx:Object]) ⇒ *mixed*
     // 
-    // Returns the last element of the list to pass the predicate function.
+    // Returns the last element of the sequence to pass the predicate
+    // function. 
     // 
     // If the predicate is not given, the function will return the first
-    // non-null element from the list.
+    // non-null element from the sequence.
     // 
     // A context may be given as the last argument; if so, the predicate
     // function will be called with the given object as the `[[this]]`.
     //
-    function find_last(list, pred, ctx) { var i
+    function find_last(seq, pred, ctx) { var i
         pred = pred || not_nilp
 
-        for (i = size(list); i--;)
-            if (i in list && pred.call(ctx, list[i], i, list))
-                return list[i]
+        for (i = size(seq); i--;)
+            if (i in seq && pred.call(ctx, seq[i], i, seq))
+                return seq[i]
 
         return null
     }
@@ -241,102 +243,103 @@ void function (root) {
 
     ///// Function slice ///////////////////////////////////////////////////////
     //
-    //   (list:List[, start:Num][, end:Num]) ⇒ List
+    //   (seq:Sequence[, start:Num][, end:Num]) ⇒ Array
     // 
-    // Extracts a subsection of the list that goes from `start` to `end`.
+    // Extracts a subsection of the sequence that goes from `start` to
+    // `end`. 
     // 
     // When `start` is not given, the algorithm assumes the beginning of
-    // the list. When `end` is not given, the algorithm assumes the last
-    // item of the list.
+    // the sequence. When `end` is not given, the algorithm assumes the last
+    // item of the sequence.
     // 
     // At any rate, `start` and `end` are included in the resulting
     // sublist.
     // 
     // If negative indexes are passed as either `start` or `end`,
     // they're taken as a the difference from the length of the
-    // list. That is, a -1 index means the last element, -2 the one
+    // sequence. That is, a -1 index means the last element, -2 the one
     // before the last, and so on.
     //
-    function slice(list, start, end) {
-        return __slice.call(list, start, end)
+    function slice(seq, start, end) {
+        return __slice.call(seq, start, end)
     }
 
     ///// Function rest ////////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ List
+    //   (seq:Sequence) ⇒ Array
     // 
-    // Returns a new list without the first element.
+    // Returns a new array without the first element.
     //
-    function rest(list) {
-        return slice(list, 1)
+    function rest(seq) {
+        return slice(seq, 1)
     }
 
     ///// Function but_last ////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ List
+    //   (seq:Sequence) ⇒ Array
     // 
-    // Returns a new list without the last element.
+    // Returns a new array without the last element.
     //
-    function but_last(list) {
-        return slice(list, 0, -1)
+    function but_last(seq) {
+        return slice(seq, 0, -1)
     }
 
     ///// Function drop ////////////////////////////////////////////////////////
     //
-    //   (list:List, num:Num) ⇒ List
+    //   (seq:Sequence, num:Num) ⇒ Array
     // 
-    // Returns a list without the first `num` elements.
+    // Returns a array without the first `num` elements.
     //
-    function drop(list, num) {
-        return slice(list, num + 1)
+    function drop(seq, num) {
+        return slice(seq, num + 1)
     }
 
     ///// Function keep ////////////////////////////////////////////////////////
     //
-    //   (list:List, num:Num) ⇒ List
+    //   (seq:Sequence, num:Num) ⇒ Array
     // 
-    // Returns a list with just the first `num` elements.
+    // Returns a array with just the first `num` elements.
     //
-    function keep(list, num) {
-        return slice(list, 0, num -1)
+    function keep(seq, num) {
+        return slice(seq, 0, num -1)
     }
 
     ///// Function remove //////////////////////////////////////////////////////
     //
-    //   (list:List, index:Num) ⇒ List
+    //   (seq:Sequence, index:Num) ⇒ Array
     // 
-    // Returns a list without the item at `index`.
+    // Returns a array without the item at `index`.
     //
-    function remove(list, index) { var result
-        result = copy(list)
+    function remove(seq, index) { var result
+        result = copy(seq)
         result.splice(index, 1)
         return result
     }
 
     ///// Function without /////////////////////////////////////////////////////
     //
-    //   (list:List, value[, pred:Fn]) ⇒ List
+    //   (seq:Sequence, value[, pred:Fn]) ⇒ Array
     // 
-    // Returns a list without elements that match `value`, with the
+    // Returns a array without elements that match `value`, with the
     // comparison optionally defined by a predicate function.
     // 
     // If a predicate function is not given, the strict equality
     // comparison (`===`) will be used.
     //
-    function without(list, value, pred) {
-        return filter(list, function(item, index) {
-            return pred?  pred(item, index, list)
+    function without(seq, value, pred) {
+        return filter(seq, function(item, index) {
+            return pred?  pred(item, index, seq)
                        :  item === value })
     }
 
     ///// Function compact /////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ List
+    //   (seq:Sequence) ⇒ Array
     // 
-    // Returns a list without null and undefined values in it.
+    // Returns a array without null and undefined values in it.
     //
-    function compact(list) {
-        return filter(list, nilp)
+    function compact(seq) {
+        return filter(seq, nilp)
     }
 
 
@@ -345,14 +348,14 @@ void function (root) {
 
     ///// Function insert //////////////////////////////////////////////////////
     //
-    //   (list:List, index:Num[, values...]) ⇒ List
+    //   (seq:Sequence, index:Num[, values...]) ⇒ Array
     // 
-    // Returns a list with the given elements inserted at the given
+    // Returns a array with the given elements inserted at the given
     // index.
     //
-    function insert(list, index) { var values, result
+    function insert(seq, index) { var values, result
         values = slice(arguments, 2)
-        result = copy(list)
+        result = copy(seq)
         result.splice.apply(result, [index, 0].concat(values))
 
         return result
@@ -360,14 +363,14 @@ void function (root) {
 
     ///// Function cat /////////////////////////////////////////////////////////
     //
-    //   (list[, lists...]) ⇒ List
+    //   (seq[, seqs...]) ⇒ Array
     // 
-    // Returns a list with the given lists concatened.
+    // Returns an array with the given sequencess concatened.
     //
     function cat() {
-        return reduce(arguments, function(result, list) {
-            if (!listp(result))  result = slice(result)
-            return result.concat(list) })
+        return reduce(arguments, function(result, seq) {
+            if (!arrayp(result))  result = slice(result)
+            return result.concat(seq) })
     }
 
 
@@ -375,73 +378,73 @@ void function (root) {
 
     ///// Function replace /////////////////////////////////////////////////////
     //
-    //   (list:List, value, sub[, pred:Fn]) ⇒ List
+    //   (seq:Sequence, value, sub[, pred:Fn]) ⇒ Array
     // 
-    // Returns a list with the elements tha match `value` replaced by
+    // Returns an array with the elements tha match `value` replaced by
     // `sub`.
     // 
     // If a predicate function is not given, the strict equality
     // comparison (`===`) will be used.
     //
-    function replace(list, value, sub, pred) {
+    function replace(seq, value, sub, pred) {
         if (!callablep(pred))  pred = function(x) { return value === x }
 
-        return map(list, function(item, index) {
-            return pred(item, index, list)?  sub
-                                          :  item })
+        return map(seq, function(item, index) {
+            return pred(item, index, seq)?  sub
+                                         :  item })
     }
 
     ///// Function replace_at //////////////////////////////////////////////////
     //
-    //   (list:List, index:Num, sub) ⇒ List
+    //   (seq:Sequence, index:Num, sub) ⇒ Array
     // 
     // Replaces the item at index by `sub`.
     //
-    function replace_at(list, index, sub) { var result
-        result = copy(list)
+    function replace_at(seq, index, sub) { var result
+        result = copy(seq)
         result.splice(index, 1, sub)
         return result
     }
 
     ///// Function sorted //////////////////////////////////////////////////////
     //
-    //   (list:List[, comparison:Fn]) ⇒ List
+    //   (seq:Sequence[, comparison:Fn]) ⇒ Array
     // 
-    // Returns a sorted list according to the comparison function.
+    // Returns a sorted array according to the comparison function.
     // 
     // If a comparison function is not given, the items will be sorted
     // lexographically.
     //
-    function sorted(list, comparison) {
-        return copy(list).sort(comparison)
+    function sorted(seq, comparison) {
+        return copy(seq).sort(comparison)
     }
 
     ///// Function reversed ////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ List
+    //   (seq:Sequence) ⇒ Array
     // 
-    // Returns the a reversed representation of the list.
+    // Returns the a reversed representation of the sequence.
     // 
     // That is, last items first, first items last.
     //
-    function reversed(list) {
-        return copy(list).reverse()
+    function reversed(seq) {
+        return copy(seq).reverse()
     }
 
     ///// Function flatten /////////////////////////////////////////////////////
     //
-    //   (list:List) ⇒ List
+    //   (seq:Sequence) ⇒ Array
     // 
-    // Returns an one dimensional list, by inlineing all sublists.
+    // Returns an one dimensional array, by inlineing all sublists.
     //
-    function flatten(list) { var pending, result, item
+    function flatten(seq) { var pending, result, item
         result  = []
-        pending = slice(list)
+        pending = slice(seq)
         while (item || pending.length) {
             item = pending.shift()
 
             if (!item)            break
-            if (listlikep(item))  pending.unshift.apply(pending, item)
+            if (sequencep(item))  pending.unshift.apply(pending, item)
             else                  result.push(item) }
 
         return result
@@ -449,24 +452,24 @@ void function (root) {
 
     ///// Function zip /////////////////////////////////////////////////////////
     //
-    //   (list:List...) ⇒ List
+    //   (seq:Sequence...) ⇒ Array
     // 
-    // Merges all lists into one, such that any given index of the
-    // resulting list is a list containing the values at that index in
-    // all the given lists.
+    // Merges all sequences into one, such that any given index of the
+    // resulting sequence is a sequence of the values at that index in
+    // all the given sequences.
     // 
     // :FIXME:
     //    come up with a description that does not suck monkey
     //    balls.
     //
-    function zip() { var i, j, len, result, lists
-        lists  = slice(arguments)
-        len    = size(lists)
+    function zip() { var i, j, len, result, seqs
+        seqs  = slice(arguments)
+        len    = size(seqs)
         result = []
         
         for (i = 0; i < len; ++i) {
             result[i] = []
-            for (j = 0; j < len; ++j)  result[i].push(lists[j][i]) }
+            for (j = 0; j < len; ++j)  result[i].push(seqs[j][i]) }
 
         return result
     }
@@ -477,42 +480,42 @@ void function (root) {
     
     ///// Function map /////////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ List
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ Array
     // 
-    // Returns a list with its elements transformed by the predicate
+    // Returns a sequence with its elements transformed by the predicate
     // function.
     //
-    function map(list, pred, ctx) {
-        return objp(list)?  __map.call(list, pred, ctx)
-                         :  []
+    function map(seq, pred, ctx) {
+        return objp(seq)?  __map.call(seq, pred, ctx)
+                        :  []
     }
 
     ///// Function each ////////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) ⇒
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒
     // 
-    // Executes the predicate function for every item in the list.
+    // Executes the predicate function for every item in the sequence.
     //
-    function each(list, pred, ctx) {
-        return objp(list)?  __each.call(list, pred, ctx)
-                         :  void 0
+    function each(seq, pred, ctx) {
+        return objp(seq)?  __each.call(seq, pred, ctx)
+                        :  void 0
     }
 
     ///// Function filter //////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ List
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ Array
     // 
-    // Returns a list without the elements that don't pass the predicate
+    // Returns a sequence without the elements that don't pass the predicate
     // test.
     //
-    function filter(list, pred, ctx) {
-        return objp(list)?  __filter.call(list, pred, ctx)
-                         :  []
+    function filter(seq, pred, ctx) {
+        return objp(seq)?  __filter.call(seq, pred, ctx)
+                        :  []
     }
 
     ///// Function reduce //////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
     // 
     // Apply the predicate against each pair in the array (left to
     // right) so to return a single accumulated value.
@@ -520,16 +523,16 @@ void function (root) {
     // An starting value can be given, in which case the array will work
     // as if that item was inserted as the first element.
     //
-    function reduce(list, pred, initial, ctx) {
+    function reduce(seq, pred, initial, ctx) {
         if (objp(ctx))  pred = pred.bind(ctx)
 
-        return objp(list)?  __reduce.call(list, pred, initial)
-                         :  []
+        return objp(seq)?  __reduce.call(seq, pred, initial)
+                        :  []
     }
     
     ///// Function reduce_right ////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
     // 
     // Apply the predicate against each pair in the array (right to
     // left) so to return a single accumulated value.
@@ -537,35 +540,35 @@ void function (root) {
     // An starting value can be given, in which case the array will work
     // as if that item was inserted as the last element.
     //
-    function reduce_right(list, pred, initial, ctx) {
+    function reduce_right(seq, pred, initial, ctx) {
         if (objp(ctx))  pred = pred.bind(ctx)
 
-        return objp(list)?  __reduce_right.call(list, pred, initial)
-                         :  []
+        return objp(seq)?  __reduce_right.call(seq, pred, initial)
+                        :  []
     }
 
     ///// Function some ////////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ *mixed*
     // 
     // Checks whether some element in the array passes the predicate
     // function's test.
     //
-    function some(list, pred, ctx) {
-        return objp(list)?  __some.call(list, pred, ctx)
-                         :  false
+    function some(seq, pred, ctx) {
+        return objp(seq)?  __some.call(seq, pred, ctx)
+                        :  false
     }
 
     ///// Function every ///////////////////////////////////////////////////////
     //
-    //   (list:List, pred:Fn[, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ *mixed*
     // 
     // Checks whether all of the elements in the array passes the
     // predicate function's test.
     //
-    function every(list, pred, ctx) {
-        return objp(list)?  __every.call(list, pred, ctx)
-                         :  false
+    function every(seq, pred, ctx) {
+        return objp(seq)?  __every.call(seq, pred, ctx)
+                        :  false
     }
 
 
@@ -574,32 +577,32 @@ void function (root) {
 
     ///// Function pluck ///////////////////////////////////////////////////////
     //
-    //   (list:List, attr:String) ⇒ List
+    //   (seq:Sequence, attr:String) ⇒ Array
     // 
-    // Returns a list with all elements replaced by their attribute
+    // Returns a sequence with all elements replaced by their attribute
     // `attr`.
     // 
     // Non-object items are mapped to `undefined`.
     //
-    function pluck(list, attr) {
-        return map(list, function(value) {
+    function pluck(seq, attr) {
+        return map(seq, function(value) {
             return value?  value[attr]
                         :  void 0 })
     }
 
     ///// Function invoke //////////////////////////////////////////////////////
     //
-    //   (list:List, method:String[, args...]) ⇒ List
+    //   (seq:Sequence, method:String[, args...]) ⇒ Array
     // 
-    // Returns a list with the result of invoking the given method name
+    // Returns a sequence with the result of invoking the given method name
     // for all objects.
     // 
     // Items that have no such method are mapped to `undefined`.
     //
-    function invoke(list, method) { var args
+    function invoke(seq, method) { var args
         args = slice(arguments, 2)
 
-        return map(list, function(value) {
+        return map(seq, function(value) {
             return !value?                    void 0
                  : callablep(value[method])?  value[method].apply(this, args)
                  :                            void 0 })
@@ -612,7 +615,7 @@ void function (root) {
                                         :  exports
 
 
-    list.make_list    = make_list
+    list.make_array   = make_array
     list.range        = range
     list.to_array     = to_array
     list.copy         = copy

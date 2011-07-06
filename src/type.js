@@ -159,20 +159,20 @@ void function (root) {
         return !isNaN(obj)
     }
 
-    ///// Function listlikep ///////////////////////////////////////////////////
+    ///// Function sequencep ///////////////////////////////////////////////////
     //
     //   (obj:Obj) -> Bool
     // 
-    // Checks if the object can be used as a list.
+    // Checks if the object can be used as an array.
     // 
-    // A list-like object is something that implements a `length`
+    // A sequence object is something that implements a `length`
     // property, but not necessarily the methods you'd see in
     // Array.prototype.
     // 
     // As such, things like the `arguments` object and `HTMLCollection`
-    // are considered `list-like`.
+    // are considered sequences.
     //
-    function listlikep(obj) {
+    function sequencep(obj) {
         return obj && obj.length
     }
 
@@ -235,7 +235,7 @@ void function (root) {
     type.listp        = Array.isArray
     type.callablep    = callablep
     type.numericp     = numericp
-    type.listlikep    = listlikep
+    type.sequencep    = sequencep
     type.sliceablep   = sliceablep
     type.testablep    = testablep
 
