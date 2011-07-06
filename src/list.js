@@ -45,7 +45,7 @@ void function (root) {
     // default value.
     // 
     // If a default value is not given, the array will be filled with
-    // `undefined` values.
+    // empty strings.
     //
     function make_array(size, default_value) { var result
         result = Array(size + 1).join('0').split('0')
