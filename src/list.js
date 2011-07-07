@@ -110,7 +110,7 @@ void function (root) {
     // Returns the size of a sequence.
     //
     function size(seq) {
-        return seq?  seq.length
+        return seq?  seq.length || 0
                   :  0
     }
 
@@ -138,7 +138,7 @@ void function (root) {
     //
     function hasp(seq, value, pred) {
         return !seq?  false
-             : pred?  find_first(seq, value, pred) !== null
+             : pred?  find_first(seq, pred.bind(this, value)) !== null
              :        !!~__index.call(seq, value)
     }
 
