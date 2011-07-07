@@ -13,7 +13,7 @@ seq     = {0: 1, 1: 2, 2: 3, 3: 4, length: 4}
 
 
 //// Making lists //////////////////////////////////////////////////////////////
-test("Making lists : make_array -> Array", function() {
+test('Making lists : make_array -> Array', function() {
     var make_array = list.make_array
 
     // Unsupported sizes should always return an empty list
@@ -32,7 +32,7 @@ test("Making lists : make_array -> Array", function() {
     assert(make_array(1, make_array) <eq> [make_array])
 })
 
-test("Making lists : range -> Array", function() {
+test('Making lists : range -> Array', function() {
     var range = list.range
 
     // Empty sequence
@@ -50,7 +50,7 @@ test("Making lists : range -> Array", function() {
     assert(range(0, 3, 5)  <eq> [0])
 })
 
-test("Making lists : to_array -> Array", function() {
+test('Making lists : to_array -> Array', function() {
     var to_array = list.to_array
 
     // Empty sequences
@@ -67,7 +67,7 @@ test("Making lists : to_array -> Array", function() {
     assert(to_array(new String('foo')) <eq> ['f', 'o', 'o'])
 })
 
-test("Making lists : copy -> Array", function() {
+test('Making lists : copy -> Array', function() {
     var copy   = list.copy
     var nested = [1, [2, [3, [4]]]]
 
@@ -88,6 +88,73 @@ test("Making lists : copy -> Array", function() {
     other[1][0] = 5
     assert(other <eq> [1, [5, [3, [4]]]])
 })
+
+
+// Extracting informations about a list
+test('List information : size -> Num', function() {
+    var size = list.size
+
+    // Empty lists
+    assert(size([])     == 0)
+    assert(size({})     == 0)
+    assert(size()       == 0)
+    assert(size(1)      == 0)
+    assert(size(null)   == 0)
+    assert(size(true)   == 0)
+    assert(size(false)  == 0)
+    assert(size(/foo/)  == 0)    	   
+
+    // Objects as lists
+    assert(size(seq)    == 4)
+    assert(size(size)   == 1)
+    assert(size('foo')  == 3)
+
+    // Actual arrays
+    assert(size([1])    == 1)
+    assert(size([1, 2]) == 2)
+})
+
+test('List information : empty? -> Bool', function() {
+    var emptyp = list.emptyp
+
+    // Empty lists
+    assert(emptyp([]))
+    assert(emptyp({}))
+    assert(emptyp())
+    assert(emptyp(null))
+    assert(emptyp(true))
+    assert(emptyp(false))
+    assert(emptyp(/foo/))
+
+    // Non-empty lists
+    assert(!emptyp(seq))
+    assert(!emptyp(emptyp))
+    assert(!emptyp('foo'))
+    assert(!emptyp([1]))
+    assert(!emptyp([1, 2]))
+})
+
+test('List information : has? -> Bool', function() {
+    var hasp = list.hasp
+    function weak_equalp(value, elm) { return elm == value }
+
+
+    // empty lists should always return false
+    assert(!hasp(0, 1))
+    assert(!hasp(null, 1))
+    assert(!hasp(/foo/, 2))
+    assert(!hasp(null, 1, function() { return true }))
+
+    // Functions without predicate should rely on indexOf (===)
+    assert(hasp(seq, 1))
+    assert(hasp([1, 2], 2))
+    assert(hasp('foo', 'f'))
+    assert(!hasp(seq, '1')) // different types
+
+    // Functions with predicates
+    assert(hasp(seq, '1', weak_equalp))
+})
+    
 
 // Run the test cases
 claire.run()
