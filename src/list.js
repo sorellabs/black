@@ -47,11 +47,14 @@ void function (root) {
     // If a default value is not given, the array will be filled with
     // empty strings.
     //
-    function make_array(size, default_value) { var result
-        result = Array(size + 1).join('0').split('0')
+    function make_array(size, default_value) { var result, has_defaultp
+        size         = (Math.max(size, 0)) >>> 0
+        has_defaultp = arguments.length > 1
+        if (size <= 0)  return []
 
-        return default_value?  result.map(function(){ return default_value })
-                            :  result
+        result = Array(size).join('0').split('0')
+        return has_defaultp?  result.map(function(){ return default_value })
+                           :  result
     }
 
     ///// Function range ///////////////////////////////////////////////////////
