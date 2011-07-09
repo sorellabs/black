@@ -17,13 +17,13 @@ test('Making lists : make_array -> Array', function() {
     var make_array = list.make_array
 
     // Unsupported sizes should always return an empty list
-    assert(make_array(0)       <eq> [])
-    assert(make_array(-1)      <eq> [])
-    assert(make_array(MAX_INT) <eq> [])
+    assert(make_array(0)             <eq> [])
+    assert(make_array(-1)            <eq> [])
+    assert(make_array(MAX_INT)       <eq> [])
 
     // Whenever a default value isn't given, it should map to empty string
-    assert(make_array(1) <eq> [''])
-    assert(make_array(3) <eq> ['', '', ''])
+    assert(make_array(1)             <eq> [''])
+    assert(make_array(3)             <eq> ['', '', ''])
 
     // If a default value is given, it should map elms to that value
     assert(make_array(1, 0)          <eq> [0])
@@ -36,12 +36,12 @@ test('Making lists : range -> Array', function() {
     var range = list.range
 
     // Empty sequence
-    assert(range(0, 0) <eq> [])
-    assert(range(3, 1) <eq> [])
+    assert(range(0, 0)     <eq> [])
+    assert(range(3, 1)     <eq> [])
 
     // sequences with only start:end defined
-    assert(range(0, 2) <eq> [0, 1])
-    assert(range(5, 9) <eq> [5, 6, 7, 8])
+    assert(range(0, 2)     <eq> [0, 1])
+    assert(range(5, 9)     <eq> [5, 6, 7, 8])
     assert(0 in range(0, 2))
     assert(1 in range(0, 2))
 
@@ -54,13 +54,13 @@ test('Making lists : to_array -> Array', function() {
     var to_array = list.to_array
 
     // Empty sequences
-    assert(to_array()         <eq> [])
-    assert(to_array(null)     <eq> [])
-    assert(to_array(false)    <eq> [])
-    assert(to_array(true)     <eq> [])
-    assert(to_array(42)       <eq> [])
-    assert(to_array(/foo/)    <eq> [])
-    assert(to_array(to_array) <eq> [])
+    assert(to_array()                  <eq> [])
+    assert(to_array(null)              <eq> [])
+    assert(to_array(false)             <eq> [])
+    assert(to_array(true)              <eq> [])
+    assert(to_array(42)                <eq> [])
+    assert(to_array(/foo/)             <eq> [])
+    assert(to_array(to_array)          <eq> [])
 
     // Objects to sequence
     assert(to_array(seq)               <eq> [1, 2, 3, 4])
@@ -84,9 +84,9 @@ test('Making lists : copy -> Array', function() {
 
     // Shallow copies
     var other = copy(nested)
-    assert(other <eq> [1, [2, [3, [4]]]])
+    assert(other       <eq> [1, [2, [3, [4]]]])
     other[1][0] = 5
-    assert(other <eq> [1, [5, [3, [4]]]])
+    assert(other       <eq> [1, [5, [3, [4]]]])
 })
 
 
@@ -95,23 +95,23 @@ test('List information : size -> Num', function() {
     var size = list.size
 
     // Empty lists
-    assert(size([])     == 0)
-    assert(size({})     == 0)
-    assert(size()       == 0)
-    assert(size(1)      == 0)
-    assert(size(null)   == 0)
-    assert(size(true)   == 0)
-    assert(size(false)  == 0)
-    assert(size(/foo/)  == 0)    	   
+    assert(size([])     <eq> 0)
+    assert(size({})     <eq> 0)
+    assert(size()       <eq> 0)
+    assert(size(1)      <eq> 0)
+    assert(size(null)   <eq> 0)
+    assert(size(true)   <eq> 0)
+    assert(size(false)  <eq> 0)
+    assert(size(/foo/)  <eq> 0)    	   
 
     // Objects as lists
-    assert(size(seq)    == 4)
-    assert(size(size)   == 1)
-    assert(size('foo')  == 3)
+    assert(size(seq)    <eq> 4)
+    assert(size(size)   <eq> 1)
+    assert(size('foo')  <eq> 3)
 
     // Actual arrays
-    assert(size([1])    == 1)
-    assert(size([1, 2]) == 2)
+    assert(size([1])    <eq> 1)
+    assert(size([1, 2]) <eq> 2)
 })
 
 test('List information : empty? -> Bool', function() {
@@ -164,20 +164,20 @@ test('List information : count -> Num', function() {
     var seq   = { 0: 'foo', 2: 'bar', 3: undefined, 4: 'baz', length: 5 }
 
     // Empty and non-sequences should always return 0
-    assert(count(null, 0)                         == 0)
-    assert(count(0, 0)                            == 0)
-    assert(count(/foo/, 0)                        == 0)
-    assert(count(0, 0, function(){ return true }) == 0)
+    assert(count(null, 0)                         <eq> 0)
+    assert(count(0, 0)                            <eq> 0)
+    assert(count(/foo/, 0)                        <eq> 0)
+    assert(count(0, 0, function(){ return true }) <eq> 0)
 
     // Functions without a predicate should rely on ===
-    assert(count(ints, 2)        == 1)
-    assert(count(ints, '2')      == 0)
-    assert(count(lisp, 'scheme') == 1)
-    assert(count('foo', 'o')     == 2)
+    assert(count(ints, 2)                         <eq> 1)
+    assert(count(ints, '2')                       <eq> 0)
+    assert(count(lisp, 'scheme')                  <eq> 1)
+    assert(count('foo', 'o')                      <eq> 2)
 
     // Functions with predicates should be called only for set keys
-    assert(count(seq, 'bar')     == 1)
-    assert(count(seq, undefined) == 1)
+    assert(count(seq, 'bar')                      <eq> 1)
+    assert(count(seq, undefined)                  <eq> 1)
 })
 
 
@@ -187,24 +187,24 @@ test('List access : first -> *mixed*', function() {
     var nested= [1, [2, [3, [4]]]]
 
     // Empty or non-sequences should always return null
-    assert(first(null)      === null)
-    assert(first(0)         === null)
-    assert(first(undefined) === null)
-    assert(first(false)     === null)
-    assert(first(true)      === null)
-    assert(first(/foo/)     === null)
+    assert(first(null)              <eq> null)
+    assert(first(0)                 <eq> null)
+    assert(first(undefined)         <eq> null)
+    assert(first(false)             <eq> null)
+    assert(first(true)              <eq> null)
+    assert(first(/foo/)             <eq> null)
 
     // Objects
-    assert(first(arguments)         === undefined)
-    assert(first('foo')             == 'f')
-    assert(first(new String('foo')) == 'f')
-    assert(first(seq)               == 1)
+    assert(first(arguments)         <eq> undefined)
+    assert(first('foo')             <eq> 'f')
+    assert(first(new String('foo')) <eq> 'f')
+    assert(first(seq)               <eq> 1)
 
     // Actual arrays
-    assert(first(nested)    == 1)
-    assert(first(nested[1]) == 2)
-    assert(first([,1,2,3])  === undefined)
-    assert(first([1,2,,])   === 1)
+    assert(first(nested)            <eq> 1)
+    assert(first(nested[1])         <eq> 2)
+    assert(first([,1,2,3])          <eq> undefined)
+    assert(first([1,2,,])           <eq> 1)
 })
 
 test('List access : last -> *mixed*', function() {
@@ -212,24 +212,24 @@ test('List access : last -> *mixed*', function() {
     var nested= [1, [2, [3, [4]]]]
 
     // Empty or non-sequences should always return null
-    assert(last(null)      === null)
-    assert(last(0)         === null)
-    assert(last(undefined) === null)
-    assert(last(false)     === null)
-    assert(last(true)      === null)
-    assert(last(/foo/)     === null)
+    assert(last(null)              <eq> null)
+    assert(last(0)                 <eq> null)
+    assert(last(undefined)         <eq> null)
+    assert(last(false)             <eq> null)
+    assert(last(true)              <eq> null)
+    assert(last(/foo/)             <eq> null)
 
     // Objects
-    assert(last(arguments)         === undefined)
-    assert(last('bar')             == 'r')
-    assert(last(new String('bar')) == 'r')
-    assert(last(seq)               == 4)
+    assert(last(arguments)         <eq> undefined)
+    assert(last('bar')             <eq> 'r')
+    assert(last(new String('bar')) <eq> 'r')
+    assert(last(seq)               <eq> 4)
 
     // Actual arrays
-    assert(last(nested)    <eq> [2, [3, [4]]])
-    assert(last(nested[1]) <eq> [3, [4]])
-    assert(last([,1,2,3])  === 3)
-    assert(last([1,2,,])   === undefined)
+    assert(last(nested)            <eq> [2, [3, [4]]])
+    assert(last(nested[1])         <eq> [3, [4]])
+    assert(last([,1,2,3])          <eq> 3)
+    assert(last([1,2,,])           <eq> undefined)
 })
 
 test('List access : nth -> *mixed*', function() {
@@ -237,24 +237,24 @@ test('List access : nth -> *mixed*', function() {
     var nested= [1, [2, [3, [4]]]]
 
     // Empty or non-sequences should always return null
-    assert(nth(null, 0)      === null)
-    assert(nth(0, 0)         === null)
-    assert(nth(undefined, 0) === null)
-    assert(nth(false, 0)     === null)
-    assert(nth(true, 0)      === null)
-    assert(nth(/foo/, 0)     === null)
+    assert(nth(null, 0)              <eq> null)
+    assert(nth(0, 0)                 <eq> null)
+    assert(nth(undefined, 0)         <eq> null)
+    assert(nth(false, 0)             <eq> null)
+    assert(nth(true, 0)              <eq> null)
+    assert(nth(/foo/, 0)             <eq> null)
 
     // Objects
-    assert(nth(arguments, 0)         === undefined)
-    assert(nth('bar', 1)             == 'a')
-    assert(nth(new String('bar'), 1) == 'a')
-    assert(nth(seq, 1)               == 2)
+    assert(nth(arguments, 0)         <eq> undefined)
+    assert(nth('bar', 1)             <eq> 'a')
+    assert(nth(new String('bar'), 1) <eq> 'a')
+    assert(nth(seq, 1)               <eq> 2)
 
     // Actual arrays
-    assert(nth(nested, 1)    <eq> [2, [3, [4]]])
-    assert(nth(nth(nested, 1), 1) <eq> [3, [4]])
-    assert(nth([,1,2,3], 1)  === 1)
-    assert(nth([1,2,,], 2)   === undefined)
+    assert(nth(nested, 1)            <eq> [2, [3, [4]]])
+    assert(nth(nth(nested, 1), 1)    <eq> [3, [4]])
+    assert(nth([,1,2,3], 1)          <eq> 1)
+    assert(nth([1,2,,], 2)           <eq> undefined)
 })
 
 test('List access : find_first -> *mixed*', function() {
@@ -266,31 +266,31 @@ test('List access : find_first -> *mixed*', function() {
 
 
     // empty or non-sequences should always return null
-    assert(find_first(null) === null)
-    assert(find_first(0) === null)
-    assert(find_first(undefined) === null)
-    assert(find_first(false) === null)
-    assert(find_first(true) === null)
-    assert(find_first(/foo/) === null)
+    assert(find_first(null)                             <eq> null)
+    assert(find_first(0)                                <eq> null)
+    assert(find_first(undefined)                        <eq> null)
+    assert(find_first(false)                            <eq> null)
+    assert(find_first(true)                             <eq> null)
+    assert(find_first(/foo/)                            <eq> null)
 
-    assert(find_first(null, always) === null)
-    assert(find_first(0, always) === null)
-    assert(find_first(undefined, always) === null)
-    assert(find_first(false, always) === null)
-    assert(find_first(true, always) === null)
-    assert(find_first(/foo/, always) === null)
+    assert(find_first(null, always)                     <eq> null)
+    assert(find_first(0, always)                        <eq> null)
+    assert(find_first(undefined, always)                <eq> null)
+    assert(find_first(false, always)                    <eq> null)
+    assert(find_first(true, always)                     <eq> null)
+    assert(find_first(/foo/, always)                    <eq> null)
 
     // Objects
-    assert(find_first(seq) === 1)
-    assert(find_first(seq, even) === 2)
-    assert(find_first('bAR') === 'b')
-    assert(find_first('bAR', upper) === 'A')
-    assert(find_first(new String('bAR')) === 'b')
-    assert(find_first(new String('bAR'), upper) === 'A')
+    assert(find_first(seq)                              <eq> 1)
+    assert(find_first(seq, even)                        <eq> 2)
+    assert(find_first('bAR')                            <eq> 'b')
+    assert(find_first('bAR', upper)                     <eq> 'A')
+    assert(find_first(new String('bAR'))                <eq> 'b')
+    assert(find_first(new String('bAR'), upper)         <eq> 'A')
     
     // Actual arrays
-    assert(find_first([,,,,1,2,3]) === 1)
-    assert(find_first([,,,,1,2,3], even) === 2)
+    assert(find_first([,,,,1,2,3])                      <eq> 1)
+    assert(find_first([,,,,1,2,3], even)                <eq> 2)
     assert(find_first([,,1,2,[3,[4]], [5,[6]]], arrayp) <eq> [3, [4]])
 })
 
@@ -303,34 +303,34 @@ test('List access : find_last -> *mixed*', function() {
 
 
     // empty or non-sequences should always return null
-    assert(find_last(null) === null)
-    assert(find_last(0) === null)
-    assert(find_last(undefined) === null)
-    assert(find_last(false) === null)
-    assert(find_last(true) === null)
-    assert(find_last(/foo/) === null)
+    assert(find_last(null)                           <eq> null)
+    assert(find_last(0)                              <eq> null)
+    assert(find_last(undefined)                      <eq> null)
+    assert(find_last(false)                          <eq> null)
+    assert(find_last(true)                           <eq> null)
+    assert(find_last(/foo/)                          <eq> null)
 
-    assert(find_last(null, always) === null)
-    assert(find_last(0, always) === null)
-    assert(find_last(undefined, always) === null)
-    assert(find_last(false, always) === null)
-    assert(find_last(true, always) === null)
-    assert(find_last(/foo/, always) === null)
+    assert(find_last(null, always)                   <eq> null)
+    assert(find_last(0, always)                      <eq> null)
+    assert(find_last(undefined, always)              <eq> null)
+    assert(find_last(false, always)                  <eq> null)
+    assert(find_last(true, always)                   <eq> null)
+    assert(find_last(/foo/, always)                  <eq> null)
 
     // Objects
-    assert(find_last(seq) === 4)
-    assert(find_last(seq, even) === 4)
-    assert(find_last('BAr') === 'r')
-    assert(find_last('BAr', upper) === 'A')
-    assert(find_last(new String('BAr')) === 'r')
-    assert(find_last(new String('BAr'), upper) === 'A')
+    assert(find_last(seq)                            <eq> 4)
+    assert(find_last(seq, even)                      <eq> 4)
+    assert(find_last('BAr')                          <eq> 'r')
+    assert(find_last('BAr', upper)                   <eq> 'A')
+    assert(find_last(new String('BAr'))              <eq> 'r')
+    assert(find_last(new String('BAr'), upper)       <eq> 'A')
     
     // Actual arrays
-    assert(find_last([1,2,3,,,,]) === 3)
-    assert(find_last([1,2,3,,,,], even) === 2)
+    assert(find_last([1,2,3,,,,])                    <eq> 3)
+    assert(find_last([1,2,3,,,,], even)              <eq> 2)
     assert(find_last([1,2,[3,[4]], [5,[6]]], arrayp) <eq> [5, [6]])
 })
-    
+
 // Run the test cases
-claire.verbose = false
+//claire.verbose = false
 claire.run()
