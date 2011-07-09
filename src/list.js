@@ -148,11 +148,16 @@ void function (root) {
     // 
     // Returns the number of occurrences of `value' in the given
     // sequence, optionally filtered by a predicate.
+    // 
+    // If a predicate is not given, it'll consider a strict equality
+    // comparison.
     //
     function count(seq, value, pred) { var result, i
         result = 0
         for (i = size(seq); i--;)
-            if (i in seq && pred(value))  result++
+            if (i in seq) 
+                if (pred)  pred(value, seq[i]) && result++
+                else       (value === seq[i])  && result++
 
         return result
     }
