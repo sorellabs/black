@@ -83,6 +83,7 @@ void function (root) {
     //
     function to_array(obj) { var result, i
         result = []
+        obj    = Object(obj)
         for (i = size(obj); i--;)
             if (i in obj)  result[i] = obj[i]
                              
@@ -110,8 +111,8 @@ void function (root) {
     // Returns the size of a sequence.
     //
     function size(seq) {
-        return seq?  seq.length || 0
-                  :  0
+        return sequencep(seq)?  seq.length || 0
+                             :  0
     }
 
     ///// Function emptyp //////////////////////////////////////////////////////
@@ -121,8 +122,8 @@ void function (root) {
     // Checks if a sequence is empty or not.
     //
     function emptyp(seq) {
-        return seq?  !seq.length
-                  :  true
+        return sequencep(seq)?  !seq.length
+                             :  true
     }
 
     ///// Function hasp ////////////////////////////////////////////////////////
@@ -137,9 +138,11 @@ void function (root) {
     // The predicate function does not work with `null` values.
     //
     function hasp(seq, value, pred) {
-        return !seq?  false
-             : pred?  find_first(seq, pred.bind(this, value)) !== null
-             :        !!~__index.call(seq, value)
+        pred = pred && pred.bind(this, value)
+
+        return !sequencep(seq)?  false
+             : pred?             find_first(seq, pred) !== null
+             :                   !!~__index.call(seq, value)
     }
 
     ///// Function count ///////////////////////////////////////////////////////
@@ -154,6 +157,7 @@ void function (root) {
     //
     function count(seq, value, pred) { var result, i
         result = 0
+        seq    = Object(seq)
         for (i = size(seq); i--;)
             if (i in seq) 
                 if (pred)  pred(value, seq[i]) && result++
@@ -173,8 +177,8 @@ void function (root) {
     // Returns the first element of the sequence.
     //
     function first(seq) {
-        return seq?  seq[0]
-                  :  null
+        return sequencep(seq)?  seq[0]
+                             :  null
     }
 
     ///// Function last ////////////////////////////////////////////////////////
@@ -184,8 +188,8 @@ void function (root) {
     // Returns the last element of the sequence.
     //
     function last(seq) {
-        return seq?  seq[seq.length - 1]
-                  :  null
+        return sequencep(seq)?  seq[seq.length - 1]
+                             :  null
     }
 
     ///// Function nth /////////////////////////////////////////////////////////
@@ -195,8 +199,8 @@ void function (root) {
     // Returns the element at the given index in the sequence.
     //
     function nth(seq, index) {
-        return seq?  seq[index]
-                  :  null
+        return sequencep(seq)?  seq[index]
+                             :  null
     }
 
     ///// Function find_first //////////////////////////////////////////////////
@@ -214,7 +218,8 @@ void function (root) {
     //
     function find_first(seq, pred, ctx) { var i
         pred = pred || not_nilp
-        
+        seq  = Object(seq)
+   
         for (i = 0; i < size(seq); ++i)
             if (i in seq && pred.call(ctx, seq[i], i, seq))
                 return seq[i]
@@ -237,6 +242,7 @@ void function (root) {
     //
     function find_last(seq, pred, ctx) { var i
         pred = pred || not_nilp
+        seq  = Object(seq)
 
         for (i = size(seq); i--;)
             if (i in seq && pred.call(ctx, seq[i], i, seq))
@@ -494,8 +500,8 @@ void function (root) {
     // function.
     //
     function map(seq, pred, ctx) {
-        return objp(seq)?  __map.call(seq, pred, ctx)
-                        :  []
+        return sequencep(seq)?  __map.call(seq, pred, ctx)
+                             :  []
     }
 
     ///// Function each ////////////////////////////////////////////////////////
@@ -505,8 +511,8 @@ void function (root) {
     // Executes the predicate function for every item in the sequence.
     //
     function each(seq, pred, ctx) {
-        return objp(seq)?  __each.call(seq, pred, ctx)
-                        :  void 0
+        return sequencep(seq)?  __each.call(seq, pred, ctx)
+                             :  void 0
     }
 
     ///// Function filter //////////////////////////////////////////////////////
@@ -517,8 +523,8 @@ void function (root) {
     // test.
     //
     function filter(seq, pred, ctx) {
-        return objp(seq)?  __filter.call(seq, pred, ctx)
-                        :  []
+        return sequencep(seq)?  __filter.call(seq, pred, ctx)
+                             :  []
     }
 
     ///// Function reduce //////////////////////////////////////////////////////
@@ -534,8 +540,8 @@ void function (root) {
     function reduce(seq, pred, initial, ctx) {
         if (objp(ctx))  pred = pred.bind(ctx)
 
-        return objp(seq)?  __reduce.call(seq, pred, initial)
-                        :  []
+        return sequencep(seq)?  __reduce.call(seq, pred, initial)
+                             :  []
     }
     
     ///// Function reduce_right ////////////////////////////////////////////////
@@ -551,8 +557,8 @@ void function (root) {
     function reduce_right(seq, pred, initial, ctx) {
         if (objp(ctx))  pred = pred.bind(ctx)
 
-        return objp(seq)?  __reduce_right.call(seq, pred, initial)
-                        :  []
+        return sequencep(seq)?  __reduce_right.call(seq, pred, initial)
+                             :  []
     }
 
     ///// Function some ////////////////////////////////////////////////////////
@@ -563,8 +569,8 @@ void function (root) {
     // function's test.
     //
     function some(seq, pred, ctx) {
-        return objp(seq)?  __some.call(seq, pred, ctx)
-                        :  false
+        return sequencep(seq)?  __some.call(seq, pred, ctx)
+                             :  false
     }
 
     ///// Function every ///////////////////////////////////////////////////////
@@ -575,8 +581,8 @@ void function (root) {
     // predicate function's test.
     //
     function every(seq, pred, ctx) {
-        return objp(seq)?  __every.call(seq, pred, ctx)
-                        :  false
+        return sequencep(seq)?  __every.call(seq, pred, ctx)
+                             :  false
     }
 
 
@@ -594,8 +600,8 @@ void function (root) {
     //
     function pluck(seq, attr) {
         return map(seq, function(value) {
-            return value?  value[attr]
-                        :  void 0 })
+            return objp(value)?  value[attr]
+                              :  void 0 })
     }
 
     ///// Function invoke //////////////////////////////////////////////////////
