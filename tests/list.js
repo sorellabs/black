@@ -261,6 +261,7 @@ test('List access : find_first -> *mixed*', function() {
     function always()  { return true       }
     function even(x)   { return x % 2 == 0 }
     function arrayp(x) { return Array.isArray(x) }
+    function upper(x)  { return x == x.toUpperCase()  }
     var find_first = list.find_first
 
 
@@ -297,6 +298,7 @@ test('List access : find_last -> *mixed*', function() {
     function always()  { return true       }
     function even(x)   { return x % 2 == 0 }
     function arrayp(x) { return Array.isArray(x) }
+    function upper(x)  { return x == x.toUpperCase()  }
     var find_last = list.find_last
 
 
@@ -330,4 +332,5 @@ test('List access : find_last -> *mixed*', function() {
 })
     
 // Run the test cases
+claire.verbose = false
 claire.run()
