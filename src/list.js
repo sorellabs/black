@@ -28,7 +28,7 @@ void function (root) {
 
     // Typechecking aliases
     , nilp           = type.nilp
-    , not_nilp       = type.not_nil
+    , not_nilp       = type.not_nilp
     , objp           = type.objp
     , sequencep      = type.sequencep
     , callablep      = type.callablep
