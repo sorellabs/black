@@ -127,34 +127,207 @@ test('List information : empty? -> Bool', function() {
     assert(emptyp(/foo/))
 
     // Non-empty lists
-    assert(!emptyp(seq))
-    assert(!emptyp(emptyp))
-    assert(!emptyp('foo'))
-    assert(!emptyp([1]))
-    assert(!emptyp([1, 2]))
+    refute(emptyp(seq))
+    refute(emptyp(emptyp))
+    refute(emptyp('foo'))
+    refute(emptyp([1]))
+    refute(emptyp([1, 2]))
 })
 
 test('List information : has? -> Bool', function() {
     var hasp = list.hasp
+    var even = list.range(0, 10, 2)
     function weak_equalp(value, elm) { return elm == value }
 
 
     // empty lists should always return false
-    assert(!hasp(0, 1))
-    assert(!hasp(null, 1))
-    assert(!hasp(/foo/, 2))
-    assert(!hasp(null, 1, function() { return true }))
+    refute(hasp(0, 1))
+    refute(hasp(null, 1))
+    refute(hasp(/foo/, 2))
+    refute(hasp(null, 1, function() { return true }))
 
     // Functions without predicate should rely on indexOf (===)
     assert(hasp(seq, 1))
     assert(hasp([1, 2], 2))
     assert(hasp('foo', 'f'))
-    assert(!hasp(seq, '1')) // different types
+    refute(hasp(seq, '1')) // different types
 
     // Functions with predicates
     assert(hasp(seq, '1', weak_equalp))
+    assert(hasp(even, 2, function(x, y){ return x === y }))
 })
     
+test('List information : count -> Num', function() {
+    var count = list.count
+    var ints  = list.range(0, 10)
+    var lisp  = ['clojure', 'scheme', 'common lisp', 'PLT Scheme', 'arc', 'racket']
+    var seq   = { 0: 'foo', 2: 'bar', 3: undefined, 4: 'baz', length: 5 }
 
+    // Empty and non-sequences should always return 0
+    assert(count(null, 0)                         == 0)
+    assert(count(0, 0)                            == 0)
+    assert(count(/foo/, 0)                        == 0)
+    assert(count(0, 0, function(){ return true }) == 0)
+
+    // Functions without a predicate should rely on ===
+    assert(count(ints, 2)        == 1)
+    assert(count(ints, '2')      == 0)
+    assert(count(lisp, 'scheme') == 1)
+    assert(count('foo', 'o')     == 2)
+
+    // Functions with predicates should be called only for set keys
+    assert(count(seq, 'bar')     == 1)
+    assert(count(seq, undefined) == 1)
+})
+
+
+//// Acessing individual members
+test('List access : first -> *mixed*', function() {
+    var first = list.first
+    var nested= [1, [2, [3, [4]]]]
+
+    // Empty or non-sequences should always return null
+    assert(first(null)      === null)
+    assert(first(0)         === null)
+    assert(first(undefined) === null)
+    assert(first(false)     === null)
+    assert(first(true)      === null)
+    assert(first(/foo/)     === null)
+
+    // Objects
+    assert(first(arguments)         === undefined)
+    assert(first('foo')             == 'f')
+    assert(first(new String('foo')) == 'f')
+    assert(first(seq)               == 1)
+
+    // Actual arrays
+    assert(first(nested)    == 1)
+    assert(first(nested[1]) == 2)
+    assert(first([,1,2,3])  === undefined)
+    assert(first([1,2,,])   === 1)
+})
+
+test('List access : last -> *mixed*', function() {
+    var last = list.last
+    var nested= [1, [2, [3, [4]]]]
+
+    // Empty or non-sequences should always return null
+    assert(last(null)      === null)
+    assert(last(0)         === null)
+    assert(last(undefined) === null)
+    assert(last(false)     === null)
+    assert(last(true)      === null)
+    assert(last(/foo/)     === null)
+
+    // Objects
+    assert(last(arguments)         === undefined)
+    assert(last('bar')             == 'r')
+    assert(last(new String('bar')) == 'r')
+    assert(last(seq)               == 4)
+
+    // Actual arrays
+    assert(last(nested)    <eq> [2, [3, [4]]])
+    assert(last(nested[1]) <eq> [3, [4]])
+    assert(last([,1,2,3])  === 3)
+    assert(last([1,2,,])   === undefined)
+})
+
+test('List access : nth -> *mixed*', function() {
+    var nth = list.nth
+    var nested= [1, [2, [3, [4]]]]
+
+    // Empty or non-sequences should always return null
+    assert(nth(null, 0)      === null)
+    assert(nth(0, 0)         === null)
+    assert(nth(undefined, 0) === null)
+    assert(nth(false, 0)     === null)
+    assert(nth(true, 0)      === null)
+    assert(nth(/foo/, 0)     === null)
+
+    // Objects
+    assert(nth(arguments, 0)         === undefined)
+    assert(nth('bar', 1)             == 'a')
+    assert(nth(new String('bar'), 1) == 'a')
+    assert(nth(seq, 1)               == 2)
+
+    // Actual arrays
+    assert(nth(nested, 1)    <eq> [2, [3, [4]]])
+    assert(nth(nth(nested, 1), 1) <eq> [3, [4]])
+    assert(nth([,1,2,3], 1)  === 1)
+    assert(nth([1,2,,], 2)   === undefined)
+})
+
+test('List access : find_first -> *mixed*', function() {
+    function always()  { return true       }
+    function even(x)   { return x % 2 == 0 }
+    function arrayp(x) { return Array.isArray(x) }
+    var find_first = list.find_first
+
+
+    // empty or non-sequences should always return null
+    assert(find_first(null) === null)
+    assert(find_first(0) === null)
+    assert(find_first(undefined) === null)
+    assert(find_first(false) === null)
+    assert(find_first(true) === null)
+    assert(find_first(/foo/) === null)
+
+    assert(find_first(null, always) === null)
+    assert(find_first(0, always) === null)
+    assert(find_first(undefined, always) === null)
+    assert(find_first(false, always) === null)
+    assert(find_first(true, always) === null)
+    assert(find_first(/foo/, always) === null)
+
+    // Objects
+    assert(find_first(seq) === 1)
+    assert(find_first(seq, even) === 2)
+    assert(find_first('bAR') === 'b')
+    assert(find_first('bAR', upper) === 'A')
+    assert(find_first(new String('bAR')) === 'b')
+    assert(find_first(new String('bAR'), upper) === 'A')
+    
+    // Actual arrays
+    assert(find_first([,,,,1,2,3]) === 1)
+    assert(find_first([,,,,1,2,3], even) === 2)
+    assert(find_first([,,1,2,[3,[4]], [5,[6]]], arrayp) <eq> [3, [4]])
+})
+
+test('List access : find_last -> *mixed*', function() {
+    function always()  { return true       }
+    function even(x)   { return x % 2 == 0 }
+    function arrayp(x) { return Array.isArray(x) }
+    var find_last = list.find_last
+
+
+    // empty or non-sequences should always return null
+    assert(find_last(null) === null)
+    assert(find_last(0) === null)
+    assert(find_last(undefined) === null)
+    assert(find_last(false) === null)
+    assert(find_last(true) === null)
+    assert(find_last(/foo/) === null)
+
+    assert(find_last(null, always) === null)
+    assert(find_last(0, always) === null)
+    assert(find_last(undefined, always) === null)
+    assert(find_last(false, always) === null)
+    assert(find_last(true, always) === null)
+    assert(find_last(/foo/, always) === null)
+
+    // Objects
+    assert(find_last(seq) === 4)
+    assert(find_last(seq, even) === 4)
+    assert(find_last('BAr') === 'r')
+    assert(find_last('BAr', upper) === 'A')
+    assert(find_last(new String('BAr')) === 'r')
+    assert(find_last(new String('BAr'), upper) === 'A')
+    
+    // Actual arrays
+    assert(find_last([1,2,3,,,,]) === 3)
+    assert(find_last([1,2,3,,,,], even) === 2)
+    assert(find_last([1,2,[3,[4]], [5,[6]]], arrayp) <eq> [5, [6]])
+})
+    
 // Run the test cases
 claire.run()
