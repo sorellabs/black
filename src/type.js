@@ -173,7 +173,7 @@ void function (root) {
     // are considered sequences.
     //
     function sequencep(obj) {
-        return obj && obj.length
+        return obj && typeof obj.length == 'number'
     }
 
 
