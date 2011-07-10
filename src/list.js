@@ -354,7 +354,7 @@ void function (root) {
     // Returns a array without null and undefined values in it.
     //
     function compact(seq) {
-        return filter(seq, nilp)
+        return filter(seq, not_nilp)
     }
 
 
