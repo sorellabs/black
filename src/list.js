@@ -25,6 +25,7 @@ void function (root) {
     , __reduce_right = Array.prototype.reduceRight
     , __some         = Array.prototype.some
     , __every        = Array.prototype.every
+    , __max          = Math.max
 
     // Typechecking aliases
     , nilp           = type.nilp
@@ -305,7 +306,7 @@ void function (root) {
     // Returns a array without the first `num` elements.
     //
     function drop(seq, num) {
-        return slice(seq, num + 1)
+        return slice(seq, __max(num, 0))
     }
 
     ///// Function keep ////////////////////////////////////////////////////////
@@ -315,7 +316,7 @@ void function (root) {
     // Returns a array with just the first `num` elements.
     //
     function keep(seq, num) {
-        return slice(seq, 0, num -1)
+        return slice(seq, 0, num < 0? void num : num)
     }
 
     ///// Function remove //////////////////////////////////////////////////////
