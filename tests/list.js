@@ -331,6 +331,52 @@ test('List access : find_last -> *mixed*', function() {
     assert(find_last([1,2,[3,[4]], [5,[6]]], arrayp) <eq> [5, [6]])
 })
 
+
+// Extracting sections of a list
+test('List subsections : slice -> Array', function() {
+    var slice = list.slice
+    var array = [1, 2, 3, 4]
+
+    // Non sequence should always return []
+    assert(slice(null) <eq> [])
+    assert(slice(0) <eq> [])
+    assert(slice(undefined) <eq> [])
+    assert(slice(false) <eq> [])
+    assert(slice(true) <eq> [])
+    assert(slice(/foo/) <eq> [])
+
+    // Non valid ranges should always return []
+    assert(slice(seq, 0, 0) <eq> [])
+    assert(slice(seq, 3, 1) <eq> [])
+    assert(slice(seq, 1, 1) <eq> [])
+
+    // Objects should return an array nevertheless
+    assert(slice(seq) <eq> [1, 2, 3, 4])
+    assert(slice(seq, 1) <eq> [2, 3, 4])
+    assert(slice(seq, 1, 3) <eq> [2, 3])
+    assert(slice('foo') <eq> ['f', 'o', 'o'])
+    assert(slice('foo', 1) <eq> ['o', 'o'])
+    assert(slice('foo', 1, 2) <eq> ['o'])
+
+    // Negative indexes should count from the end of the sequence
+    assert(slice(seq, -1) <eq> [4])
+    assert(slice(seq, 1, -1) <eq> [2, 3])
+    assert(slice(seq, -3, -1) <eq> [2, 3])
+
+    // Actual arrays should behave the same as objects
+    assert(slice(array) <eq> [1, 2, 3, 4])
+    assert(slice(array, 1) <eq> [2, 3, 4])
+    assert(slice(array, 1, 3) <eq> [2, 3])
+    assert(slice(array, -1) <eq> [4])
+    assert(slice(array, 1, -1) <eq> [2, 3])
+    assert(slice(array, -3, -1) <eq> [2, 3])
+
+    // It should always return a new object
+    assert(slice(array) !==  array)
+})
+
+
+
 // Run the test cases
 //claire.verbose = false
 claire.run()
