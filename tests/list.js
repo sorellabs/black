@@ -477,6 +477,71 @@ test('List subsections : keep -> Array', function() {
     assert(keep(array, 0) !== array)
 })
 
+test('List subsections : remove -> Array', function() {
+    var remove = list.remove
+    var array = [1, 2, 3, 4]
+
+    // Non-sequences should always return []
+    assert(remove(null, 1) <eq> [])
+    assert(remove(0, 1) <eq> [])
+    assert(remove(undefined, 1) <eq> [])
+    assert(remove(false, 1) <eq> [])
+    assert(remove(true, 1) <eq> [])
+    assert(remove(/foo/, 1) <eq> [])
+
+    // returns a new array without the item at index
+    assert(remove(seq, 1) <eq> [1, 3, 4])
+    assert(remove('foo', 1) <eq> ['f', 'o'])
+    assert(remove(array, 1) <eq> [1, 3, 4])
+
+    // should always return a new array
+    assert(remove(array, 1) !== array)
+})
+
+test('List subsections : without -> Array', function() {
+    function close(x, y) { return Math.abs(x - y) <= 1 }
+    function case_insensitive(x, y) { return x.toLowerCase() == y.toLowerCase() }
+    var without = list.without
+    var array = [1, 2, 3, 4, 3, 1]
+    var lisp  = ['clojure', 'scheme', 'common lisp', 'PLT Scheme', 'arc', 'racket']
+
+    // Non-sequences should always return []
+    assert(without(null, 1) <eq> [])
+    assert(without(0, 1) <eq> [])
+    assert(without(undefined, 1) <eq> [])
+    assert(without(false, 1) <eq> [])
+    assert(without(true, 1) <eq> [])
+    assert(without(/foo/, 1) <eq> [])
+
+    // Should remove all the items that match
+    assert(without(seq, 1) <eq> [2, 3, 4])
+    assert(without('foo', 'o') <eq> ['f'])
+    assert(without(array, 3) <eq> [1, 2, 4, 1])
+    assert(without(seq, 2, close) <eq> [4])
+    assert(without('FoO', 'o', case_insensitive) <eq> ['F'])
+
+    // should always return a new array
+    assert(without(array, 1) !== array)
+})
+
+test('List subsections : compact -> Array', function() { 
+    var compact = list.compact
+    var array = [1,,2,,,3,,,,4]
+    var seq = {0:1, 1:undefined, 2:2, 3:null, 6:3, length:7}
+
+    // Non-sequences should always return []
+    assert(compact(null) <eq> [])
+    assert(compact(0) <eq> [])
+    assert(compact(undefined) <eq> [])
+    assert(compact(false) <eq> [])
+    assert(compact(true) <eq> [])
+    assert(compact(/foo/) <eq> [])
+
+    // All undefined/null values should be removed
+    assert(compact(seq) <eq> [1, 2, 3])
+    assert(compact(array) <eq> [1, 2, 3, 4])
+})
+
 
 
 // Run the test cases
