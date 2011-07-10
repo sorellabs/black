@@ -375,6 +375,108 @@ test('List subsections : slice -> Array', function() {
     assert(slice(array) !==  array)
 })
 
+test('List subsections : rest -> Array', function() {
+    var rest = list.rest
+    var array = [1, 2, 3, 4]
+
+    // Non-sequences should always return []
+    assert(rest(null) <eq> [])
+    assert(rest(0) <eq> [])
+    assert(rest(undefined) <eq> [])
+    assert(rest(false) <eq> [])
+    assert(rest(true) <eq> [])
+    assert(rest(/foo/) <eq> [])
+
+    // Sequences should always return an actual array
+    assert(rest(seq) <eq> [2, 3, 4])
+    assert(rest('foo') <eq> ['o', 'o'])
+    assert(rest(array) <eq> [2, 3, 4])
+
+    // It should always return a new object
+    assert(rest(array) !== array)
+})
+
+test('List subsections : but_last -> Array', function() {
+    var but_last = list.but_last
+    var array = [1, 2, 3, 4]
+
+    // Non-sequences should always return []
+    assert(but_last(null) <eq> [])
+    assert(but_last(0) <eq> [])
+    assert(but_last(undefined) <eq> [])
+    assert(but_last(false) <eq> [])
+    assert(but_last(true) <eq> [])
+    assert(but_last(/foo/) <eq> [])
+
+    // Sequences should always return an actual array
+    assert(but_last(seq) <eq> [1, 2, 3])
+    assert(but_last('foo') <eq> ['f', 'o'])
+    assert(but_last(array) <eq> [1, 2, 3])
+
+    // It should always return a new object
+    assert(but_last(array) !== array)
+})
+
+test('List subsections : drop -> Array', function() {
+    var drop = list.drop
+    var array = [1, 2, 3, 4]
+
+    // Non-sequences should always return []
+    assert(drop(null, 1) <eq> [])
+    assert(drop(0, 1) <eq> [])
+    assert(drop(undefined, 1) <eq> [])
+    assert(drop(false, 1) <eq> [])
+    assert(drop(true, 1) <eq> [])
+    assert(drop(/foo/, 1) <eq> [])
+
+    // <= 0 should return the whole sequence
+    assert(drop(seq, -1) <eq> [1, 2, 3, 4])
+    assert(drop('foo', -1) <eq> ['f', 'o', 'o'])
+    assert(drop(array, -1) <eq> [1, 2, 3, 4])
+    assert(drop(seq, 0) <eq> [1, 2, 3, 4])
+    assert(drop('foo', 0) <eq> ['f', 'o', 'o'])
+    assert(drop(array, 0) <eq> [1, 2, 3, 4])
+
+    // Items should be removed from the beginning
+    assert(drop(seq, 1) <eq> [2, 3, 4])
+    assert(drop('foo', 1) <eq> ['o', 'o'])
+    assert(drop(array, 1) <eq> [2, 3, 4])
+
+
+    // It should always return a new object
+    assert(drop(array, 0) !== array)
+})
+
+test('List subsections : keep -> Array', function() {
+    var keep = list.keep
+    var array = [1, 2, 3, 4]
+
+    // Non-sequences should always return []
+    assert(keep(null, 1) <eq> [])
+    assert(keep(0, 1) <eq> [])
+    assert(keep(undefined, 1) <eq> [])
+    assert(keep(false, 1) <eq> [])
+    assert(keep(true, 1) <eq> [])
+    assert(keep(/foo/, 1) <eq> [])
+
+    // <= 0 should return the whole sequence
+    assert(keep(seq, -1) <eq> [1, 2, 3, 4])
+    assert(keep('foo', -1) <eq> ['f', 'o', 'o'])
+    assert(keep(array, -1) <eq> [1, 2, 3, 4])
+    assert(keep(seq, 0) <eq> [])
+    assert(keep('foo', 0) <eq> [])
+    assert(keep(array, 0) <eq> [])
+
+    // Items should be removed from the ending
+    assert(keep(seq, 2) <eq> [1, 2])
+    assert(keep('foo', 2) <eq> ['f', 'o'])
+    assert(keep(array, 2) <eq> [1, 2])
+
+
+    // It should always return a new object
+    assert(keep(array, 0) !== array)
+})
+
 
 
 // Run the test cases
