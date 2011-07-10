@@ -404,11 +404,11 @@ void function (root) {
     // comparison (`===`) will be used.
     //
     function replace(seq, value, sub, pred) {
-        if (!callablep(pred))  pred = function(x) { return value === x }
+        if (!callablep(pred))  pred = function(value, x) { return value === x }
 
         return map(seq, function(item, index) {
-            return pred(item, index, seq)?  sub
-                                         :  item })
+            return pred(value, item, index, seq)?  sub
+                                                :  item })
     }
 
     ///// Function replace_at //////////////////////////////////////////////////
@@ -419,7 +419,7 @@ void function (root) {
     //
     function replace_at(seq, index, sub) { var result
         result = copy(seq)
-        result.splice(index, 1, sub)
+        result[index] = sub
         return result
     }
 
