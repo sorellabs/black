@@ -13,7 +13,7 @@ seq     = {0: 1, 1: 2, 2: 3, 3: 4, length: 4}
 
 
 //// Making lists //////////////////////////////////////////////////////////////
-test('Making lists : make_array -> Array', function() {
+test('list:: Making lists : make_array -> Array', function() {
     var make_array = list.make_array
 
     // Unsupported sizes should always return an empty list
@@ -32,7 +32,7 @@ test('Making lists : make_array -> Array', function() {
     assert(make_array(1, make_array) <eq> [make_array])
 })
 
-test('Making lists : range -> Array', function() {
+test('list:: Making lists : range -> Array', function() {
     var range = list.range
 
     // Empty sequence
@@ -50,7 +50,7 @@ test('Making lists : range -> Array', function() {
     assert(range(0, 3, 5)  <eq> [0])
 })
 
-test('Making lists : to_array -> Array', function() {
+test('list:: Making lists : to_array -> Array', function() {
     var to_array = list.to_array
 
     // Empty sequences
@@ -67,9 +67,12 @@ test('Making lists : to_array -> Array', function() {
     assert(to_array(new String('foo')) <eq> ['f', 'o', 'o'])
 })
 
-test('Making lists : copy -> Array', function() {
+test('list:: Making lists : copy -> Array', function() {
     var copy   = list.copy
     var nested = [1, [2, [3, [4]]]]
+    var sparse = [1,,2,,3,,4]
+    var sparse_seq = {0:1, 2:2, 4:3, 6:4, length:7}
+
 
     // Empty lists
     assert(copy()      <eq> [])
@@ -87,11 +90,15 @@ test('Making lists : copy -> Array', function() {
     assert(other       <eq> [1, [2, [3, [4]]]])
     other[1][0] = 5
     assert(other       <eq> [1, [5, [3, [4]]]])
+
+    // sparse sequences should be preserved
+    assert(copy(sparse) <eq> sparse)
+    assert(copy(sparse_seq) <eq> sparse)
 })
 
 
 // Extracting informations about a list
-test('List information : size -> Num', function() {
+test('list:: List information : size -> Num', function() {
     var size = list.size
 
     // Empty lists
@@ -114,7 +121,7 @@ test('List information : size -> Num', function() {
     assert(size([1, 2]) <eq> 2)
 })
 
-test('List information : empty? -> Bool', function() {
+test('list:: List information : empty? -> Bool', function() {
     var emptyp = list.emptyp
 
     // Empty lists
@@ -134,7 +141,7 @@ test('List information : empty? -> Bool', function() {
     refute(emptyp([1, 2]))
 })
 
-test('List information : has? -> Bool', function() {
+test('list:: List information : has? -> Bool', function() {
     var hasp = list.hasp
     var even = list.range(0, 10, 2)
     function weak_equalp(value, elm) { return elm == value }
@@ -157,7 +164,7 @@ test('List information : has? -> Bool', function() {
     assert(hasp(even, 2, function(x, y){ return x === y }))
 })
     
-test('List information : count -> Num', function() {
+test('list:: List information : count -> Num', function() {
     var count = list.count
     var ints  = list.range(0, 10)
     var lisp  = ['clojure', 'scheme', 'common lisp', 'PLT Scheme', 'arc', 'racket']
@@ -182,7 +189,7 @@ test('List information : count -> Num', function() {
 
 
 //// Acessing individual members
-test('List access : first -> *mixed*', function() {
+test('list:: List access : first -> *mixed*', function() {
     var first = list.first
     var nested= [1, [2, [3, [4]]]]
 
@@ -207,7 +214,7 @@ test('List access : first -> *mixed*', function() {
     assert(first([1,2,,])           <eq> 1)
 })
 
-test('List access : last -> *mixed*', function() {
+test('list:: List access : last -> *mixed*', function() {
     var last = list.last
     var nested= [1, [2, [3, [4]]]]
 
@@ -232,7 +239,7 @@ test('List access : last -> *mixed*', function() {
     assert(last([1,2,,])           <eq> undefined)
 })
 
-test('List access : nth -> *mixed*', function() {
+test('list:: List access : nth -> *mixed*', function() {
     var nth = list.nth
     var nested= [1, [2, [3, [4]]]]
 
@@ -257,7 +264,7 @@ test('List access : nth -> *mixed*', function() {
     assert(nth([1,2,,], 2)           <eq> undefined)
 })
 
-test('List access : find_first -> *mixed*', function() {
+test('list:: List access : find_first -> *mixed*', function() {
     function always()  { return true       }
     function even(x)   { return x % 2 == 0 }
     function arrayp(x) { return Array.isArray(x) }
@@ -294,7 +301,7 @@ test('List access : find_first -> *mixed*', function() {
     assert(find_first([,,1,2,[3,[4]], [5,[6]]], arrayp) <eq> [3, [4]])
 })
 
-test('List access : find_last -> *mixed*', function() {
+test('list:: List access : find_last -> *mixed*', function() {
     function always()  { return true       }
     function even(x)   { return x % 2 == 0 }
     function arrayp(x) { return Array.isArray(x) }
@@ -333,7 +340,7 @@ test('List access : find_last -> *mixed*', function() {
 
 
 // Extracting sections of a list
-test('List subsections : slice -> Array', function() {
+test('list:: List subsections : slice -> Array', function() {
     var slice = list.slice
     var array = [1, 2, 3, 4]
 
@@ -375,7 +382,7 @@ test('List subsections : slice -> Array', function() {
     assert(slice(array) !==  array)
 })
 
-test('List subsections : rest -> Array', function() {
+test('list:: List subsections : rest -> Array', function() {
     var rest = list.rest
     var array = [1, 2, 3, 4]
 
@@ -396,7 +403,7 @@ test('List subsections : rest -> Array', function() {
     assert(rest(array) !== array)
 })
 
-test('List subsections : but_last -> Array', function() {
+test('list:: List subsections : but_last -> Array', function() {
     var but_last = list.but_last
     var array = [1, 2, 3, 4]
 
@@ -417,7 +424,7 @@ test('List subsections : but_last -> Array', function() {
     assert(but_last(array) !== array)
 })
 
-test('List subsections : drop -> Array', function() {
+test('list:: List subsections : drop -> Array', function() {
     var drop = list.drop
     var array = [1, 2, 3, 4]
 
@@ -447,7 +454,7 @@ test('List subsections : drop -> Array', function() {
     assert(drop(array, 0) !== array)
 })
 
-test('List subsections : keep -> Array', function() {
+test('list:: List subsections : keep -> Array', function() {
     var keep = list.keep
     var array = [1, 2, 3, 4]
 
@@ -477,7 +484,7 @@ test('List subsections : keep -> Array', function() {
     assert(keep(array, 0) !== array)
 })
 
-test('List subsections : remove -> Array', function() {
+test('list:: List subsections : remove -> Array', function() {
     var remove = list.remove
     var array = [1, 2, 3, 4]
 
@@ -498,7 +505,7 @@ test('List subsections : remove -> Array', function() {
     assert(remove(array, 1) !== array)
 })
 
-test('List subsections : without -> Array', function() {
+test('list:: List subsections : without -> Array', function() {
     function close(x, y) { return Math.abs(x - y) <= 1 }
     function case_insensitive(x, y) { return x.toLowerCase() == y.toLowerCase() }
     var without = list.without
@@ -524,7 +531,7 @@ test('List subsections : without -> Array', function() {
     assert(without(array, 1) !== array)
 })
 
-test('List subsections : compact -> Array', function() { 
+test('list:: List subsections : compact -> Array', function() { 
     var compact = list.compact
     var array = [1,,2,,,3,,,,4]
     var seq = {0:1, 1:undefined, 2:2, 3:null, 6:3, length:7}
@@ -540,6 +547,40 @@ test('List subsections : compact -> Array', function() {
     // All undefined/null values should be removed
     assert(compact(seq) <eq> [1, 2, 3])
     assert(compact(array) <eq> [1, 2, 3, 4])
+})
+
+// Extending lists
+test('list:: Extending lists : insert -> Array', function() {
+    var insert = list.insert
+    var array = [1,,2,,3,,4]
+    var seq = {0:1, 2:2, 4: 3, length:5}
+
+    // Non sequences should always return the inserted value
+    assert(insert(null, 1, 1, 2)  <eq> [1, 2])
+    assert(insert(0, 1, 1, 2) <eq> [1, 2])
+    assert(insert(undefined, 1, 1, 2) <eq> [1, 2])
+    assert(insert(false, 1, 1, 2) <eq> [1, 2])
+    assert(insert(true, 1, 1, 2) <eq> [1, 2])
+    assert(insert(/foo/, 1, 1, 2) <eq> [1, 2])
+
+    // sequences should behave the same way as arrays
+    assert(insert(array, 1, 1.5) <eq> [1, 1.5,, 2,, 3,, 4])
+    assert(insert(seq, 1, 1.5) <eq> [1, 1.5,, 2,, 3])
+})
+
+test('list:: Extending lists : cat -> Array', function() {
+    var cat = list.cat
+    var array = [1, 2, 3]
+    var seq = {0:1, 1: 2, 2: 3, length: 4}
+    var primitives = [null, 0, undefined, false, true, /foo/]
+
+    // non sequences should always return []
+    assert(cat(null, 0, undefined, false, true, /foo/) <eq> primitives)
+
+    // Sequences should concatenate just like arrays
+    assert(cat(seq, seq) <eq> [1, 2, 3,, 1, 2, 3,,])
+    assert(cat(seq, array) <eq> [1, 2, 3,, 1, 2, 3])
+    assert(cat(array, array) <eq> [1, 2, 3, 1, 2, 3])
 })
 
 
