@@ -49,7 +49,7 @@ void function (root) {
     // empty strings.
     //
     function make_array(size, default_value) { var result, has_defaultp
-        size         = (Math.max(size, 0)) >>> 0
+        size         = (__max(size, 0)) >>> 0
         has_defaultp = arguments.length > 1
         if (size <= 0)  return []
 
