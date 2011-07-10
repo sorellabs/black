@@ -384,7 +384,9 @@ void function (root) {
     //
     function cat() {
         return reduce(arguments, function(result, seq) {
-            if (!arrayp(result))  result = slice(result)
+            if (!arrayp(result))                 result = slice(result)
+            if (!arrayp(seq) && sequencep(seq))  seq    = slice(seq)
+
             return result.concat(seq) })
     }
 
