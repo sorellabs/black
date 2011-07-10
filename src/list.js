@@ -343,7 +343,7 @@ void function (root) {
     //
     function without(seq, value, pred) {
         return filter(seq, function(item, index) {
-            return pred?  pred(item, index, seq)
+            return pred?  pred(value, item, index, seq)
                        :  item === value })
     }
 
