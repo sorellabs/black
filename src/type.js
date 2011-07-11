@@ -237,6 +237,7 @@ void function (root) {
     type.numericp     = numericp
     type.sequencep    = sequencep
     type.sliceablep   = sliceablep
+    type.searchablep  = searchablep
     type.testablep    = testablep
 
     type.$black_box   = Object
