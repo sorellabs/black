@@ -583,6 +583,141 @@ test('list:: Extending lists : cat -> Array', function() {
     assert(cat(array, array) <eq> [1, 2, 3, 1, 2, 3])
 })
 
+// Structure handling
+test('list:: Structure handling : replace -> Array', function() {
+    function numberp(y, x) {
+        return {}.toString.call(x) == '[object Number]' && x === y }
+    var replace = list.replace
+    var array = [1, 2, 3, '2', 4]
+
+    // non-sequences should always return []
+    assert(replace(null, 1, 2) <eq> [])
+    assert(replace(0, 1, 2) <eq> [])
+    assert(replace(undefined, 1, 2) <eq> [])
+    assert(replace(false, 1, 2) <eq> [])
+    assert(replace(true, 1, 2) <eq> [])
+    assert(replace(/foo/, 1, 2) <eq> [])
+
+    // without a predicate, strict equality is assumed
+    assert(replace(array, '2', 3.5) <eq> [1, 2, 3, 3.5, 4])
+    assert(replace(seq, '1', 0) <eq> [1, 2, 3, 4])
+
+    // with a predicate -> true the value should be replaced
+    assert(replace(array, 2, null, numberp) <eq> [1, null, 3, '2', 4])
+})
+
+test('list:: Structure handling : replace_at -> Array', function() {
+    var replace_at = list.replace_at
+    var array = [1, 2, 3, 4]
+
+    // non-sequences should always return [value]
+    assert(replace_at(null, 1, 1) <eq> [,1])
+    assert(replace_at(0, 1, 1) <eq> [,1])
+    assert(replace_at(undefined, 1, 1) <eq> [,1])
+    assert(replace_at(false, 1, 1) <eq> [,1])
+    assert(replace_at(true, 1, 1) <eq> [,1])
+    assert(replace_at(/foo/, 1, 1) <eq> [,1])
+
+    // sequences should replace the item at index
+    assert(replace_at(array, 1, null) <eq> [1, null, 3, 4])
+    assert(replace_at(seq, 1, null) <eq> [1, null, 3, 4])
+})
+
+test('list:: Structure handling : sort -> Array', function() {
+    function numsort(a, b) { return a - b }
+    var sorted = list.sorted
+    var array = [10,9,8,7,6,5,4,3,2,1]
+    var seq = {0:2, 1:4, 2:8, 3:10, length:4}
+
+    // non-sequences should always return []
+    assert(sorted(null) <eq> [])
+    assert(sorted(0) <eq> [])
+    assert(sorted(undefined) <eq> [])
+    assert(sorted(false) <eq> [])
+    assert(sorted(true) <eq> [])
+    assert(sorted(/foo/) <eq> [])
+    
+    // if a comparison function is not given, items should be sorted
+    // lexographically.
+    assert(sorted(seq) <eq> [10, 2, 4, 8])
+    assert(sorted(array) <eq> [1, 10, 2, 3, 4, 5, 6, 7, 8, 9])
+
+    // Things shouldn't be done in-place
+    assert(sorted(array) !== array)
+
+    // With a comparison function, -1 to sort before, other to sort
+    // after
+    assert(sorted(array, numsort) <eq> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    assert(sorted(seq, numsort) <eq> [2, 4, 8, 10])
+})
+
+test('list:: Structure handling : reversed -> Array', function() {
+    var reversed = list.reversed
+    var array = [1,2,3,4]
+    var seq = {0:1,1:2,2:3,3:4,length:4}
+
+    // non-sequences should always return []
+    assert(reversed(null) <eq> [])
+    assert(reversed(0) <eq> [])
+    assert(reversed(undefined) <eq> [])
+    assert(reversed(false) <eq> [])
+    assert(reversed(true) <eq> [])
+    assert(reversed(/foo/) <eq> [])
+
+    // sequences should have their last item first, first item last.
+    assert(reversed(array) <eq> [4, 3, 2, 1])
+    assert(reversed(seq) <eq> [4, 3, 2, 1])
+
+    // Things should never be done in-place
+    assert(reversed(array) !== array)
+})
+
+test('list:: Structure handling : flatten -> Array', function() {
+    var flatten = list.flatten
+    var nested = [1, [2, [3, [4]]]]
+    var nested_seq = {0:1, 1:{0:2, 1:{0:3, 1:{0:4,length:1}, length:2},
+                              length:2}, length:2}
+
+    // non-sequences should always return []
+    assert(flatten(null) <eq> [])
+    assert(flatten(0) <eq> [])
+    assert(flatten(undefined) <eq> [])
+    assert(flatten(false) <eq> [])
+    assert(flatten(true) <eq> [])
+    assert(flatten(/foo/) <eq> [])
+
+    // nested sequences should be properly flattened
+    assert(flatten(nested) <eq> [1, 2, 3, 4])
+    assert(flatten(nested_seq) <eq> [1, 2, 3, 4])
+
+    // nothing should be done in-place
+    assert(flatten(nested) !== nested)
+})
+
+test('list:: Structure handling : zip -> Array', function() {
+    var zip = list.zip
+    var a1 = ['a', 'b', 'c']
+    var a2 = [1, 2, 3, 4, 5, 6, 7, 8]
+    var a3 = [0, 1]
+    var zip3 = [['a', 1, 0], ['b', 2, 1], ['c', 3, undefined]]
+
+    // Non-sequences should always be skipped
+    assert(zip(null, 0, undefined, false, true, /foo/) <eq> [])
+    assert(zip(a1, null) <eq> [['a'], ['b'], ['c']])
+
+    // resulting array length is always 1st argument
+    assert(zip(a3, a1) <eq> [[0, 'a'], [1, 'b']])
+    assert(zip(a1, a2) <eq> [['a', 1], ['b', 2], ['c', 3]])
+    assert(zip(a1, seq, a3) <eq> zip3)
+
+    // nothing should be done in-place
+    assert(zip(a1, a2, a3) !== a1)
+    assert(zip(a1, a2, a3) !== a2)
+    assert(zip(a1, a2, a3) !== a3)
+})
+
+// TODO: tests for array iteration functions
+
 
 
 // Run the test cases
