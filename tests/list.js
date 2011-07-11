@@ -718,7 +718,48 @@ test('list:: Structure handling : zip -> Array', function() {
 
 // TODO: tests for array iteration functions
 
+// Special mapping
+test('list:: Special mapping : pluck -> Array', function() {
+    var pluck = list.pluck
+    var a1 = [{x:1}, {x:2}, {x:3}]
 
+    // non-sequences should always return []
+    assert(pluck(null, 'foo') <eq> [])
+    assert(pluck(0, 'foo') <eq> [])
+    assert(pluck(undefined, 'foo') <eq> [])
+    assert(pluck(false, 'foo') <eq> [])
+    assert(pluck(true, 'foo') <eq> [])
+    assert(pluck(/foo/, 'foo') <eq> [])
+
+    // otherwise should map to the property of each element in the list
+    assert(pluck(a1, 'x') <eq> [1, 2, 3])
+    assert(pluck(a1, 'foo') <eq> [undefined, undefined, undefined])
+
+    // nothing should be in-place
+    assert(pluck(a1, 'x') !== a1)
+})
+
+test('list:: Special mapping : invoke -> Array', function() {
+    function foo(x){ return index + (x||0) }
+    var invoke = list.invoke
+    var index = 1
+    var array = [{x:foo}, 2, {x:foo}, 3, {x:foo}]
+
+    // non-sequences should always return []
+    assert(invoke(null, 'x') <eq> [])
+    assert(invoke(0, 'x') <eq> [])
+    assert(invoke(undefined, 'x') <eq> [])
+    assert(invoke(false, 'x') <eq> [])
+    assert(invoke(true, 'x') <eq> [])
+    assert(invoke(/foo/, 'x') <eq> [])
+
+    // otherwise, replace with the result of funcall, or undef if not fn
+    assert(invoke(array, 'x') <eq> [1, undefined, 1, undefined, 1])
+    assert(invoke(array, 'x', 1) <eq> [2, undefined, 2, undefined, 2])
+
+    // nothing should be in-place
+    assert(invoke(array, 'x') !== array)
+})
 
 // Run the test cases
 //claire.verbose = false
