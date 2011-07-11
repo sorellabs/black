@@ -458,11 +458,15 @@ void function (root) {
         result  = []
         pending = slice(seq)
         while (item || pending.length) {
-            item = pending.shift()
+            if (!pending.length) break
 
-            if (!item)            break
-            if (sequencep(item))  pending.unshift.apply(pending, item)
-            else                  result.push(item) }
+            item = pending.shift()
+            if (arrayp(item))
+                pending.unshift.apply(pending, item)
+            else if (sequencep(item))
+                pending.unshift.apply(pending, to_array(item))
+            else
+                result.push(item) }
 
         return result
     }
@@ -479,14 +483,15 @@ void function (root) {
     //    come up with a description that does not suck monkey
     //    balls.
     //
-    function zip() { var i, j, len, result, seqs
-        seqs  = slice(arguments)
-        len    = size(seqs)
+    function zip() { var i, j, len, result, seqs, nseqs
+        seqs   = compact(arguments)
+        len    = size(first(seqs))
+        nseqs  = size(seqs)
         result = []
         
         for (i = 0; i < len; ++i) {
             result[i] = []
-            for (j = 0; j < len; ++j)  result[i].push(seqs[j][i]) }
+            for (j = 0; j < nseqs; ++j)  result[i].push(seqs[j][i]) }
 
         return result
     }
