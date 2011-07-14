@@ -5,50 +5,35 @@
  *     _________________________________________________________________      *
  *        Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  ******************************************************************************/
-void function (root, black) { var __old, obj
+void function (root, black) {
 
-    , keys  = Object.keys
-    , slice = Array.prototype.slice
-    , proto = Object.getPrototypeOf
+    var __old, obj
 
-    // Checks if an object has a key set in itself
+    // Aliases
+    , keys      = Object.keys
+    , own_props = Object.getOwnPropertyNames
+    , proto     = Object.getPrototypeOf
+
+    , __slice   = Array.prototype.slice
+
+
+
+    ///// Function hasp ////////////////////////////////////////////////////////
+    //
+    //   (obj:Obj, key:Str) -> Bool
+    // 
+    // Checks if the given key exists in the object.
+    //
     function hasp(obj, key) {
         return obj.hasOwnProperty(key)
     }
 
-    // Returns a list of values in the object
-    function values(obj) {
-        return keys(obj).map(function(key) {
-            return obj[key] })
-    }
-
-    // Returns a list of tuples (key, value) in the object
-    function items(obj) {
-        return keys(obj).map(function(key) {
-            return [key, obj[key]] })
-    }
-
-    // Returns a property in the object, or default
-    function attr(obj, key, def) {
-        return obj[key] != null? obj[key]
-                               : def
-    }
-
-    // Sets the property only if it hasn't been set yet
-    function set_default(obj, key, value) {
-        if (obj[key] == null) obj[key] = value
-        return obj[key]
-    }
-
-    // Removes a property from the object, returns it or default
-    function pop(obj, key, def) { var result
-        result = attr(obj, key, def)
-
-        delete obj[key]
-        return result
-    }
-
-    // Checks if the object is empty
+    ///// Function emptyp //////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Bool
+    // 
+    // Checks if an object has any own properties.
+    //
     function emptyp(obj) { var key
         for (key in obj)
             if (hasp(obj, key)) return false
@@ -56,24 +41,143 @@ void function (root, black) { var __old, obj
         return true
     }
 
-    // Returns the number of own properties (enumerables)
+    ///// Function size ////////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Num
+    // 
+    // Returns the number of own enumerable properties in the object.
+    //
     function size(obj) {
         return keys(obj).length
     }
+
+    ///// Function proto ///////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Obj
+    // 
+    // Return the [[Prototype]] of an object.
+    // 
+    // :alias: Object.getPrototypeOf
+    //
+
+
+
+    ///// Function keys ////////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Array
+    // 
+    // Returns a list of all **own** enumerable properties in an object.
+    // 
+    // :alias: Object.keys
+    //
+
+
+    ///// Function own_props ///////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Array
+    // 
+    // Returns a list of all **own** properties in an Object, enumerable
+    // or not.
+    // 
+    // :alias: Object.getOwnPropertyNames
+    //
+
+
+    ///// Function values //////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Array
+    // 
+    // Returns a list of the values for all **own** enumerable
+    // properties of an object.
+    //
+    function values(obj) { 
+        return keys(obj).map(function(key) {
+            return obj[key] })
+    }
+
+    ///// Function items ///////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Array
+    // 
+    // Returns a list of tupes (key, value) for all **own** enumerable
+    // properties of an object.
+    //
+    function items(obj) {
+        return keys(obj).map(function(key) {
+            return [key, obj[key]] })
+    }
+
     
-    // Extends an object with properties from multiple sources
-    function extend(target) {
-        slice.call(arguments, 1).forEach(function(source) {
-            keys(source).reduce(function(acc, key) {
-                target[key] = source[key]
-                return target }, target )})
+
+    ///// Function get /////////////////////////////////////////////////////////
+    //
+    //   (obj:Obj, key:Str[, default_value][pred:Fn]) -> *mixed*
+    // 
+    // Returns the given property in the object, or default if the
+    // property can't be found.
+    //
+    function get(obj, key, default_value, pred) {
+        return pred?        pred(obj[key], key, obj) && obj[key]
+                                                     || default_value
+             : key in obj?  obj[key]
+             :              default_value
+    }
+
+    ///// Function pop /////////////////////////////////////////////////////////
+    //
+    //   (obj:Obj, key:Str[, default_value][pred:Fn]) -> *mixed*
+    // 
+    // Removes the property from the object, then return it or the
+    // default value.
+    //
+    function pop(obj, key, default_value, pred) { var result
+        result = get(obj, key, default_value, pred)
+        delete obj[key]
+        return result
+    }
+
+    ///// Function set_default /////////////////////////////////////////////////
+    //
+    //   (obj:Obj, key:Str, value[, pred:Fn]) -> *mixed*
+    // 
+    // Sets the property if it does not exist in the object, or does not
+    // pass the predicate test.
+    //
+    function set_default(obj, key, value, pred) {
+        function valid_keyp(){
+            return (pred && pred(obj[key], key, obj)) || !(key in obj) }
+
+        if (!valid_keyp())  obj[key] = value
+        return obj[key]        
+    }
+
+
+
+    ///// Function extend //////////////////////////////////////////////////////
+    //
+    //   (target:Obj[, sources...:Obj]) -> Obj
+    // 
+    // Extends an object with properties from multiple sources.
+    //
+    function extend(target) { var sources
+        sources = __slice.call(arguments, 1)
+        sources.forEach(function(source) {
+            keys(source).forEach(function(key) {
+                target[key] = source[key] })})
 
         return target
     }
 
-    // Makes a shallow copy of an object
+    ///// Function copy ////////////////////////////////////////////////////////
+    //
+    //   (obj:Obj) -> Obj
+    // 
+    // Makes a shallow copy of an object.
+    // 
+    // TODO: support deep copies.
+    //
     function copy(obj) {
-        return extend({ }, obj)
+        return extend({}, obj)
     }
 
 
@@ -82,26 +186,30 @@ void function (root, black) { var __old, obj
     obj = typeof exports == 'undefined'? root.black.obj = { }
                                        : exports
 
-    obj.keys        = keys
-    obj.values      = values
-    obj.items       = items
-    obj.attr        = attr
-    obj.set_default = set_default
-    obj.pop         = pop
-    obj.extend      = extend
-    obj.copy        = copy
-    obj.size        = size
     obj.hasp        = hasp
     obj.emptyp      = emptyp
+    obj.size        = size
+    obj.keys        = keys
+    obj.own_props   = own_props
+    obj.values      = values
+    obj.items       = items
+    obj.get         = get
+    obj.pop         = pop
+    obj.set_default = set_default
+    obj.extend      = extend
+    obj.copy        = copy
     obj.proto       = proto
 
-    obj.$box   = Object
-    obj.$proto = Object.prototype
-    obj.$utils = { keys:   keys
-                 , values: values
-                 , items:  items
-                 , extend: extend
-                 , proto:  proto
-                 , copy:   copy }
+    obj.$black_box   = Object
+    obj.$black_proto = Object.prototype
+    
+    obj.$black_utils = { extend      : extend
+                       , keys        : keys
+                       , own_props   : own_props
+                       , values      : values
+                       , items       : items
+                       , proto       : proto
+                       , get         : get
+                       , set_default : set_default }
 
 }(this, this.black || {})
