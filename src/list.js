@@ -12,7 +12,7 @@ void function (root) {
     var __old, list
 
     // Imports
-    , type = typeof require != 'undefined'?  require('./type') : black.type
+    , type = typeof require == 'function'?  require('./type') : black.type
 
     // Aliases
     , arrayp         = Array.isArray
