@@ -8,3 +8,4 @@
 
 exports.obj  = require('./obj')
 exports.list = require('./list')
+exports.str  = require('./str')
