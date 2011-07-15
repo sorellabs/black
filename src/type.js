@@ -18,7 +18,7 @@ void function (root) {
 
     ///// Function class_of ////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> String
+    //   (obj:Obj) ↦ String
     // 
     // Returns the internal `[[Class]]` of the given object.
     //
@@ -28,7 +28,7 @@ void function (root) {
 
     ///// Function nilp ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object does not point to anything valid.
     // 
@@ -40,7 +40,7 @@ void function (root) {
     
     ///// Function not_nilp ////////////////////////////////////////////////////
     // 
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object points to anything valid.
     // 
@@ -52,7 +52,7 @@ void function (root) {
 
     ///// Function undefp //////////////////////////////////////////////////////
     // 
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is undefined.
     //
@@ -62,7 +62,7 @@ void function (root) {
 
     ///// Function strp ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is a string.
     //
@@ -72,7 +72,7 @@ void function (root) {
 
     ///// Function nump ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is a number.
     //
@@ -82,7 +82,7 @@ void function (root) {
 
     ///// Function regexpp /////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is a regular expression.
     //
@@ -92,7 +92,7 @@ void function (root) {
 
     ///// Function fnp /////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is a function.
     //
@@ -102,7 +102,7 @@ void function (root) {
 
     ///// Function boolp ///////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is a boolean.
     //
@@ -112,7 +112,7 @@ void function (root) {
 
     ///// Function objp ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is an actual object.
     // 
@@ -125,7 +125,7 @@ void function (root) {
 
     ///// Function listp ///////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object is an actual array.
     //
@@ -137,7 +137,7 @@ void function (root) {
 
     ///// Function callablep ///////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object can be used as a function.
     //
@@ -147,7 +147,7 @@ void function (root) {
 
     ///// Function numericp ////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object can be used as a number.
     // 
@@ -161,7 +161,7 @@ void function (root) {
 
     ///// Function sequencep ///////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object can be used as an array.
     // 
@@ -181,7 +181,7 @@ void function (root) {
     
     ///// Function sliceablep //////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object implements a `slice` method.
     //
@@ -191,7 +191,7 @@ void function (root) {
 
     ///// Function searchablep /////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object implements search methods that return indexes.
     // 
@@ -207,7 +207,7 @@ void function (root) {
 
     ///// Function testablep ///////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
+    //   (obj:Obj) ↦ Bool
     // 
     // Checks if the object implements a `test` method.
     // 

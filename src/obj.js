@@ -20,8 +20,8 @@ void function (root, black) {
 
     ///// Function hasp ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj, key:Str) -> Bool
-    // 
+    //   (obj:Obj, key:Str) ↦ Bool
+    //
     // Checks if the given key exists in the object.
     //
     function hasp(obj, key) {
@@ -30,8 +30,8 @@ void function (root, black) {
 
     ///// Function emptyp //////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Bool
-    // 
+    //   (obj:Obj) ↦ Bool
+    //
     // Checks if an object has any own properties.
     //
     function emptyp(obj) { var key
@@ -43,8 +43,8 @@ void function (root, black) {
 
     ///// Function size ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Num
-    // 
+    //   (obj:Obj) ↦ Num
+    //
     // Returns the number of own enumerable properties in the object.
     //
     function size(obj) {
@@ -53,10 +53,10 @@ void function (root, black) {
 
     ///// Function proto ///////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Obj
-    // 
+    //   (obj:Obj) ↦ Obj
+    //
     // Return the [[Prototype]] of an object.
-    // 
+    //
     // :alias: Object.getPrototypeOf
     //
 
@@ -64,41 +64,41 @@ void function (root, black) {
 
     ///// Function keys ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Array
-    // 
+    //   (obj:Obj) ↦ Array
+    //
     // Returns a list of all **own** enumerable properties in an object.
-    // 
+    //
     // :alias: Object.keys
     //
 
 
     ///// Function own_props ///////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Array
-    // 
+    //   (obj:Obj) ↦ Array
+    //
     // Returns a list of all **own** properties in an Object, enumerable
     // or not.
-    // 
+    //
     // :alias: Object.getOwnPropertyNames
     //
 
 
     ///// Function values //////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Array
-    // 
+    //   (obj:Obj) ↦ Array
+    //
     // Returns a list of the values for all **own** enumerable
     // properties of an object.
     //
-    function values(obj) { 
+    function values(obj) {
         return keys(obj).map(function(key) {
             return obj[key] })
     }
 
     ///// Function items ///////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Array
-    // 
+    //   (obj:Obj) ↦ Array
+    //
     // Returns a list of tupes (key, value) for all **own** enumerable
     // properties of an object.
     //
@@ -107,12 +107,12 @@ void function (root, black) {
             return [key, obj[key]] })
     }
 
-    
+
 
     ///// Function get /////////////////////////////////////////////////////////
     //
-    //   (obj:Obj, key:Str[, default_value][pred:Fn]) -> *mixed*
-    // 
+    //   (obj:Obj, key:Str[, default_value][pred:Fn]) ↦ *mixed*
+    //
     // Returns the given property in the object, or default if the
     // property can't be found.
     //
@@ -125,8 +125,8 @@ void function (root, black) {
 
     ///// Function pop /////////////////////////////////////////////////////////
     //
-    //   (obj:Obj, key:Str[, default_value][pred:Fn]) -> *mixed*
-    // 
+    //   (obj:Obj, key:Str[, default_value][pred:Fn]) ↦ *mixed*
+    //
     // Removes the property from the object, then return it or the
     // default value.
     //
@@ -138,8 +138,8 @@ void function (root, black) {
 
     ///// Function set_default /////////////////////////////////////////////////
     //
-    //   (obj:Obj, key:Str, value[, pred:Fn]) -> *mixed*
-    // 
+    //   (obj:Obj, key:Str, value[, pred:Fn]) ↦ *mixed*
+    //
     // Sets the property if it does not exist in the object, or does not
     // pass the predicate test.
     //
@@ -148,18 +148,18 @@ void function (root, black) {
             return (pred && pred(obj[key], key, obj)) || !(key in obj) }
 
         if (!valid_keyp())  obj[key] = value
-        return obj[key]        
+        return obj[key]
     }
 
 
 
-    ///// Function extend //////////////////////////////////////////////////////
+    ///// Function nextend /////////////////////////////////////////////////////
     //
-    //   (target:Obj[, sources...:Obj]) -> Obj
-    // 
+    //   (target:Obj, sources...:Obj) ↦ Obj
+    //
     // Extends an object with properties from multiple sources.
     //
-    function extend(target) { var sources
+    function nextend(target) { var sources
         sources = __slice.call(arguments, 1)
         sources.forEach(function(source) {
             keys(source).forEach(function(key) {
@@ -168,16 +168,28 @@ void function (root, black) {
         return target
     }
 
+    ///// Function extend //////////////////////////////////////////////////////
+    //
+    //   (target:Obj, sources...:Obj) ↦ Obj
+    //
+    // Extends an object with properties from multiple sources.
+    //
+    function extend() { var args
+        args = [{}]
+        args.push.apply(args, arguments)
+        return nextend.apply(null, args)
+    }
+
     ///// Function copy ////////////////////////////////////////////////////////
     //
-    //   (obj:Obj) -> Obj
-    // 
+    //   (obj:Obj) ↦ Obj
+    //
     // Makes a shallow copy of an object.
-    // 
+    //
     // TODO: support deep copies.
     //
     function copy(obj) {
-        return extend({}, obj)
+        return extend(obj)
     }
 
 
@@ -202,7 +214,7 @@ void function (root, black) {
 
     obj.$black_box   = Object
     obj.$black_proto = Object.prototype
-    
+
     obj.$black_utils = { extend      : extend
                        , keys        : keys
                        , own_props   : own_props

@@ -40,7 +40,7 @@ void function (root) {
 
     ///// Function make_array //////////////////////////////////////////////////
     //
-    //   (size:Num[, default_value]) ⇒ Array
+    //   (size:Num[, default_value]) ↦ Array
     // 
     // Allocates an array with the given size, optionally filled with the
     // default value.
@@ -60,7 +60,7 @@ void function (root) {
 
     ///// Function range ///////////////////////////////////////////////////////
     //
-    //   (start:Num, end:Num[, step:Num]) ⇒ Array
+    //   (start:Num, end:Num[, step:Num]) ↦ Array
     // 
     // Makes an array with numeric values ranging from `start` to `end`.
     // 
@@ -78,7 +78,7 @@ void function (root) {
 
     ///// Function to_array ////////////////////////////////////////////////////
     //
-    //   (obj:Sequence) ⇒ Array
+    //   (obj:Sequence) ↦ Array
     // 
     // Returns an *actual* array from any sequence object.
     //
@@ -93,7 +93,7 @@ void function (root) {
 
     ///// Function copy ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequenece) ⇒ Array
+    //   (seq:Sequenece) ↦ Array
     // 
     // Returns a shallow copy of the sequence, as an Array.
     // 
@@ -107,7 +107,7 @@ void function (root) {
 
     ///// Function size ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Num
+    //   (seq:Sequence) ↦ Num
     // 
     // Returns the size of a sequence.
     //
@@ -118,7 +118,7 @@ void function (root) {
 
     ///// Function emptyp //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Bool
+    //   (seq:Sequence) ↦ Bool
     // 
     // Checks if a sequence is empty or not.
     //
@@ -129,7 +129,7 @@ void function (root) {
 
     ///// Function hasp ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, value[, pred:Fn]) ⇒ Bool
+    //   (seq:Sequence, value[, pred:Fn]) ↦ Bool
     // 
     // Checks if a sequqnce contains the given value or not.
     // 
@@ -148,7 +148,7 @@ void function (root) {
 
     ///// Function count ///////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, value[, pred:Fn]) ⇒ Num
+    //   (seq:Sequence, value[, pred:Fn]) ↦ Num
     // 
     // Returns the number of occurrences of `value' in the given
     // sequence, optionally filtered by a predicate.
@@ -173,7 +173,7 @@ void function (root) {
     
     ///// Function first ///////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ *mixed*
+    //   (seq:Sequence) ↦ *mixed*
     // 
     // Returns the first element of the sequence.
     //
@@ -184,7 +184,7 @@ void function (root) {
 
     ///// Function last ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ *mixed*
+    //   (seq:Sequence) ↦ *mixed*
     // 
     // Returns the last element of the sequence.
     //
@@ -195,7 +195,7 @@ void function (root) {
 
     ///// Function nth /////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, index:Num) ⇒ *mixed*
+    //   (seq:Sequence, index:Num) ↦ *mixed*
     // 
     // Returns the element at the given index in the sequence.
     //
@@ -206,7 +206,7 @@ void function (root) {
 
     ///// Function find_first //////////////////////////////////////////////////
     //
-    //   (seq:Sequence[, pred:Fn][, ctx:Object]) ⇒ *mixed*
+    //   (seq:Sequence[, pred:Fn][, ctx:Object]) ↦ *mixed*
     // 
     // Returns the first element of the sequence to pass the predicate
     // function.
@@ -230,7 +230,7 @@ void function (root) {
 
     ///// Function find_last ///////////////////////////////////////////////////
     //
-    //   (seq:Sequence[, pred:Fn][, ctx:Object]) ⇒ *mixed*
+    //   (seq:Sequence[, pred:Fn][, ctx:Object]) ↦ *mixed*
     // 
     // Returns the last element of the sequence to pass the predicate
     // function. 
@@ -258,7 +258,7 @@ void function (root) {
 
     ///// Function slice ///////////////////////////////////////////////////////
     //
-    //   (seq:Sequence[, start:Num][, end:Num]) ⇒ Array
+    //   (seq:Sequence[, start:Num][, end:Num]) ↦ Array
     // 
     // Extracts a subsection of the sequence that goes from `start` to
     // `end`. 
@@ -281,7 +281,7 @@ void function (root) {
 
     ///// Function rest ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Array
+    //   (seq:Sequence) ↦ Array
     // 
     // Returns a new array without the first element.
     //
@@ -291,7 +291,7 @@ void function (root) {
 
     ///// Function but_last ////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Array
+    //   (seq:Sequence) ↦ Array
     // 
     // Returns a new array without the last element.
     //
@@ -301,7 +301,7 @@ void function (root) {
 
     ///// Function drop ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, num:Num) ⇒ Array
+    //   (seq:Sequence, num:Num) ↦ Array
     // 
     // Returns a array without the first `num` elements.
     //
@@ -311,7 +311,7 @@ void function (root) {
 
     ///// Function keep ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, num:Num) ⇒ Array
+    //   (seq:Sequence, num:Num) ↦ Array
     // 
     // Returns a array with just the first `num` elements.
     //
@@ -321,7 +321,7 @@ void function (root) {
 
     ///// Function remove //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, index:Num) ⇒ Array
+    //   (seq:Sequence, index:Num) ↦ Array
     // 
     // Returns a array without the item at `index`.
     //
@@ -333,7 +333,7 @@ void function (root) {
 
     ///// Function without /////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, value[, pred:Fn]) ⇒ Array
+    //   (seq:Sequence, value[, pred:Fn]) ↦ Array
     // 
     // Returns a array without elements that match `value`, with the
     // comparison optionally defined by a predicate function.
@@ -349,7 +349,7 @@ void function (root) {
 
     ///// Function compact /////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Array
+    //   (seq:Sequence) ↦ Array
     // 
     // Returns a array without null and undefined values in it.
     //
@@ -363,7 +363,7 @@ void function (root) {
 
     ///// Function insert //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, index:Num[, values...]) ⇒ Array
+    //   (seq:Sequence, index:Num[, values...]) ↦ Array
     // 
     // Returns a array with the given elements inserted at the given
     // index.
@@ -378,7 +378,7 @@ void function (root) {
 
     ///// Function cat /////////////////////////////////////////////////////////
     //
-    //   (seq[, seqs...]) ⇒ Array
+    //   (seq[, seqs...]) ↦ Array
     // 
     // Returns an array with the given sequencess concatened.
     //
@@ -395,7 +395,7 @@ void function (root) {
 
     ///// Function replace /////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, value, sub[, pred:Fn]) ⇒ Array
+    //   (seq:Sequence, value, sub[, pred:Fn]) ↦ Array
     // 
     // Returns an array with the elements tha match `value` replaced by
     // `sub`.
@@ -413,7 +413,7 @@ void function (root) {
 
     ///// Function replace_at //////////////////////////////////////////////////
     //
-    //   (seq:Sequence, index:Num, sub) ⇒ Array
+    //   (seq:Sequence, index:Num, sub) ↦ Array
     // 
     // Replaces the item at index by `sub`.
     //
@@ -425,7 +425,7 @@ void function (root) {
 
     ///// Function sorted //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence[, comparison:Fn]) ⇒ Array
+    //   (seq:Sequence[, comparison:Fn]) ↦ Array
     // 
     // Returns a sorted array according to the comparison function.
     // 
@@ -438,7 +438,7 @@ void function (root) {
 
     ///// Function reversed ////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Array
+    //   (seq:Sequence) ↦ Array
     // 
     // Returns the a reversed representation of the sequence.
     // 
@@ -450,7 +450,7 @@ void function (root) {
 
     ///// Function flatten /////////////////////////////////////////////////////
     //
-    //   (seq:Sequence) ⇒ Array
+    //   (seq:Sequence) ↦ Array
     // 
     // Returns an one dimensional array, by inlineing all sublists.
     //
@@ -473,7 +473,7 @@ void function (root) {
 
     ///// Function zip /////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence...) ⇒ Array
+    //   (seq:Sequence...) ↦ Array
     // 
     // Merges all sequences into one, such that any given index of the
     // resulting sequence is a sequence of the values at that index in
@@ -502,7 +502,7 @@ void function (root) {
     
     ///// Function map /////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ Array
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ Array
     // 
     // Returns a sequence with its elements transformed by the predicate
     // function.
@@ -514,7 +514,7 @@ void function (root) {
 
     ///// Function each ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦
     // 
     // Executes the predicate function for every item in the sequence.
     //
@@ -525,7 +525,7 @@ void function (root) {
 
     ///// Function filter //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ Array
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ Array
     // 
     // Returns a sequence without the elements that don't pass the predicate
     // test.
@@ -537,7 +537,7 @@ void function (root) {
 
     ///// Function reduce //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, initial][, ctx:Obj]) ↦ *mixed*
     // 
     // Apply the predicate against each pair in the array (left to
     // right) so to return a single accumulated value.
@@ -554,7 +554,7 @@ void function (root) {
     
     ///// Function reduce_right ////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, initial][, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, initial][, ctx:Obj]) ↦ *mixed*
     // 
     // Apply the predicate against each pair in the array (right to
     // left) so to return a single accumulated value.
@@ -571,7 +571,7 @@ void function (root) {
 
     ///// Function some ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ *mixed*
     // 
     // Checks whether some element in the array passes the predicate
     // function's test.
@@ -583,7 +583,7 @@ void function (root) {
 
     ///// Function every ///////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ⇒ *mixed*
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ *mixed*
     // 
     // Checks whether all of the elements in the array passes the
     // predicate function's test.
@@ -599,7 +599,7 @@ void function (root) {
 
     ///// Function pluck ///////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, attr:String) ⇒ Array
+    //   (seq:Sequence, attr:String) ↦ Array
     // 
     // Returns a sequence with all elements replaced by their attribute
     // `attr`.
@@ -614,7 +614,7 @@ void function (root) {
 
     ///// Function invoke //////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, method:String[, args...]) ⇒ Array
+    //   (seq:Sequence, method:String[, args...]) ↦ Array
     // 
     // Returns a sequence with the result of invoking the given method name
     // for all objects.
