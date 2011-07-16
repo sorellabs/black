@@ -7,7 +7,7 @@
  ******************************************************************************/
 void function (root) {
 
-    var __old, str
+    var str
 
     , type = typeof require == 'function'?  require('./type') : black.type
 

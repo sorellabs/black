@@ -5,9 +5,9 @@
  *     _________________________________________________________________      *
  *        Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  ******************************************************************************/
-void function (root, black) {
+void function (root) {
 
-    var __old, obj
+    var obj
 
     // Aliases
     , keys      = Object.keys
@@ -195,8 +195,8 @@ void function (root, black) {
 
 
     ///// Exports //////////////////////////////////////////////////////////////
-    obj = typeof exports == 'undefined'? root.black.obj = { }
-                                       : exports
+    obj = typeof exports == 'undefined'?  root.black.obj = { }
+                                       :  exports
 
     obj.hasp        = hasp
     obj.emptyp      = emptyp
@@ -224,4 +224,4 @@ void function (root, black) {
                        , get         : get
                        , set_default : set_default }
 
-}(this, this.black || {})
+}(this)

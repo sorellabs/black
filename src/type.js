@@ -9,7 +9,7 @@
 /// Module type ////////////////////////////////////////////////////////////////
 void function (root) {
 
-    var __old, type
+    var type
 
       , __class = Object.prototype.toString
 
@@ -19,7 +19,7 @@ void function (root) {
     ///// Function class_of ////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ String
-    // 
+    //
     // Returns the internal `[[Class]]` of the given object.
     //
     function class_of(obj) {
@@ -29,21 +29,21 @@ void function (root) {
     ///// Function nilp ////////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object does not point to anything valid.
-    // 
+    //
     // That is, whether something is `null` or `undefined`.
     //
     function nilp(obj) {
         return obj == null
     }
-    
+
     ///// Function not_nilp ////////////////////////////////////////////////////
-    // 
+    //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object points to anything valid.
-    // 
+    //
     // That is, whether something is not `null` nor `undefined`.
     //
     function not_nilp(obj) {
@@ -51,9 +51,9 @@ void function (root) {
     }
 
     ///// Function undefp //////////////////////////////////////////////////////
-    // 
+    //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is undefined.
     //
     function undefp(obj) {
@@ -63,7 +63,7 @@ void function (root) {
     ///// Function strp ////////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is a string.
     //
     function strp(obj) {
@@ -73,7 +73,7 @@ void function (root) {
     ///// Function nump ////////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is a number.
     //
     function nump(obj) {
@@ -83,7 +83,7 @@ void function (root) {
     ///// Function regexpp /////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is a regular expression.
     //
     function regexpp(obj) {
@@ -93,7 +93,7 @@ void function (root) {
     ///// Function fnp /////////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is a function.
     //
     function fnp(obj) {
@@ -103,7 +103,7 @@ void function (root) {
     ///// Function boolp ///////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is a boolean.
     //
     function boolp(obj) {
@@ -113,9 +113,9 @@ void function (root) {
     ///// Function objp ////////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is an actual object.
-    // 
+    //
     // In other words, it checks if the object is not a primitive or an
     // invalid value.
     //
@@ -126,7 +126,7 @@ void function (root) {
     ///// Function listp ///////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object is an actual array.
     //
     // :alias: Array.isArray
@@ -138,7 +138,7 @@ void function (root) {
     ///// Function callablep ///////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object can be used as a function.
     //
     function callablep(obj) {
@@ -148,9 +148,9 @@ void function (root) {
     ///// Function numericp ////////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object can be used as a number.
-    // 
+    //
     // A numeric object is something that does not evaluate to `NaN`, so
     // a string that holds a numeric value, and a list that holds a
     // single numeric element are considered numeric.
@@ -162,13 +162,13 @@ void function (root) {
     ///// Function sequencep ///////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object can be used as an array.
-    // 
+    //
     // A sequence object is something that implements a `length`
     // property, but not necessarily the methods you'd see in
     // Array.prototype.
-    // 
+    //
     // As such, things like the `arguments` object and `HTMLCollection`
     // are considered sequences.
     //
@@ -178,11 +178,11 @@ void function (root) {
 
 
     //// -Functionality testing ////////////////////////////////////////////////
-    
+
     ///// Function sliceablep //////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object implements a `slice` method.
     //
     function sliceablep(obj) {
@@ -192,12 +192,12 @@ void function (root) {
     ///// Function searchablep /////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object implements search methods that return indexes.
-    // 
+    //
     // Basically, we look for things that can be searched through the
     // `indexOf` and `lastIndexOf` methods.
-    // 
+    //
     // Arrays and Strings are considered searchable.
     //
     function searchablep(obj) {
@@ -208,9 +208,9 @@ void function (root) {
     ///// Function testablep ///////////////////////////////////////////////////
     //
     //   (obj:Obj) ↦ Bool
-    // 
+    //
     // Checks if the object implements a `test` method.
-    // 
+    //
     // A `test` method should take a regexp and return a boolean.
     //
     function testablep(obj) {
@@ -221,7 +221,7 @@ void function (root) {
     ///// Exports //////////////////////////////////////////////////////////////
     type = typeof exports == 'undefined'?  root.black.type
                                         :  exports
-    
+
     type.class_of     = class_of
     type.nilp         = nilp
     type.not_nilp     = not_nilp
