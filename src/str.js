@@ -28,31 +28,32 @@ void function (root) {
     , strp = type.strp
 
 
-    ///// Function ord /////////////////////////////////////////////////////////
+    ///// Function char_code ///////////////////////////////////////////////////
     //
     //   (str:Str[, index:Num]) ↦ Num
-    // 
+    //
     // Converts a character to its numeric representation.
     //
-    function ord(str, index) {
+    function char_code(str, index) {
         return __char_code.call(str, index || 0)
     }
 
-    ///// Function chr /////////////////////////////////////////////////////////
+    ///// Function to_char /////////////////////////////////////////////////////
     //
     //   (code:Num) ↦ String
-    // 
+    //
     // Converts a numeric representation of a character to an actual
     // string with that character.
     //
-    function chr(code) {
-        return __char(code)
-    }
+    // :alias: String.fromCharCode
+    //
+    var to_char = String.fromCharCode
+
 
     ///// Function make_str ////////////////////////////////////////////////////
     //
     //   (str:Str[, times:Num]) ↦ Str
-    // 
+    //
     // Returns an string by repeating `str` the given number of times.
     //
     function make_str(str, times) {
@@ -63,7 +64,7 @@ void function (root) {
     ///// Function cat /////////////////////////////////////////////////////////
     //
     //   (strings:Str...) ↦ Str
-    // 
+    //
     // Combines all given strings together.
     //
     function cat() {
@@ -75,7 +76,7 @@ void function (root) {
     ///// Function upcase //////////////////////////////////////////////////////
     //
     //   (str:Str) ↦ Str
-    // 
+    //
     // Converts all characters in the given string to UPPER CASE.
     //
     function upcase(str) {
@@ -85,17 +86,34 @@ void function (root) {
     ///// Function downcase ////////////////////////////////////////////////////
     //
     //   (str:Str) ↦ Str
-    // 
+    //
     // Converts all characters in the given string to lower case.
     //
     function downcase(str) {
         return __lower.call(str)
     }
 
+    ///// Function capitalise //////////////////////////////////////////////////
+    //
+    //   (str:Str[, all_words:Bool]) ↦ Str
+    //
+    // Capitalise the first letter of the given string.
+    //
+    // Alternatively, if `all_words` is true, capitalise the first
+    // letter of all words in the string.
+    //
+    function capitalise(str, all_words) { var re
+        re = all_words?  /\b(\w)/g
+                      :  /\b(\w)/
+
+        return downcase(str).replace(re, function(match, letter) {
+            return upcase(letter) })
+    }
+
     ///// Function trim ////////////////////////////////////////////////////////
     //
     //   (str:Str) ↦ Str
-    // 
+    //
     // Strips all whitespace from both ends of the string.
     //
     function trim(str) {
@@ -107,7 +125,7 @@ void function (root) {
     ///// Function starts_with /////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str) ↦ Bool
-    // 
+    //
     // Checks if a string starts with a piece of text.
     //
     function starts_with(str, substr) {
@@ -117,7 +135,7 @@ void function (root) {
     ///// Function ends_with ///////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str) ↦ Bool
-    // 
+    //
     // Checks if a string ends with a piece of text.
     //
     function ends_with(str, substr) {
@@ -127,7 +145,7 @@ void function (root) {
     ///// Function hasp ////////////////////////////////////////////////////////
     //
     //   (str:Str, substr:Substr) ↦ Bool
-    // 
+    //
     // Checks if the given string contains the substring.
     //
     function hasp(str, substr) {
@@ -137,9 +155,9 @@ void function (root) {
     ///// Function count ///////////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str[, start:Num][, end:Num]) ↦ Num
-    // 
+    //
     // Counts the number of ocurrences of a substring.
-    // 
+    //
     // If start and end are given, only that small part of the string
     // will be searched.
     //
@@ -152,12 +170,12 @@ void function (root) {
         while (~(pos = next()))  result++
         return result
     }
-    
+
 
     ///// Function find ////////////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str[, start:Num]) ↦ Num
-    // 
+    //
     // Returns the index in which `substr' can be found in `str`, or -1
     // if it can't find `substr`.
     //
@@ -168,10 +186,10 @@ void function (root) {
     ///// Function find_last ///////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str[, start:Num]) ↦ Num
-    // 
+    //
     // Returns the index in which `substr` can be found in `str`, or -1
     // if it can't find `substr`.
-    // 
+    //
     // The search is performed from right to left.
     //
     function find_last(str, substr, start) {
@@ -181,7 +199,7 @@ void function (root) {
     ///// Function slice ///////////////////////////////////////////////////////
     //
     //   (str:Str[, start:Num][, end:Num]) ↦ Str
-    // 
+    //
     // Returns a substring out of the string.
     //
     function slice(str, start, end) {
@@ -191,7 +209,7 @@ void function (root) {
     ///// Function split ///////////////////////////////////////////////////////
     //
     //   (str:Str[, separator:Str][, limit:Num]) ↦ Array
-    // 
+    //
     // Splits the string at each separator, up to the limit specified.
     //
     function split(str, separator, limit) {
@@ -203,7 +221,7 @@ void function (root) {
     ///// Function match ///////////////////////////////////////////////////////
     //
     //   (str:Str, regexp:RegExp) ↦ Array
-    // 
+    //
     // Returns an array of match groups from the given regexp.
     //
     function match(str, regexp) {
@@ -213,14 +231,38 @@ void function (root) {
     ///// Function replace /////////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str|RegExp, replacement:Str|Fn) ↦ Str
-    // 
+    //
     // Replaces the occurrences of substr across the string.
     //
     function replace(str, substr, replacement) {
         return __replace.call(str, substr, replacement)
     }
 
-    
+
+
+    ///// Function dasherise ///////////////////////////////////////////////////
+    //
+    //   (str:Str) -> Str
+    //
+    // Converts and collapses all whitespace into dashes.
+    //
+    function dasherise(str) {
+        return replace(str, /\s+/g, '-')
+    }
+
+    ///// Function camelise ////////////////////////////////////////////////////
+    //
+    //   (str:Str) -> Str
+    //
+    // Converts an string to a camelCased string. All whitespace is
+    // removed.
+    //
+    function camelise(str) { var re
+        re = /[\s\-_]+(\w)/g
+        return downcase(str).replace(re, function(match, letter) {
+            return upcase(letter) })
+    }
+
 
 
 
@@ -228,12 +270,13 @@ void function (root) {
     str = typeof exports == 'undefined'?  root.black.str = { }
                                        :  exports
 
-    str.ord         = ord
-    str.chr         = chr
+    str.char_code   = char_code
+    str.to_char     = to_char
     str.make_str    = make_str
     str.cat         = cat
     str.upcase      = upcase
     str.downcase    = downcase
+    str.capitalise  = capitalise
     str.trim        = trim
     str.starts_with = starts_with
     str.ends_with   = ends_with
@@ -245,6 +288,8 @@ void function (root) {
     str.split       = split
     str.match       = match
     str.replace     = replace
+    str.dasherise   = dasherise
+    str.camelise    = camelise
 
     str.$black_box   = String
     str.$black_proto = String.prototype
