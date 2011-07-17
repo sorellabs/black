@@ -6,6 +6,13 @@
  *        Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  ******************************************************************************/
 
-exports.obj  = require('./obj')
-exports.list = require('./list')
-exports.str  = require('./str')
+var core = require('./core')
+
+exports.unpack     = core.unpack
+exports.unpack_all = core.unpack_all
+
+exports.obj        = require('./obj')
+exports.list       = require('./list')
+exports.str        = require('./str')
+exports.type       = require('./type')
+exports.num        = require('./num')
