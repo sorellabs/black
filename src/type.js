@@ -251,7 +251,7 @@ void function (root) {
                         , fnp          : fnp
                         , boolp        : boolp
                         , objp         : objp
-                        , listp        : listp
+                        , listp        : Array.isArray
                         , callablep    : callablep
                         , numericp     : numericp
                         , sliceablep   : sliceablep
