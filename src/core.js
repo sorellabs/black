@@ -5,26 +5,30 @@
  *     _________________________________________________________________      *
  *        Copyright (c) 2011 Quildreen Motta // Licenced under MIT/X11        *
  ******************************************************************************/
-void function (root) { var __old, black
+void function (root) {
+
+    var __old, black
 
     , slice = Array.prototype.slice
     , keys  = Object.keys
-    , top   = typeof global == 'undefined'? window : global
+    , top   = typeof global == 'undefined'?  window : global
 
     // Arbitrary checks
     function genericp(kind) { return ~kind.indexOf('generic') }
-    function methodp(kind)  { return ~kind.indexOf('method')  }
+    function ownp(kind)     { return ~kind.indexOf('own')     }
     function utilsp(kind)   { return ~kind.indexOf('utils')   }
-    function specialp(key)  { return /^\$/.test(key)           }
+    function specialp(key)  { return /^\$/.test(key)          }
     function fnp(obj)       { return typeof obj == 'function' }
 
     // Unpacks a black module so it's used in a sane way
     function unpack(kind, root, target, proto, source){
-        if (methodp(kind))   do_unpack(proto, source, methodize)
+        if (ownp(kind))      do_unpack(proto, source, methodize)
         if (genericp(kind))  do_unpack(target, source)
-        if (utilsp(kind))    do_unpack(root, source.$utils)
+        if (utilsp(kind))    do_unpack(root, source.$black_utils)
     }
     function do_unpack(target, source, mapper) {
+        if (source == null || target == null)  return
+
         mapper = mapper || function(x){ return x }
         keys(source).forEach(function(key) {
             if (!specialp(key))
@@ -39,8 +43,8 @@ void function (root) { var __old, black
             module = this[module]
             if (!fnp(module))  unpack( kind
                                      , global || top
-                                     , module.$box
-                                     , module.$proto
+                                     , module.$black_box
+                                     , module.$black_proto
                                      , module) }, this)
     }
 
