@@ -679,5 +679,26 @@ void function (root) {
 
     list.$black_box   = Array
     list.$black_proto = Array.prototype
-
+    list.$black_utils = { make_array   : make_array
+                        , range        : range
+                        , to_array     : to_array
+                        , first        : first
+                        , last         : last
+                        , nth          : nth
+                        , but_last     : but_last
+                        , drop         : drop
+                        , keep         : keep
+                        , sorted       : sorted
+                        , reversed     : reversed
+                        , flatten      : flatten
+                        , zip          : zip
+                        , map          : map
+                        , each         : each
+                        , filter       : filter
+                        , reduce       : reduce
+                        , reduce_right : reduce_right
+                        , some         : some
+                        , every        : every
+                        , pluck        : pluck
+                        , invoke       : invoke }
 }(this)

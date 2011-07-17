@@ -70,5 +70,8 @@ void function (root) {
 
     num.$black_box   = Number
     num.$black_proto = Number.prototype
-
+    num.$black_utils = { clamp: clamp
+                       , wrap:  wrap
+                       , snap:  snap
+                       , pad:   pad }
 }(this)

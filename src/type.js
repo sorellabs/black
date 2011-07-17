@@ -241,6 +241,21 @@ void function (root) {
     type.testablep    = testablep
 
     type.$black_box   = Object
-    type.$black_utils = type
-
+    type.$black_utils = { class_of     : class_of
+                        , nilp         : nilp
+                        , not_nilp     : not_nilp
+                        , undefp       : undefp
+                        , strp         : strp
+                        , nump         : nump
+                        , regexpp      : regexpp
+                        , fnp          : fnp
+                        , boolp        : boolp
+                        , objp         : objp
+                        , listp        : listp
+                        , callablep    : callablep
+                        , numericp     : numericp
+                        , sliceablep   : sliceablep
+                        , searcheablep : searcheablep
+                        , testablep    : testablep }
+                          
 }(this)

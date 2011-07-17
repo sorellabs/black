@@ -293,4 +293,9 @@ void function (root) {
 
     str.$black_box   = String
     str.$black_proto = String.prototype
+    str.$black_utils = { char_code : char_code
+                       , to_char   : to_char
+                       , make_str  : make_str
+                       , upcase    : upcase
+                       , downcase  : downcase }
 }(this)
