@@ -255,7 +255,7 @@ void function (root) {
                         , callablep    : callablep
                         , numericp     : numericp
                         , sliceablep   : sliceablep
-                        , searcheablep : searcheablep
+                        , searcheablep : searchablep
                         , testablep    : testablep }
                           
 }(this)
