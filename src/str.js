@@ -242,7 +242,7 @@ void function (root) {
 
     ///// Function dasherise ///////////////////////////////////////////////////
     //
-    //   (str:Str) -> Str
+    //   (str:Str) ↦ Str
     //
     // Converts and collapses all whitespace into dashes.
     //
@@ -252,7 +252,7 @@ void function (root) {
 
     ///// Function camelise ////////////////////////////////////////////////////
     //
-    //   (str:Str) -> Str
+    //   (str:Str) ↦ Str
     //
     // Converts an string to a camelCased string. All whitespace is
     // removed.
