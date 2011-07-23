@@ -1,6 +1,6 @@
 ===
 title: Supported Platforms
-subtitle: What do you need to run Boo
+subtitle: What do you need to run Black
 created: 2011-06-29 23:59:13
 toc: overview
 index: 2
@@ -8,16 +8,22 @@ index: 2
 
 §§ blurb
 
-Boo should work in any ECMAScript 5-compliant environment — like Node.js,
+Black should work in any ECMAScript 5-compliant environment — like Node.js,
 Chrome and Firefox. Just load it and hack away.
 
 §§ /blurb
 
 
-Boo depends on the functional Array additions from JavaScript 1.6, plus
-[Object.getPrototypeOf][], [Object.keys][] and [Object.create][].
+You can run it in non-ECMAScript 5-compliant environments by supplying the
+appropriate fallbacks. Since black does not rely on any method that can't be
+implemented in pure JavaScript, it should be doable.
+
+If you don't want to reinvent the wheel, you can just load the awesome
+[ES5-shim][] library.
+
+Tests have been done only on v8 as of now, but they'll be done in other
+environments as soon as I port Claire over to something other than
+Node.js.
 
 
-[Object.getPrototypeOf]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf
-[Object.keys]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys
-[Object.create]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/create
+[ES5-shim]: https://github.com/kriskowal/es5-shim
