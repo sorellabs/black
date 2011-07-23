@@ -1,0 +1,37 @@
+===
+title: Why use Black
+subtitle: The functional utility strike-back.
+created: 2011-07-17 12:56:05
+toc: overview
+index: 1
+===
+
+§§ blurb
+
+While JavaScript could be regarded as a functional language, it lacks
+lots of utilities to deal with objects in a functional style. Black
+attempts to fix it by providing functions to deal with sequences,
+objects and other core objects the functional way.
+
+§§ /blurb
+
+The main goal here is really to provide such missing functionality, and
+wrap the existing one so it's more generic (ie.: while the functional
+array utilities are cool, they're bound to the Array `Prototype`'s,
+which is not nice when you want to use them for non-array objects).
+
+The second goal is to fix the naming convention to something more
+sane. Sorry people, but camelCase sucks way too much to be taken
+seriously. Also, some of the API methods have insanely long and overly
+verbose names, which is also not nice — for readability, it doesn't
+really matter for writing[^1].
+
+The third goal is to do this all with performance in mind. Surely
+everything could be implemented as a matter of function composition, but
+that's not always practical. So, performance will be chosen over theory
+neatness all the time.
+
+
+[^1]:  camelCase and verbosity leads to lots of *"Write
+       once. **Run.** Everywhere."* code. If you don't value your eyes,
+       whatever. I do value mine though.

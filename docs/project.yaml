@@ -1,0 +1,9 @@
+name: Black
+snip: Extensions to the base objects from the core JS library.
+page: https://github.com/killdream/Black
+ack: >
+    —Design mostly based on <a href="http://hyde.github.com/">Hyde docs</a>
+version:    0.2
+release:    https://github.com/killdream/Black/zipball/master
+repository: https://github.com/killdream/Black
+tracker:    https://github.com/killdream/Black/issues
