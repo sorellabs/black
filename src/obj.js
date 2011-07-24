@@ -209,6 +209,7 @@ void function (root) {
     obj.pop         = pop
     obj.set_default = set_default
     obj.extend      = extend
+    obj.nextend     = nextend
     obj.copy        = copy
     obj.proto       = proto
 
