@@ -173,7 +173,8 @@ void function (root) {
     // are considered sequences.
     //
     function sequencep(obj) {
-        return obj && typeof obj.length == 'number'
+        return not_nilp(obj)
+        && typeof obj.length == 'number'
     }
 
 
@@ -186,7 +187,8 @@ void function (root) {
     // Checks if the object implements a `slice` method.
     //
     function sliceablep(obj) {
-        return obj && typeof obj.slice == 'function'
+        return not_nilp(obj)
+        && typeof obj.slice == 'function'
     }
 
     ///// Function searchablep /////////////////////////////////////////////////
@@ -201,8 +203,9 @@ void function (root) {
     // Arrays and Strings are considered searchable.
     //
     function searchablep(obj) {
-        return obj && typeof obj.indexOf     == 'function'
-                   && typeof obj.lastIndexOf == 'function'
+        return not_nilp(obj)
+        && typeof obj.indexOf     == 'function'
+        && typeof obj.lastIndexOf == 'function'
     }
 
     ///// Function testablep ///////////////////////////////////////////////////
@@ -214,7 +217,8 @@ void function (root) {
     // A `test` method should take a regexp and return a boolean.
     //
     function testablep(obj) {
-        return obj && typeof obj.test == 'function'
+        return not_nilp(obj)
+        && typeof obj.test == 'function'
     }
 
 
