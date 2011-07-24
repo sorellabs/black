@@ -58,7 +58,7 @@ void function (root) {
     //
     function make_str(str, times) {
         return times <= 0?  ''
-                         :  Array(times + 1).join(str)
+        :              Array(times + 1).join(str)
     }
 
     ///// Function cat /////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ void function (root) {
     //
     function capitalise(str, all_words) { var re
         re = all_words?  /\b(\w)/g
-                      :  /\b(\w)/
+           :             /\b(\w)/
 
         return downcase(str).replace(re, function(match, letter) {
             return upcase(letter) })
@@ -268,7 +268,7 @@ void function (root) {
 
     ///// Exports //////////////////////////////////////////////////////////////
     str = typeof exports == 'undefined'?  root.black.str = { }
-                                       :  exports
+        :                                 exports
 
     str.char_code   = char_code
     str.to_char     = to_char

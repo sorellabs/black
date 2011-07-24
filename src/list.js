@@ -55,7 +55,7 @@ void function (root) {
 
         result = Array(size).join('0').split('0')
         return has_defaultp?  result.map(function(){ return default_value })
-                           :  result
+        :                 result
     }
 
     ///// Function range ///////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ void function (root) {
     //
     function size(seq) {
         return sequencep(seq)?  seq.length || 0
-                             :  0
+        :                   0
     }
 
     ///// Function emptyp //////////////////////////////////////////////////////
@@ -124,7 +124,7 @@ void function (root) {
     //
     function emptyp(seq) {
         return sequencep(seq)?  !seq.length
-                             :  true
+        :                   true
     }
 
     ///// Function hasp ////////////////////////////////////////////////////////
@@ -142,8 +142,8 @@ void function (root) {
         pred = pred && pred.bind(this, value)
 
         return !sequencep(seq)?  false
-             : pred?             find_first(seq, pred) !== null
-             :                   !!~__index.call(seq, value)
+        : pred?              find_first(seq, pred) !== null
+        :                    !!~__index.call(seq, value)
     }
 
     ///// Function count ///////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ void function (root) {
     //
     function first(seq) {
         return sequencep(seq)?  seq[0]
-                             :  null
+        :                   null
     }
 
     ///// Function last ////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ void function (root) {
     //
     function last(seq) {
         return sequencep(seq)?  seq[seq.length - 1]
-                             :  null
+        :                   null
     }
 
     ///// Function nth /////////////////////////////////////////////////////////
@@ -201,7 +201,7 @@ void function (root) {
     //
     function nth(seq, index) {
         return sequencep(seq)?  seq[index]
-                             :  null
+        :                   null
     }
 
     ///// Function find_first //////////////////////////////////////////////////
@@ -344,7 +344,7 @@ void function (root) {
     function without(seq, value, pred) {
         return filter(seq, function(item, index) {
             return pred?  !pred(value, item, index, seq)
-                       :  item !== value })
+            :         item !== value })
     }
 
     ///// Function compact /////////////////////////////////////////////////////
@@ -384,7 +384,7 @@ void function (root) {
     //
     function cat() {
         return reduce(arguments, function(result, seq) {
-            if (!arrayp(result))                 result = slice(result)
+            if (!arrayp(result))                result = slice(result)
             if (!arrayp(seq) && sequencep(seq))  seq    = slice(seq)
 
             return result.concat(seq) })
@@ -408,7 +408,7 @@ void function (root) {
 
         return map(seq, function(item, index) {
             return pred(value, item, index, seq)?  sub
-                                                :  item })
+            :                                 item })
     }
 
     ///// Function replace_at //////////////////////////////////////////////////
@@ -532,7 +532,7 @@ void function (root) {
     //
     function filter(seq, pred, ctx) {
         return sequencep(seq)?  __filter.call(seq, pred, ctx)
-                             :  []
+        :                  []
     }
 
     ///// Function reduce //////////////////////////////////////////////////////
@@ -549,7 +549,7 @@ void function (root) {
         if (objp(ctx))  pred = pred.bind(ctx)
 
         return sequencep(seq)?  __reduce.call(seq, pred, initial)
-                             :  []
+        :                  []
     }
 
     ///// Function reduce_right ////////////////////////////////////////////////
@@ -566,7 +566,7 @@ void function (root) {
         if (objp(ctx))  pred = pred.bind(ctx)
 
         return sequencep(seq)?  __reduce_right.call(seq, pred, initial)
-                             :  []
+        :                  []
     }
 
     ///// Function some ////////////////////////////////////////////////////////
@@ -578,7 +578,7 @@ void function (root) {
     //
     function some(seq, pred, ctx) {
         return sequencep(seq)?  __some.call(seq, pred, ctx)
-                             :  false
+        :                  false
     }
 
     ///// Function every ///////////////////////////////////////////////////////
@@ -590,7 +590,7 @@ void function (root) {
     //
     function every(seq, pred, ctx) {
         return sequencep(seq)?  __every.call(seq, pred, ctx)
-                             :  false
+        :                  false
     }
 
 
@@ -609,7 +609,7 @@ void function (root) {
     function pluck(seq, attr) {
         return map(seq, function(value) {
             return objp(value)?  value[attr]
-                              :  void 0 })
+            :                void 0 })
     }
 
     ///// Function invoke //////////////////////////////////////////////////////
@@ -626,15 +626,15 @@ void function (root) {
 
         return map(seq, function(value) {
             return !value?                    void 0
-                 : callablep(value[method])?  value[method].apply(this, args)
-                 :                            void 0 })
+            : callablep(value[method])?  value[method].apply(this, args)
+            :                            void 0 })
     }
 
 
 
     ///// Exports //////////////////////////////////////////////////////////////
     list = typeof exports == 'undefined'?  root.black.list = { }
-                                        :  exports
+         :                                 exports
 
 
     list.make_array   = make_array

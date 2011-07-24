@@ -117,10 +117,10 @@ void function (root) {
     // property can't be found.
     //
     function get(obj, key, default_value, pred) {
-        return pred?        pred(obj[key], key, obj) && obj[key]
-                                                     || default_value
-             : key in obj?  obj[key]
-             :              default_value
+        return pred?    pred(obj[key], key, obj) && obj[key]
+                                             || default_value
+        : key in obj?  obj[key]
+        :              default_value
     }
 
     ///// Function pop /////////////////////////////////////////////////////////
@@ -146,7 +146,7 @@ void function (root) {
     function set_default(obj, key, value, pred) {
         function valid_keyp(){
             return (pred && pred(obj[key], key, obj))
-                || !(key in obj) }
+            || !(key in obj) }
 
         if (!valid_keyp())  obj[key] = value
         return obj[key]
@@ -197,7 +197,7 @@ void function (root) {
 
     ///// Exports //////////////////////////////////////////////////////////////
     obj = typeof exports == 'undefined'?  root.black.obj = { }
-                                       :  exports
+        :                                 exports
 
     obj.hasp        = hasp
     obj.emptyp      = emptyp

@@ -19,8 +19,8 @@ void function (root) {
     //
     function clamp(num, min, max) {
         return num < min?  min
-             : num > max?  max
-             :             num
+        : num > max?  max
+        :             num
     }
 
     ///// Function wrap ////////////////////////////////////////////////////////
@@ -55,13 +55,13 @@ void function (root) {
     function pad(num, size) { var result
         result = String(num)
         return result.length >= size?  result
-                                    :  Array(size).join('0') + result
+        :                         Array(size).join('0') + result
     }
 
 
     //// Exports ///////////////////////////////////////////////////////////////
     num = typeof exports == 'undefined'?  root.black.num = { }
-                                       :  exports
+        :                                 exports
 
     num.clamp        = clamp
     num.wrap         = wrap
