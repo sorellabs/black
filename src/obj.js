@@ -145,7 +145,8 @@ void function (root) {
     //
     function set_default(obj, key, value, pred) {
         function valid_keyp(){
-            return (pred && pred(obj[key], key, obj)) || !(key in obj) }
+            return (pred && pred(obj[key], key, obj))
+                || !(key in obj) }
 
         if (!valid_keyp())  obj[key] = value
         return obj[key]
