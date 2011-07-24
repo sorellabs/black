@@ -14,6 +14,8 @@ Chrome and Firefox. Just load it and hack away.
 §§ /blurb
 
 
+§§ deps
+
 You can run it in non-ECMAScript 5-compliant environments by supplying the
 appropriate fallbacks. Since black does not rely on any method that can't be
 implemented in pure JavaScript, it should be doable.
@@ -21,9 +23,14 @@ implemented in pure JavaScript, it should be doable.
 If you don't want to reinvent the wheel, you can just load the awesome
 [ES5-shim][] library.
 
+[ES5-shim]: https://github.com/kriskowal/es5-shim
+
+§§ /deps
+
+
 Tests have been done only on v8 as of now, but they'll be done in other
 environments as soon as I port Claire over to something other than
 Node.js.
 
 
-[ES5-shim]: https://github.com/kriskowal/es5-shim
+

@@ -1,0 +1,91 @@
+===
+title: Installing
+subtitle: Getting it up and running
+created: 2011-07-02 01:51:01
+toc: overview
+index: 3
+===
+
+§§ blurb
+
+On Node.js, just require it away:
+
+~~~js~~~
+var black = require('/path/to/black')
+~~~~~~~~
+
+In a browser, you'll need to either use [Browserify][] to emulate
+Node.js's require, or include each library separately:
+
+~~~html~~~
+<!DOCTYPE html>
+<html>
+<head> <!-- ... --> </head>
+<body>
+    <!-- ... -->
+    <script src="/path/to/black/core.js"></script>
+    <script src="/path/to/black/type.js"></script>
+    <script src="/path/to/black/obj.js"></script>
+    <script src="/path/to/black/list.js"></script>
+    <script src="/path/to/black/num.js"></script>
+    <script src="/path/to/black/fn.js"></script>
+    <script>/\* Use Black here \*/</script>
+</body>
+</html>
+~~~~~~~~~~
+
+[Browserify]: https://github.com/substack/node-browserify
+
+§§ /blurb
+
+
+## Dependencies
+
+※ overview/supported.html as supported
+
+{{ supported.deps }}
+
+
+## Resolving conflicts
+
+On platforms that don't support CommonJS modules, Black will take hold of
+the global `black`. If you happen to have something else named `black` in
+the global scope, you can resolve the conflict by calling
+`black.make_local`:
+
+~~~html~~~
+<script>
+    window.black = 'no u'
+</script>
+
+<!-- includes black -->
+<script src="/path/to/black/core.js"></script>
+<script src="/path/to/black/type.js"></script>
+<script src="/path/to/black/obj.js"></script>
+<script src="/path/to/black/list.js"></script>
+<script src="/path/to/black/num.js"></script>
+<script src="/path/to/black/fn.js"></script>
+
+<script>
+    alert(black) // [object Object]
+    var my_black = black.make_local()
+    alert(black) // 'no u'
+</script>
+~~~~~~~~~~
+
+## Special properties
+
+Black's unpacker relies on the `$black_box`, `$black_proto` and
+`$black_utils` properties for unpacking stuff to their respective
+places.
+
+-   `$black_box` defines which object will hold the generic functions for
+    a given module.
+    
+-   `$black_proto` defines which object will hold the own functions for
+    a given module, these will be methodized — the generic function will
+    be curried with the first parameter being the object instance.
+    
+-   `$black_utils` defines which functions of the module will be
+    exported as utilities, which by default will end up in the global
+    object.    

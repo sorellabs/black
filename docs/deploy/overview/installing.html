@@ -22,7 +22,7 @@
         compatibility mode is within the first 1K bytes
         code.google.com/p/chromium/issues/detail?id=23003 -->
 
-  <title>Overview</title>
+  <title>Installing</title>
   <meta name="description" content="">
   <meta name="author" content="Quildreen Motta">
 
@@ -44,7 +44,7 @@
         enables HTML5 elements & feature detects -->
     <script src="/media/js/libs/modernizr-1.6.min.js"></script>
     </head>
-<body id="index">
+<body id="installing">
     <div id="container">
             <div id="main" role="main">
           <header class="banner clearfix">
@@ -54,44 +54,53 @@
           <div class="doc">
     <article>
     <hgroup>
-        <h1 class="title">Overview</h1>
-        <h3 class="subtitle">Black —at a glance—</h3>
+        <h1 class="title">Installing</h1>
+        <h3 class="subtitle">Getting it up and running</h3>
     </hgroup>
-    <p>Black Provides functionality missing from the core JavaScript library,
-for the basic object types, mostly pure and functional&nbsp;style. </p>
-<p><figure class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">text</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span>     <span class="p">{</span> <span class="k">return</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">textContent</span>                   <span class="p">}</span><br /><span class="kd">function</span> <span class="nx">selectedp</span><span class="p">(</span><span class="nx">elm</span><span class="p">){</span> <span class="k">return</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">hasAttribute</span><span class="p">(</span><span class="s1">&#39;selectedp&#39;</span><span class="p">)</span>     <span class="p">}</span><br /><span class="kd">function</span> <span class="nx">display</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="s2">&quot;&lt;hr&gt;&quot;</span> <span class="o">+</span> <span class="nx">text</span> <span class="p">}</span><br />&nbsp;<br /><span class="kd">var</span> <span class="nx">links</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;a.link&#39;</span><span class="p">)</span><br />&nbsp;<br /><span class="c1">// functional style</span><br /><span class="nx">black</span><span class="p">.</span><span class="nx">unpack_all</span><span class="p">([</span><span class="s1">&#39;utils&#39;</span><span class="p">,</span> <span class="s1">&#39;generic&#39;</span><span class="p">])</span><br /><span class="nx">each</span><span class="p">(</span> <span class="nx">map</span><span class="p">(</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">links</span><span class="p">,</span> <span class="nx">selectedp</span><span class="p">)</span><br />         <span class="p">,</span> <span class="nx">text</span> <span class="p">)</span><br />    <span class="p">,</span> <span class="nx">display</span> <span class="p">)</span><br />    <br /><span class="c1">// object-oriented style</span><br /><span class="nx">black</span><span class="p">.</span><span class="nx">unpack_all</span><span class="p">([</span><span class="s1">&#39;own&#39;</span><span class="p">])</span><br /><span class="nx">to_array</span><span class="p">(</span><span class="nx">links</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">selectedp</span><span class="p">)</span><br />               <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><br />               <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">display</span><span class="p">)</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
-<p>You can grab the <a href="https://github.com/killdream/Black/zipball/master">lastest release</a>, or clone the entire
-<a href="https://github.com/killdream/Black">Github repository</a>:
-<figure class="code"><div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/killdream/black.git<br /></pre></div><br /><figcaption>Bash</figcaption></figure></p>
-<h2 id="why_use_it">Why Use&nbsp;It</h2>
-<p>While JavaScript could be regarded as a functional language, it lacks
-lots of utilities to deal with objects in a functional style. Black
-attempts to fix it by providing functions to deal with sequences,
-objects and other core objects the functional&nbsp;way.</p>
-<p>&raquo; <a href="overview/why.html">Other reasons to use&nbsp;Black</a></p>
-<h2 id="supported_platforms">Supported&nbsp;platforms</h2>
-<p>Black should work in any ECMAScript 5-compliant environment — like Node.js,
-Chrome and Firefox. Just load it and hack&nbsp;away.</p>
-<p>&raquo; <a href="overview/supported.html">Details on platform&nbsp;support</a></p>
-<h2 id="installing">Installing</h2>
-<p>On Node.js, just require it away:
+    <p>On Node.js, just require it away:
 <figure class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">black</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;/path/to/black&#39;</span><span class="p">)</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
 <p>In a browser, you&#8217;ll need to either use <a href="https://github.com/substack/node-browserify">Browserify</a> to emulate
 Node.js&#8217;s require, or include each library separately:
 <figure class="code"><div class="highlight"><pre><span class="cp">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span><br /><span class="nt">&lt;html&gt;</span><br /><span class="nt">&lt;head&gt;</span> <span class="c">&lt;!-- ... --&gt;</span> <span class="nt">&lt;/head&gt;</span><br /><span class="nt">&lt;body&gt;</span><br />    <span class="c">&lt;!-- ... --&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/num.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/fn.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script&gt;</span><span class="sr">/* Use Black here */</span><span class="nt">&lt;/script&gt;</span><br /><span class="nt">&lt;/body&gt;</span><br /><span class="nt">&lt;/html&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
-<p>&raquo; <a href="overview/installing.html">Details on how to install&nbsp;black</a></p>
-<h2 id="getting_support">Getting&nbsp;support</h2>
-<p>Black uses the <a href="https://github.com/killdream/Black/issues">Github tracker</a> for tracking bugs and new features. For
-any other stuff, you can probably nudge me on <a href="http://twitter.com/notSorella">@notSorella</a></p>
-<h2 id="development">Development</h2>
-<p><a href="http://killdream.github.com/projects/orpheos/dev/contributing.html">contributing</a> | <a href="http://killdream.github.com/projects/orpheos/dev/style-guide.html">style guide</a> | <a href="licence.html">licence</a></p>    </article>
+<h2 id="dependencies">Dependencies</h2>
+<p>You can run it in non-ECMAScript 5-compliant environments by supplying the
+appropriate fallbacks. Since black does not rely on any method that can&#8217;t be
+implemented in pure JavaScript, it should be&nbsp;doable.</p>
+<p>If you don&#8217;t want to reinvent the wheel, you can just load the awesome
+<a href="https://github.com/kriskowal/es5-shim"><span class="caps">ES5</span>-shim</a>&nbsp;library.</p>
+<h2 id="resolving_conflicts">Resolving&nbsp;conflicts</h2>
+<p>On platforms that don&#8217;t support CommonJS modules, Black will take hold of
+the global <code>black</code>. If you happen to have something else named <code>black</code> in
+the global scope, you can resolve the conflict by calling
+<code>black.make_local</code>:
+<figure class="code"><div class="highlight"><pre><span class="nt">&lt;script&gt;</span><br />    <span class="nb">window</span><span class="p">.</span><span class="nx">black</span> <span class="o">=</span> <span class="s1">&#39;no u&#39;</span><br /><span class="nt">&lt;/script&gt;</span><br />&nbsp;<br /><span class="c">&lt;!-- includes black --&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/num.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/fn.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />&nbsp;<br /><span class="nt">&lt;script&gt;</span><br />    <span class="nx">alert</span><span class="p">(</span><span class="nx">black</span><span class="p">)</span> <span class="c1">// [object Object]</span><br />    <span class="kd">var</span> <span class="nx">my_black</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">make_local</span><span class="p">()</span><br />    <span class="nx">alert</span><span class="p">(</span><span class="nx">black</span><span class="p">)</span> <span class="c1">// &#39;no u&#39;</span><br /><span class="nt">&lt;/script&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
+<h2 id="special_properties">Special&nbsp;properties</h2>
+<p>Black&#8217;s unpacker relies on the <code>$black_box</code>, <code>$black_proto</code> and
+<code>$black_utils</code> properties for unpacking stuff to their respective&nbsp;places.</p>
+<ul>
+<li>
+<p><code>$black_box</code> defines which object will hold the generic functions for
+    a given&nbsp;module.</p>
+</li>
+<li>
+<p><code>$black_proto</code> defines which object will hold the own functions for
+    a given module, these will be methodized — the generic function will
+    be curried with the first parameter being the object&nbsp;instance.</p>
+</li>
+<li>
+<p><code>$black_utils</code> defines which functions of the module will be
+    exported as utilities, which by default will end up in the global
+    object.  <br />
+</p>
+</li>
+</ul>    </article>
     <aside>
         <ul class="toc">
         <li><mark class="version">Version: 0.2</mark></li>
         <li class="topic" id="topic1">
                         <ul class="links">
                 <li>
-                <a class="active"                    title=""
+                <a                     title=""
                     href="/index.html">
                     Overview</a><li>
                 <a                     title=""
@@ -99,12 +108,12 @@ any other stuff, you can probably nudge me on <a href="http://twitter.com/notSor
                     Licence</a>                </li>
             </ul>
         </li><li class="topic" id="topic2">
-            <h2 class="">Overview</h2>            <ul class="links">
+            <h2 class=" active">Overview</h2>            <ul class="links">
                 <li>
                 <a                     title=""
                     href="/overview/why.html">
                     Why use&nbsp;Black</a><li>
-                <a                     title=""
+                <a class="active"                    title=""
                     href="/overview/installing.html">
                     Installing</a><li>
                 <a                     title=""
@@ -113,10 +122,15 @@ any other stuff, you can probably nudge me on <a href="http://twitter.com/notSor
             </ul>
         </li>        </ul>
         <nav class="prevnext">
-                        <a
+            <a
+                class="prev"
+                title="Why use Black"
+                href="/overview/why.html">
+                &larr;Previous
+            </a>            <a
                 class="next"
-                title="Licence"
-                href="/licence.html">
+                title="Supported Platforms"
+                href="/overview/supported.html">
                 Next&rarr;
             </a>            <br class="clear">
         </nav>
