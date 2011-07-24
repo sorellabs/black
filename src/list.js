@@ -509,7 +509,7 @@ void function (root) {
     //
     function map(seq, pred, ctx) {
         return sequencep(seq)?  __map.call(seq, pred, ctx)
-                             :  []
+        :                  []
     }
 
     ///// Function each ////////////////////////////////////////////////////////
@@ -520,7 +520,7 @@ void function (root) {
     //
     function each(seq, pred, ctx) {
         return sequencep(seq)?  __each.call(seq, pred, ctx)
-                             :  void 0
+        :                  void 0
     }
 
     ///// Function filter //////////////////////////////////////////////////////
