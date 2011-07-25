@@ -49,12 +49,7 @@ grouper:
                 hide_name: True
                 groups:
                     - name: overview
-                    - name: getting started
-                    - name: Sequences
-                    - name: Objects
-                    - name: Strings
-                    - name: Numbers
-                    - name: Functions
+                    - name: reference
 
 less:
     app: /usr/local/bin/lessc
