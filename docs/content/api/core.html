@@ -1,0 +1,115 @@
+===
+title: Getting Started
+subtitle: Getting everythin' under yo utility belt
+created: 2011-07-23 23:22:40
+toc: reference
+index: 1
+===
+
+After [properly installing][install] Black, you can move on to the
+interesting part: actually using it. This page will get you started on
+using the library and give you an overview of how it all fits
+together. Each module has its own very specialised documentation too, of
+course, don't forget to check those up.
+
+[install]: ../overview/installing.html
+
+
+## Using generic functions
+
+Each module exports a good deal of generic functions to manipulate
+JavaScript objects. Those functions usually receive the object that
+should be manipulated as the first argument, and returns an entirely new
+object as a result — that is, they're side-effect free functions.
+
+Functions are properly namespaced under the `black` object. That is,
+functions that deal with objects live inside `black.obj` rather than the
+built-in `Object`. Functions that deal with sequences live inside
+`black.list` and so on.
+
+So, if you wanted to use the function `emptyp` to check if an object has
+any properties, this is what you would do:
+
+~~~js~~~
+>>> var empty_object = { }
+>>> black.obj.emptyp(empty_object)
+true
+~~~~~~~~
+
+
+## Functions with predicates
+
+Some functions might accept a filter function to control its output,
+these filter functions are called predicates (or `pred` for
+short). Predicate functions allow for generic functions to be even more
+general, by giving the user more power.
+
+For example, consider the built-in `Array.indexOf`. It performs a search
+over a sequence comparing the given search value with each item using
+the strict equality operator (`===`). But what if you wanted to find
+some string inside a sequence regardless of it's case? Or if you wanted
+to find the first value with a certain error margin from the given
+search term? You'd have to write `Array.indexOf` from the scratch,
+right?
+
+Taking this limitation into consideration, you'll often see functions in
+Black that accept predicate functions to control their output. For
+example, `without` is a function that returns a list without the items
+that match a given value, but you can specify what exactly a *"match"*
+means with a predicate function:
+
+~~~js~~~
+>>> var fruits = ["Apples", "Oranges", "Lemons"]
+>>> function caseless_compare(str1, str2) {
+...     return str1.toLowerCase() === str2.toLowerCase()
+... }
+>>> black.list.without(fruits, "apples", caseless_compare)
+["Oranges", "Lemons"]
+~~~~~~~~
+
+
+## Unpacking functions and own methods
+
+`black.obj.this`, `black.list.that`, sure it's annoying having to type
+all that everywhere, right? While aliasing the functions would fix it,
+50 lines of aliases at the start of every script is not a nice thing
+either.
+
+To solve this Black's core module implements unpacker functions. These
+allow to batch export the contents of each module to a more usable
+object.
+
+Black uses three special properties in each module to define how they
+are unpacked:
+
+※ overview/installing.html as installing
+
+{{ installing.special }}
+
+So, to make all generic functions in the `black` package available in
+JavaScript's built-in constructors (as a constructor function), you'd
+use:
+
+~~~js~~~
+>>> black.unpack_all(['generic'])
+>>> Object.emptyp
+[Function emptyp]
+~~~~~~~~
+
+To make all the generic functions available in the built-in prototypes,
+as instance methods, you'd use:
+
+~~~js~~~
+>>> black.unpack_all(['own'])
+>>> var empty_obj = {}
+>>> empty_obj.emptyp()
+true
+~~~~~~~~
+
+And finally, to export all module utilities into the global scope:
+
+~~~js~~~
+>>> black.unpack_all(['utils'])
+>>> first(range(1, 10))
+1
+~~~~~~~~
