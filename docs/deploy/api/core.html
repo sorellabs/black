@@ -1,0 +1,187 @@
+<!doctype html>
+<!-- https://github.com/paulirish/html5-boilerplate/blob/master/index.html -->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- encoding must be specified within the first 512 bytes
+        www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#charset -->
+
+  <!-- meta element for compatibility mode needs to be before
+        all elements except title & meta
+        msdn.microsoft.com/en-us/library/cc288325(VS.85).aspx -->
+  <!-- Chrome Frame is only invoked if meta element for
+        compatibility mode is within the first 1K bytes
+        code.google.com/p/chromium/issues/detail?id=23003 -->
+
+  <title>Getting Started</title>
+  <meta name="description" content="">
+  <meta name="author" content="Quildreen Motta">
+
+  <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Place favicon.ico & apple-touch-icon.png
+        in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+    <link rel="stylesheet" href="/media/css/site.css">
+  <link rel="stylesheet" href="/media/css/syntax.css">
+  
+    <!-- All JavaScript at the bottom, except for Modernizr which
+        enables HTML5 elements & feature detects -->
+    <script src="/media/js/libs/modernizr-1.6.min.js"></script>
+    </head>
+<body id="core">
+    <div id="container">
+            <div id="main" role="main">
+          <header class="banner clearfix">
+          <img src="/media/img/project-logo.png">
+            <h1>Black</h1>
+            <h3>Extensions to the base objects from the core JS library.</h3>          </header>
+          <div class="doc">
+    <article>
+    <hgroup>
+        <h1 class="title">Getting Started</h1>
+        <h3 class="subtitle">Getting everythin' under yo utility belt</h3>
+    </hgroup>
+    <p>After <a href="overview/installing.html">properly installing</a> Black, you can move on to the
+interesting part: actually using it. This page will get you started on
+using the library and give you an overview of how it all fits
+together. Each module has its own very specialised documentation too, of
+course, don&#8217;t forget to check those&nbsp;up.</p>
+<h2 id="using_generic_functions">Using generic&nbsp;functions</h2>
+<p>Each module exports a good deal of generic functions to manipulate
+JavaScript objects. Those functions usually receive the object that
+should be manipulated as the first argument, and returns an entirely new
+object as a result — that is, they&#8217;re side-effect free&nbsp;functions.</p>
+<p>Functions are properly namespaced under the <code>black</code> object. That is,
+functions that deal with objects live inside <code>black.obj</code> rather than the
+built-in <code>Object</code>. Functions that deal with sequences live inside
+<code>black.list</code> and so&nbsp;on.</p>
+<p>So, if you wanted to use the function <code>emptyp</code> to check if an object has
+any properties, this is what you would do:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">empty_object</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">emptyp</span><span class="p">(</span><span class="nx">empty_object</span><span class="p">)</span><br /><span class="kc">true</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h2 id="functions_with_predicates">Functions with&nbsp;predicates</h2>
+<p>Some functions might accept a filter function to control its output,
+these filter functions are called predicates (or <code>pred</code> for
+short). Predicate functions allow for generic functions to be even more
+general, by giving the user more&nbsp;power.</p>
+<p>For example, consider the built-in <code>Array.indexOf</code>. It performs a search
+over a sequence comparing the given search value with each item using
+the strict equality operator (<code>===</code>). But what if you wanted to find
+some string inside a sequence regardless of it&#8217;s case? Or if you wanted
+to find the first value with a certain error margin from the given
+search term? You&#8217;d have to write <code>Array.indexOf</code> from the scratch,&nbsp;right?</p>
+<p>Taking this limitation into consideration, you&#8217;ll often see functions in
+Black that accept predicate functions to control their output. For
+example, <code>without</code> is a function that returns a list without the items
+that match a given value, but you can specify what exactly a <em>&#8220;match&#8221;</em>
+means with a predicate function:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Apples&quot;</span><span class="p">,</span> <span class="s2">&quot;Oranges&quot;</span><span class="p">,</span> <span class="s2">&quot;Lemons&quot;</span><span class="p">]</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="kd">function</span> <span class="nx">caseless_compare</span><span class="p">(</span><span class="nx">str1</span><span class="p">,</span> <span class="nx">str2</span><span class="p">)</span> <span class="p">{</span><br /><span class="p">...</span>     <span class="k">return</span> <span class="nx">str1</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">===</span> <span class="nx">str2</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span><br /><span class="p">...</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">without</span><span class="p">(</span><span class="nx">fruits</span><span class="p">,</span> <span class="s2">&quot;apples&quot;</span><span class="p">,</span> <span class="nx">caseless_compare</span><span class="p">)</span><br /><span class="p">[</span><span class="s2">&quot;Oranges&quot;</span><span class="p">,</span> <span class="s2">&quot;Lemons&quot;</span><span class="p">]</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h2 id="unpacking_functions_and_own_methods">Unpacking functions and own&nbsp;methods</h2>
+<p><code>black.obj.this</code>, <code>black.list.that</code>, sure it&#8217;s annoying having to type
+all that everywhere, right? While aliasing the functions would fix it,
+50 lines of aliases at the start of every script is not a nice thing&nbsp;either.</p>
+<p>To solve this Black&#8217;s core module implements unpacker functions. These
+allow to batch export the contents of each module to a more usable&nbsp;object.</p>
+<p>Black uses three special properties in each module to define how they
+are&nbsp;unpacked:</p>
+<ul>
+<li>
+<p><code>$black_box</code> defines which object will hold the generic functions for
+    a given&nbsp;module.</p>
+</li>
+<li>
+<p><code>$black_proto</code> defines which object will hold the own functions for
+    a given module, these will be methodized — the generic function will
+    be curried with the first parameter being the object&nbsp;instance.</p>
+</li>
+<li>
+<p><code>$black_utils</code> defines which functions of the module will be
+    exported as utilities, which by default will end up in the global
+    object.  <br />
+</p>
+</li>
+</ul>
+<p>So, to make all generic functions in the <code>black</code> package available in
+JavaScript&#8217;s built-in constructors (as a constructor function), you&#8217;d
+use:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">unpack_all</span><span class="p">([</span><span class="s1">&#39;generic&#39;</span><span class="p">])</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">emptyp</span><br /><span class="p">[</span><span class="nb">Function</span> <span class="nx">emptyp</span><span class="p">]</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<p>To make all the generic functions available in the built-in prototypes,
+as instance methods, you&#8217;d use:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">unpack_all</span><span class="p">([</span><span class="s1">&#39;own&#39;</span><span class="p">])</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">empty_obj</span> <span class="o">=</span> <span class="p">{}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">empty_obj</span><span class="p">.</span><span class="nx">emptyp</span><span class="p">()</span><br /><span class="kc">true</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<p>And finally, to export all module utilities into the global scope:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">unpack_all</span><span class="p">([</span><span class="s1">&#39;utils&#39;</span><span class="p">])</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">first</span><span class="p">(</span><span class="nx">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span><br /><span class="mi">1</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>    </article>
+    <aside>
+        <ul class="toc">
+        <li><mark class="version">Version: 0.2</mark></li>
+        <li class="topic" id="topic1">
+                        <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/index.html">
+                    Overview</a><li>
+                <a                     title=""
+                    href="/licence.html">
+                    Licence</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic2">
+            <h2 class="">Overview</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/overview/why.html">
+                    Why use&nbsp;Black</a><li>
+                <a                     title=""
+                    href="/overview/supported.html">
+                    Supported&nbsp;Platforms</a><li>
+                <a                     title=""
+                    href="/overview/installing.html">
+                    Installing</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic3">
+            <h2 class=" active">Reference</h2>            <ul class="links">
+                <li>
+                <a class="active"                    title=""
+                    href="/api/core.html">
+                    Getting&nbsp;Started</a>                </li>
+            </ul>
+        </li>        </ul>
+        <nav class="prevnext">
+            <a
+                class="prev"
+                title="Installing"
+                href="/overview/installing.html">
+                &larr;Previous
+            </a>                        <br class="clear">
+        </nav>
+    </aside>
+</div>
+<footer>
+<p><a href="https://github.com/hyde/hyde">smelted with hyde</a> &mdash;
+<a href="https://github.com/killdream/Black">fork <span class="amp">&amp;</span> hack away</a><br>
+—Design mostly based on <a href="http://hyde.github.com/">Hyde&nbsp;docs</a></p></footer>      </div>
+      <footer>
+    </footer>
+      </div> <!--! end of #container -->
+      <!-- Javascript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/media/js/libs/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+  
+    
+      
+  </body>
+</html>

@@ -314,9 +314,9 @@ body {
   color: #010202;
 }
 blockquote {
-  border-left: 3px solid rgba(0, 0, 0, 0.4);
+  border-left: 3px solid #555555;
   padding: 0px 24px;
-  color: rgba(0, 0, 0, 0.4);
+  color: #555555;
   margin: -1em 0 1.5em 0;
 }
 body {
@@ -387,7 +387,7 @@ code, .highlight pre {
   line-height: 100%;
 }
 code {
-  color: rgba(0, 0, 0, 0.4);
+  color: #555555;
 }
 ul > li {
   list-style-type: square;
@@ -647,7 +647,7 @@ footer li {
   position: absolute;
   bottom: 3px;
   right: 12px;
-  color: rgba(0, 0, 0, 0.4);
+  color: #555555;
 }
 .highlight {
   padding-left: 40px;
