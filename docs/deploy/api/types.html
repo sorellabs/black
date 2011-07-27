@@ -1,0 +1,325 @@
+<!doctype html>
+<!-- https://github.com/paulirish/html5-boilerplate/blob/master/index.html -->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- encoding must be specified within the first 512 bytes
+        www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#charset -->
+
+  <!-- meta element for compatibility mode needs to be before
+        all elements except title & meta
+        msdn.microsoft.com/en-us/library/cc288325(VS.85).aspx -->
+  <!-- Chrome Frame is only invoked if meta element for
+        compatibility mode is within the first 1K bytes
+        code.google.com/p/chromium/issues/detail?id=23003 -->
+
+  <title>Types</title>
+  <meta name="description" content="">
+  <meta name="author" content="Quildreen Motta">
+
+  <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Place favicon.ico & apple-touch-icon.png
+        in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+    <link rel="stylesheet" href="/media/css/site.css">
+  <link rel="stylesheet" href="/media/css/syntax.css">
+  
+    <!-- All JavaScript at the bottom, except for Modernizr which
+        enables HTML5 elements & feature detects -->
+    <script src="/media/js/libs/modernizr-1.6.min.js"></script>
+    </head>
+<body id="types">
+    <div id="container">
+            <div id="main" role="main">
+          <header class="banner clearfix">
+          <img src="/media/img/project-logo.png">
+            <h1>Black</h1>
+            <h3>Extensions to the base objects from the core JS library.</h3>          </header>
+          <div class="doc">
+    <article>
+    <hgroup>
+        <h1 class="title">Types</h1>
+        <h3 class="subtitle">Type and interface checking utilities</h3>
+    </hgroup>
+    <p>The type module introduces utilities for checking types and common
+interfaces of JavaScript objects. It doesn&#8217;t attempt to bring
+some kind of <code>is-a</code> programming flow to JavaScript, both because the
+language is not fit for this, and because I think <code>is-a</code> is broken by&nbsp;design.</p>
+<p>At any rate, the type checking utilities are separated into three main
+categories: Type checking, interface testing and functionality&nbsp;testing.</p>
+<div class="toc">
+<ul>
+<li><a href="#load_the_module">Load the&nbsp;module</a></li>
+<li><a href="#type_checking">Type checking</a><ul>
+<li><a href="#function_class_of">Function&nbsp;class_of</a></li>
+<li><a href="#function_nilp">Function&nbsp;nilp</a></li>
+<li><a href="#function_not_nilp">Function&nbsp;not_nilp</a></li>
+<li><a href="#function_undefp">Function&nbsp;undefp</a></li>
+<li><a href="#function_strp">Function&nbsp;strp</a></li>
+<li><a href="#function_nump">Function&nbsp;nump</a></li>
+<li><a href="#function_boolp">Function&nbsp;boolp</a></li>
+<li><a href="#function_regexpp">Function&nbsp;regexpp</a></li>
+<li><a href="#function_fnp">Function&nbsp;fnp</a></li>
+<li><a href="#function_objp">Function&nbsp;objp</a></li>
+<li><a href="#function_listp">Function&nbsp;listp</a></li>
+</ul>
+</li>
+<li><a href="#interface_testing">Interface testing</a><ul>
+<li><a href="#function_callablep">Function&nbsp;callablep</a></li>
+<li><a href="#function_numericp">Function&nbsp;numericp</a></li>
+<li><a href="#function_sequencep">Function&nbsp;sequencep</a></li>
+</ul>
+</li>
+<li><a href="#functionality_testing">Functionality testing</a><ul>
+<li><a href="#function_sliceablep">Function&nbsp;sliceablep</a></li>
+<li><a href="#function_searchablep">Function&nbsp;searchablep</a></li>
+<li><a href="#function_testablep">Function&nbsp;testablep</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="load_the_module">Load the&nbsp;module</h2>
+<p><figure class="code"><div class="highlight"><pre><span class="c1">// On Node.js</span><br /><span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;/path/to/black&#39;</span><span class="p">).</span><span class="nx">type</span><br />&nbsp;<br /><span class="c1">// On browsers (after including the proper script tags)</span><br /><span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">type</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<p>Optionally, you can unpack the utilities to the global scope. All
+generic functions in the <code>type</code> module are exported as utilities, and
+the built-in constructor for unpacking the methods is <code>Object</code>.</p>
+<p>None of the functions are exported into the&nbsp;prototype.</p>
+<h2 id="type_checking">Type&nbsp;checking</h2>
+<p>The type checking utilities let you be explicit about what kind of data
+structure you want to handle. These functions rely mostly on the
+<code>〖Class〗</code> internal property of each object, as defined by the
+ECMAScript&nbsp;specs.</p>
+<h3 id="function_class_of">Function&nbsp;class_of</h3>
+<pre><code>(obj:Object) ↦ String
+</code></pre>
+<p>Returns the internal <code>〖Class〗</code> of the given&nbsp;object.</p>
+<h3 id="function_nilp">Function&nbsp;nilp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object points to nothing&nbsp;valid.</p>
+<p>ECMAScript defines two different values for denoting <code>invalid</code>, which
+are used differently according to the context. They are: <code>null</code> and
+<code>undefined</code>.</p>
+<p><code>null</code> is a reserved keyword in JavaScript, and usually used to replace
+a previously valid value with an invalid reference, that is, explicitly
+saying that a name does not care about the old value it&nbsp;stored.</p>
+<p><code>undefined</code> is not a reserved keyword, and is used to denote that a name
+hasn&#8217;t been initialised yet. It&#8217;s the value of a variable declared
+without an initial value, the value of a parameter that hasn&#8217;t been
+given at the time a function was called, and the return value of a
+function that has no explicit return values, among&nbsp;others.</p>
+<h3 id="function_not_nilp">Function&nbsp;not_nilp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object points to something&nbsp;valid.</p>
+<p>The exact opposite of <a href="#function_nilp">nilp</a>. Will return true for
+anything that&#8217;s neither <code>undefined</code> nor <code>null</code>.</p>
+<h3 id="function_undefp">Function&nbsp;undefp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object is <code>undefined</code>.</p>
+<h3 id="function_strp">Function&nbsp;strp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object is a <code>String</code>.</p>
+<p>Returns true for any string object, either a primitive (<code>"foo"</code>) or an
+actual String object (<code>new String("foo")</code>). Depends on the internal
+<code>〖Class〗</code> of the&nbsp;object.</p>
+<h3 id="function_nump">Function&nbsp;nump</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object is a <code>Number</code>.</p>
+<p>Returns true for any number object, either a primitive (<code>42</code>) or an
+actual Number object (<code>new Number(42)</code>). Depends on the internal
+<code>〖Class〗</code> of the&nbsp;object.</p>
+<h3 id="function_boolp">Function&nbsp;boolp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object is a <code>Boolean</code>.</p>
+<p>Returns true for any boolean object, either a primitive (<code>true</code>) or an
+actual Boolean object (<code>new Boolean(true)</code>). Depends on the internal
+<code>〖Class〗</code> of the&nbsp;object.</p>
+<h3 id="function_regexpp">Function&nbsp;regexpp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object is a <code>RegExp</code>.</p>
+<p>Depends on the internal <code>〖Class〗</code> of the&nbsp;object.</p>
+<h3 id="function_fnp">Function&nbsp;fnp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object is a <code>Function</code>.</p>
+<p>Depends on the internal <code>〖Class〗</code> of the&nbsp;object.</p>
+<h3 id="function_objp">Function&nbsp;objp</h3>
+<p>Checks if the object is an actual&nbsp;object.</p>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>This basically checks if the given object is neither a primitive nor an
+invalid value, but will return true for anything else (even if their
+<code>〖Class〗</code> is not <code>Object</code>).</p>
+<h3 id="function_listp">Function&nbsp;listp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if something is an actual&nbsp;array.</p>
+<p>This is just an alias to the ECMAScript 5&#8217;s <code>Array.isArray</code>
+function. What <span class="caps">ES</span> calls array, Black calls Lists,&nbsp;basically.</p>
+<h2 id="interface_testing">Interface&nbsp;testing</h2>
+<p>Interfaces define a small set of common behaviour that is expected from
+an object. Testing for interfaces allows you to safely use an object,
+while still not caring about the entire underlying data it uses. For
+example, if you want a numeric value for the area of a circle, you don&#8217;t
+need to know if the data structure that stores the number is a byte, a
+word, an integer, a float or whatever — you just need it to behave like
+a&nbsp;number.</p>
+<h3 id="function_callablep">Function&nbsp;callablep</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object can be called as a&nbsp;function.</p>
+<p>JavaScript does not allow you to define which objects are callable at
+will. You can&#8217;t just decide that your old <code>persons</code> array will now, when
+called as a function, pop and return the first&nbsp;item.</p>
+<p>Some implementations, however, allows you to call other objects other
+than function, like the RegExp object:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nx">has_foop</span>  <span class="o">=</span> <span class="sr">/foo/</span><span class="p">(</span><span class="s2">&quot;foobar&quot;</span><span class="p">)</span><br /><span class="kc">true</span><br /><span class="c1">// =&gt; the same as /foo/.test(&quot;foobar&quot;)</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h3 id="function_numericp">Function&nbsp;numericp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object can be used as a&nbsp;number.</p>
+<p>A numeric object is something that does not evaluate to
+<code>NaN</code>. Therefore, a String that holds a numeric value, and a list with a
+single numeric element are often considered&nbsp;numeric.</p>
+<p>Though this depends on different factors as well. Objects can implement
+the <code>valueOf</code> method, which determines which primitive value they
+represent. Any object can be considered numeric, as long as the
+<code>valueOf</code> method returns something that isn&#8217;t <code>NaN</code>:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">numericp</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="c1">// isNaN(x.join(&quot;,&quot;))</span><br /><span class="kc">true</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">x</span><span class="p">.</span><span class="nx">valueOf</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="s2">&quot;foo&quot;</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">numericp</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="c1">// isNaN(&quot;foo&quot;)</span><br /><span class="kc">false</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h3 id="function_sequencep">Function&nbsp;sequencep</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object can be used as a JavaScript&nbsp;Array.</p>
+<p>A sequence object is something that implements a <code>length</code> property and
+numeric properties in the range of 0 to 2³², but not necessarily the
+methods you&#8217;d see in <code>Array.prototype</code>. However, since most methods in
+the <code>Array.prototype</code> are generic, they&#8217;ll work as expected when applied
+to such objects<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>.</p>
+<p>Probably the most known example of a sequence object is the <code>arguments</code>
+object, available for all&nbsp;functions.</p>
+<p>Sequence objects work as expected with all the functions in the
+<code>black.list</code> module.</p>
+<h2 id="functionality_testing">Functionality&nbsp;testing</h2>
+<p>Functionality testing is an even looser and specific kind of testing
+than the interface checks. It looks whether the object provides a
+certain functionality or not, but does not check if the object provides
+any other property to support such functionality — it is assumed there
+isn&#8217;t such&nbsp;dependency.</p>
+<p>While these routines could indeed be placed within the interface testing
+group, I guess putting them separately highlights their independence of
+other properties in the&nbsp;object.</p>
+<h3 id="function_sliceablep">Function&nbsp;sliceablep</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object implements the <code>slice</code> method.</p>
+<h3 id="function_searchablep">Function&nbsp;searchablep</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object implements search methods that return&nbsp;indexes.</p>
+<p>Basically, we look for things that can be searched through the <code>indexOf</code>
+and <code>lastIndexOf</code> methods. Though as previously stated, this method does
+not asserts whether the implemented methods conform with ECMAScript 5&#8217;s
+<code>Array.{lastI,i}ndexOf</code> method.</p>
+<p>Arrays and Strings are considered&nbsp;searchable.</p>
+<h3 id="function_testablep">Function&nbsp;testablep</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if the object implements a <code>test</code> method.</p>
+<p>The primary intent of this method is to check the presence of a regexp
+predicate, which takes a regexp and checks if the object matches that
+regexp somehow, though it does not assert if the method conform with
+this&nbsp;definition.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>On old versions of JScript, some array-like host objects might
+  give you an error when applying a Array function to them.&#160;<a href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>    </article>
+    <aside>
+        <ul class="toc">
+        <li><mark class="version">Version: 0.2</mark></li>
+        <li class="topic" id="topic1">
+                        <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/index.html">
+                    Overview</a><li>
+                <a                     title=""
+                    href="/licence.html">
+                    Licence</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic2">
+            <h2 class="">Overview</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/overview/why.html">
+                    Why use&nbsp;Black</a><li>
+                <a                     title=""
+                    href="/overview/supported.html">
+                    Supported&nbsp;Platforms</a><li>
+                <a                     title=""
+                    href="/overview/installing.html">
+                    Installing</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic3">
+            <h2 class=" active">Reference</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/api/core.html">
+                    Getting&nbsp;Started</a><li>
+                <a class="active"                    title=""
+                    href="/api/types.html">
+                    Types</a>                </li>
+            </ul>
+        </li>        </ul>
+        <nav class="prevnext">
+            <a
+                class="prev"
+                title="Getting Started"
+                href="/api/core.html">
+                &larr;Previous
+            </a>                        <br class="clear">
+        </nav>
+    </aside>
+</div>
+<footer>
+<p><a href="https://github.com/hyde/hyde">smelted with hyde</a> &mdash;
+<a href="https://github.com/killdream/Black">fork <span class="amp">&amp;</span> hack away</a><br>
+—Design mostly based on <a href="http://hyde.github.com/">Hyde&nbsp;docs</a></p></footer>      </div>
+      <footer>
+    </footer>
+      </div> <!--! end of #container -->
+      <!-- Javascript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/media/js/libs/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+  
+    
+      
+  </body>
+</html>

@@ -1,0 +1,290 @@
+===
+title: Types
+subtitle: Type and interface checking utilities
+created: 2011-07-24 23:59:05
+toc: reference
+index: 2
+===
+
+§§ blurb
+
+The type module introduces utilities for checking types and common
+interfaces of JavaScript objects. It doesn't attempt to bring
+some kind of `is-a` programming flow to JavaScript, both because the
+language is not fit for this, and because I think `is-a` is broken by
+design.
+
+At any rate, the type checking utilities are separated into three main
+categories: Type checking, interface testing and functionality testing.
+
+§§ /blurb
+
+
+[TOC]
+
+## Load the module
+
+~~~js~~~
+// On Node.js
+var type = require('/path/to/black').type
+
+// On browsers (after including the proper script tags)
+var type = black.type
+~~~~~~~~
+
+Optionally, you can unpack the utilities to the global scope. All
+generic functions in the `type` module are exported as utilities, and
+the built-in constructor for unpacking the methods is `Object`.
+
+None of the functions are exported into the prototype.
+
+
+## Type checking
+
+The type checking utilities let you be explicit about what kind of data
+structure you want to handle. These functions rely mostly on the
+`〖Class〗` internal property of each object, as defined by the
+ECMAScript specs.
+
+
+### Function class_of
+
+    (obj:Object) ↦ String
+
+Returns the internal `〖Class〗` of the given object.
+
+
+
+### Function nilp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object points to nothing valid.
+
+ECMAScript defines two different values for denoting `invalid`, which
+are used differently according to the context. They are: `null` and
+`undefined`.
+
+`null` is a reserved keyword in JavaScript, and usually used to replace
+a previously valid value with an invalid reference, that is, explicitly
+saying that a name does not care about the old value it stored.
+
+`undefined` is not a reserved keyword, and is used to denote that a name
+hasn't been initialised yet. It's the value of a variable declared
+without an initial value, the value of a parameter that hasn't been
+given at the time a function was called, and the return value of a
+function that has no explicit return values, among others.
+
+
+### Function not_nilp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object points to something valid.
+
+The exact opposite of [nilp](#function_nilp). Will return true for
+anything that's neither `undefined` nor `null`.
+
+
+### Function undefp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object is `undefined`.
+
+
+### Function strp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object is a `String`.
+
+Returns true for any string object, either a primitive (`"foo"`) or an
+actual String object (`new String("foo")`). Depends on the internal
+`〖Class〗` of the object.
+
+
+### Function nump
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object is a `Number`.
+
+Returns true for any number object, either a primitive (`42`) or an
+actual Number object (`new Number(42)`). Depends on the internal
+`〖Class〗` of the object.
+
+
+### Function boolp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object is a `Boolean`.
+
+Returns true for any boolean object, either a primitive (`true`) or an
+actual Boolean object (`new Boolean(true)`). Depends on the internal
+`〖Class〗` of the object.
+
+
+### Function regexpp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object is a `RegExp`.
+
+Depends on the internal `〖Class〗` of the object.
+
+
+### Function fnp
+
+    (obj:Object) ↦ Boolean
+
+Checks if the object is a `Function`.
+
+Depends on the internal `〖Class〗` of the object.
+
+
+### Function objp
+
+Checks if the object is an actual object.
+
+    (obj:Object) ↦ Boolean
+
+This basically checks if the given object is neither a primitive nor an
+invalid value, but will return true for anything else (even if their
+`〖Class〗` is not `Object`).
+
+
+### Function listp
+
+    (obj:Object) ↦ Boolean
+
+Checks if something is an actual array.
+
+This is just an alias to the ECMAScript 5's `Array.isArray`
+function. What ES calls array, Black calls Lists, basically.
+
+
+## Interface testing
+
+Interfaces define a small set of common behaviour that is expected from
+an object. Testing for interfaces allows you to safely use an object,
+while still not caring about the entire underlying data it uses. For
+example, if you want a numeric value for the area of a circle, you don't
+need to know if the data structure that stores the number is a byte, a
+word, an integer, a float or whatever — you just need it to behave like
+a number.
+
+
+### Function callablep
+
+    (obj:Object) ↦ Boolean
+      
+Checks if the object can be called as a function.
+
+JavaScript does not allow you to define which objects are callable at
+will. You can't just decide that your old `persons` array will now, when
+called as a function, pop and return the first item.
+
+Some implementations, however, allows you to call other objects other
+than function, like the RegExp object:
+
+~~~js~~~
+>>> has_foop  = /foo/("foobar")
+true
+// => the same as /foo/.test("foobar")
+~~~~~~~~
+
+
+### Function numericp
+
+    (obj:Object) ↦ Boolean
+      
+Checks if the object can be used as a number.
+
+A numeric object is something that does not evaluate to
+`NaN`. Therefore, a String that holds a numeric value, and a list with a
+single numeric element are often considered numeric.
+
+Though this depends on different factors as well. Objects can implement
+the `valueOf` method, which determines which primitive value they
+represent. Any object can be considered numeric, as long as the
+`valueOf` method returns something that isn't `NaN`:
+
+~~~js~~~
+>>> var x = [1]
+>>> numericp(x) // isNaN(x.join(","))
+true
+>>> x.valueOf = function(){ return "foo" }
+>>> numericp(x) // isNaN("foo")
+false
+~~~~~~~~
+
+
+### Function sequencep
+
+    (obj:Object) ↦ Boolean
+      
+Checks if the object can be used as a JavaScript Array.
+
+A sequence object is something that implements a `length` property and
+numeric properties in the range of 0 to 2³², but not necessarily the
+methods you'd see in `Array.prototype`. However, since most methods in
+the `Array.prototype` are generic, they'll work as expected when applied
+to such objects[^1].
+
+Probably the most known example of a sequence object is the `arguments`
+object, available for all functions.
+
+Sequence objects work as expected with all the functions in the
+`black.list` module.
+
+
+[^1]: On old versions of JScript, some array-like host objects might
+      give you an error when applying a Array function to them.
+
+
+## Functionality testing
+
+Functionality testing is an even looser and specific kind of testing
+than the interface checks. It looks whether the object provides a
+certain functionality or not, but does not check if the object provides
+any other property to support such functionality — it is assumed there
+isn't such dependency.
+
+While these routines could indeed be placed within the interface testing
+group, I guess putting them separately highlights their independence of
+other properties in the object.
+
+
+### Function sliceablep
+
+    (obj:Object) ↦ Boolean
+      
+Checks if the object implements the `slice` method.
+
+
+### Function searchablep
+
+    (obj:Object) ↦ Boolean
+      
+Checks if the object implements search methods that return indexes.
+
+Basically, we look for things that can be searched through the `indexOf`
+and `lastIndexOf` methods. Though as previously stated, this method does
+not asserts whether the implemented methods conform with ECMAScript 5's
+`Array.{lastI,i}ndexOf` method.
+
+Arrays and Strings are considered searchable.
+
+
+### Function testablep
+
+    (obj:Object) ↦ Boolean
+      
+Checks if the object implements a `test` method.
+
+The primary intent of this method is to check the presence of a regexp
+predicate, which takes a regexp and checks if the object matches that
+regexp somehow, though it does not assert if the method conform with
+this definition.
