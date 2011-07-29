@@ -1,0 +1,337 @@
+===
+title: Objects
+subtitle: Extensions for working with native Object
+created: 2011-07-26 23:08:25
+toc: reference
+index: 3
+===
+
+§§ blurb
+
+The `obj` module introduces lots of features missing from the standard
+as well as some aliases. The primary focus is to treat objects as sets
+of properties, and provide functions to manipulate these sets in a pure
+way (mostly).
+
+§§ /blurb
+
+[TOC]
+
+
+## Load the module
+
+On [Node.js][] you just need to require the package, and get a reference
+to the exported `obj` module:
+~~~js~~~
+var obj = require('/path/to/black').obj
+~~~~~~~~
+
+On browsers things are a bit more complicated. You need to first include
+the appropriate script tags, in the right order. This module depends on
+the `core` module only:
+
+~~~html~~~
+<!-- Include black modules -->
+<script src="/path/to/black/core.js"></script>
+<script src="/path/to/black/obj.js"></script>
+~~~~~~~~~~
+
+After doing such, you just need to get a reference to the `obj` module
+exported in the global `black` object. You can use it as `black.obj` if
+you want, of course.
+
+~~~js~~~
+var obj = black.obj
+~~~~~~~~
+
+[Node.js]: http://nodejs.org/
+
+
+## Unpacking
+
+The module will unpack generic functions over to the `Object`,
+constructor. Own methods inside `Object.prototype`, so that all created
+objects will get them. And utilities in the usual global object.
+
+The following functions are exported as utilities:
+
+- [extend](#function_extend)
+- [keys](#function_keys)
+- [own_props](#function_own_props)
+- [values](#function_values)
+- [items](#function_items)
+- [proto](#function_proto)
+- [get](#function_get)
+- [set_default](#function_set_default)
+
+
+## Information about an object
+
+### Function hasp
+
+    (obj:Object, key:String) ↦ Boolean
+    
+Checks if a key is defined directly in an object. That is, if the given
+`key` is an **own** property of the object.
+
+
+### Function emptyp
+
+    (obj:Object) ↦ Boolean
+    
+Checks if an object has any **own** enumerable properties.
+
+Own properties are properties defined directly in the object, rather
+than inherited from the prototype. This function consider empty any
+object that has no such properties.
+
+For example, the following object is empty:
+
+~~~js~~~
+>>> var emptyp = black.obj.emptyp
+
+// empty literal is empty
+>>> emptyp({ })
+
+// so is a newly constructed native Object, given the constructor hasn't
+been touched, that is.
+>>> emptyp(new Object)
+~~~~~~~~
+
+Objects that only inherit properties from their prototypes are also
+considered empty. That's kinda given with the literal notation, since
+the resulting object inherits properties from `Object.prototype`. In any
+case, that holds true for any other kind of object.
+
+~~~js~~~
+>>> var my_object = Object.create({ foo: 'foo', bar: 'bar' })
+>>> emptyp(my_object)
+true
+~~~~~~~~
+
+Objects with own properties, but non-enumerables are not considered,
+since you can't backport such checks to non ECMAScript 5
+platforms. Therefore, the following object is also considered empty:
+
+~~~js~~~
+>>> var my_object = { }
+>>> Object.defineProperty(my_object, 'foo', { value: 'bar' })
+>>> emptyp(my_object)
+true
+
+// The property is defined directly (own) in the object nonetheless
+>>> my_object.hasOwnProperty('foo')
+true
+~~~~~~~~
+
+### Function size
+
+    (obj:Object) ↦ Number
+    
+Returns the number of **own enumerable** properties in the object.
+
+This will count any property defined directly in the object (enumerable
+properties, that is), whether they have a value or not.
+
+
+### Function proto
+
+    (obj:Object) ↦ Object
+    
+Returns the internal `〖Prototype〗` of the object.
+
+The `〖Prototype〗` is an internal reference to an object, from which
+the current object inherits its behaviours. For example, in the case of
+a simple object literal: `{}`; its `〖Prototype〗` points to
+`Object.prototype`.
+
+This is a direct alias of [Object.getPrototypeOf][]
+
+[Object.getPrototypeOf]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf
+
+
+## Key and property lists
+
+### Function keys
+
+    (obj:Object) ↦ Array
+    
+Returns a list of all **own enumerable** property names in an object.
+
+This is a direct alias of [Object.keys][]
+
+[Object.keys]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys
+
+
+### Function own_props
+
+    (obj:Object) ↦ Array
+    
+Returns a list of all **own** property names in an object, enumerable or
+not.
+
+This is a direct alias of [Object.getOwnPropertyNames][]
+
+**Warning**
+> This function can't be back-ported to implementations that don't
+> support ECMAScript 5.
+
+**See also:**
+
+- [keys](#function_keys)
+
+
+### Function values
+
+    (obj:Object) ↦ Array
+
+Return a list of values for all **own enumerable** properties
+of an object.
+
+**Example:**
+
+~~~js~~~
+>>> var my_object = { foo: 1, bar: 2 }
+>>> black.obj.values(my_object)
+[1, 2]
+~~~~~~~~
+
+### Function items
+
+    (obj:Object) ↦ Array
+    
+Return a list of tuples (key/value pairs) for all **own enumerable**
+properties of an object.
+
+**Example:**
+
+~~~js~~~
+>>> var my_object = { foo: 1, bar: 2 }
+>>> black.obj.items(my_object)
+[['foo', 1]
+,['bar', 2]]
+~~~~~~~~
+
+
+## Properties of an object
+
+### Function get
+
+    (obj:Object, key:String[, default][, pred:Function]) ↦ *mixed*
+    
+Return the given property in the object.
+
+If the property with the given key cannot be found, it'll return the
+value passed in as `default`, otherwise undefined.
+
+A predicate function may be passed to the function to fine-tuning how
+checking for the validity of the property. By default, the function does
+an existence check `key in object`, but this also considers properties
+that get inherited from other objects via the prototype chain.
+
+The predicate could be used to, for example, allow only properties
+defined directly in the object, or only properties of a certain type to
+be considered valid.
+
+In any case, the predicate function is called with three parameters: the
+value stored in the key (a `*mixed*`), the key itself (a `String`) and
+a reference to the object.
+
+**Example:**
+~~~js~~~
+>>> function ownp(value, key, obj) { return obj.hasOwnProperty(key) }
+>>> var get = black.obj.get
+>>> var obj1 = { bar: 2 }
+>>> var obj2 = Object.create(obj1, { foo: { value: 1 }})
+>>> get(obj1, 'bar')
+2
+>>> get(obj2, 'bar')
+2
+>>> get(obj2, 'bar', '--bar--', ownp)
+'--bar--'
+~~~~~~~~
+
+
+### Function pop
+
+    (obj:Object, key:String[, default][pred:Function]) ↦ *mixed*
+   
+Removes the property from the object, then return the value of the
+property.
+
+Pop works similarly to [get](#function_get), with the single difference
+that it'll also remove the property from the object if it exists.
+
+**warning:** *side-effects*
+> The property is **actually removed** from the given object.
+
+**See also:**
+
+- [get](#function_get)
+
+
+### Function set_default
+
+    (obj:Object, key:String, value[, pred:Function]) ↦ *mixed*
+    
+Sets the property only if it doesn't already exist in the object (or
+does not pass the predicate test for that matter). Returns the new value
+of the property.
+
+The default behaviour considers only properties that exist in the
+object, through the [hasp](#function_hasp) function. The behaviour can
+be changed by providing a custom predicate function.
+
+If a predicate is given, it'll be called with three parameters: the
+value stored in the property, the property name and a reference to the
+object itself.
+
+The predicate is expected to return true if the property is considered
+valid, and therefore shouldn't be changed, and false otherwise.
+
+**Example:**
+
+
+## Structure handling and modifying
+
+### Function nextend
+
+    (target:Object, sources:Object...) ↦ Object
+    
+Extends an object with the **own enumerable** properties of multiple
+source objects, then return the first object passed to the function.
+
+**Warning:** *side-effects*
+> The `target` object is modified in-place.
+
+**See also:**
+
+- [extend](#function_extend) - The pure version of this function.
+
+
+### Function extend
+
+    (target:Object, sources:Object...) ↦ Object
+    
+Extends an object with the **own enumerable** properties of multiple
+source objects, then return the first object passed to the function.
+
+The `target` object is not touched. An entirely new object will be
+created, though it will not inherit neither the prototype nor the
+non-enumerable properties of the object.
+
+
+### Function copy
+
+    (obj:Object) ↦ Object
+    
+Creates a shallow copy of the object.
+
+Currently, just an alias for [extend](#function_extend), though the idea
+is that it'll support deep copies on the 1.0 release.
+
+
+
+
+
+

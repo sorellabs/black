@@ -28,7 +28,12 @@ categories: Type checking, interface testing and functionality testing.
 // On Node.js
 var type = require('/path/to/black').type
 
-// On browsers (after including the proper script tags)
+// On browsers
+// -- HTML
+<script src="/path/to/black/core.js"></script>
+<script src="/path/to/black/type.js"></script>
+
+// -- JS
 var type = black.type
 ~~~~~~~~
 

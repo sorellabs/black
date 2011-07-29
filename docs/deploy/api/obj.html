@@ -1,0 +1,333 @@
+<!doctype html>
+<!-- https://github.com/paulirish/html5-boilerplate/blob/master/index.html -->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- encoding must be specified within the first 512 bytes
+        www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#charset -->
+
+  <!-- meta element for compatibility mode needs to be before
+        all elements except title & meta
+        msdn.microsoft.com/en-us/library/cc288325(VS.85).aspx -->
+  <!-- Chrome Frame is only invoked if meta element for
+        compatibility mode is within the first 1K bytes
+        code.google.com/p/chromium/issues/detail?id=23003 -->
+
+  <title>Objects</title>
+  <meta name="description" content="">
+  <meta name="author" content="Quildreen Motta">
+
+  <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Place favicon.ico & apple-touch-icon.png
+        in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+    <link rel="stylesheet" href="/media/css/site.css">
+  <link rel="stylesheet" href="/media/css/syntax.css">
+  
+    <!-- All JavaScript at the bottom, except for Modernizr which
+        enables HTML5 elements & feature detects -->
+    <script src="/media/js/libs/modernizr-1.6.min.js"></script>
+    </head>
+<body id="obj">
+    <div id="container">
+            <div id="main" role="main">
+          <header class="banner clearfix">
+          <img src="/media/img/project-logo.png">
+            <h1>Black</h1>
+            <h3>Extensions to the base objects from the core JS library.</h3>          </header>
+          <div class="doc">
+    <article>
+    <hgroup>
+        <h1 class="title">Objects</h1>
+        <h3 class="subtitle">Extensions for working with native Object</h3>
+    </hgroup>
+    <p>The <code>obj</code> module introduces lots of features missing from the standard
+as well as some aliases. The primary focus is to treat objects as sets
+of properties, and provide functions to manipulate these sets in a pure
+way&nbsp;(mostly).</p>
+<div class="toc">
+<ul>
+<li><a href="#load_the_module">Load the&nbsp;module</a></li>
+<li><a href="#unpacking">Unpacking</a></li>
+<li><a href="#information_about_an_object">Information about an object</a><ul>
+<li><a href="#function_hasp">Function&nbsp;hasp</a></li>
+<li><a href="#function_emptyp">Function&nbsp;emptyp</a></li>
+<li><a href="#function_size">Function&nbsp;size</a></li>
+<li><a href="#function_proto">Function&nbsp;proto</a></li>
+</ul>
+</li>
+<li><a href="#key_and_property_lists">Key and property lists</a><ul>
+<li><a href="#function_keys">Function&nbsp;keys</a></li>
+<li><a href="#function_own_props">Function&nbsp;own_props</a></li>
+<li><a href="#function_values">Function&nbsp;values</a></li>
+<li><a href="#function_items">Function&nbsp;items</a></li>
+</ul>
+</li>
+<li><a href="#properties_of_an_object">Properties of an object</a><ul>
+<li><a href="#function_get">Function&nbsp;get</a></li>
+<li><a href="#function_pop">Function&nbsp;pop</a></li>
+<li><a href="#function_set_default">Function&nbsp;set_default</a></li>
+<li><a href="#function_nextend">Function&nbsp;nextend</a></li>
+<li><a href="#function_extend">Function&nbsp;extend</a></li>
+<li><a href="#function_copy">Function&nbsp;copy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="load_the_module">Load the&nbsp;module</h2>
+<p>On <a href="http://nodejs.org/">Node.js</a> you just need to require the package, and get a reference
+to the exported <code>obj</code> module:
+<figure class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;/path/to/black&#39;</span><span class="p">).</span><span class="nx">obj</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<p>On browsers things are a bit more complicated. You need to first include
+the appropriate script tags, in the right order. This module depends on
+the <code>core</code> module only:
+<figure class="code"><div class="highlight"><pre><span class="c">&lt;!-- Include black modules --&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
+<p>After doing such, you just need to get a reference to the <code>obj</code> module
+exported in the global <code>black</code> object. You can use it as <code>black.obj</code> if
+you want, of course.
+<figure class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h2 id="unpacking">Unpacking</h2>
+<p>The module will unpack generic functions over to the <code>Object</code>,
+constructor. Own methods inside <code>Object.prototype</code>, so that all created
+objects will get them. And utilities in the usual global&nbsp;object.</p>
+<p>The following functions are exported as&nbsp;utilities:</p>
+<ul>
+<li><a href="#function_extend">extend</a></li>
+<li><a href="#function_keys">keys</a></li>
+<li><a href="#function_own_props">own_props</a></li>
+<li><a href="#function_values">values</a></li>
+<li><a href="#function_items">items</a></li>
+<li><a href="#function_proto">proto</a></li>
+<li><a href="#function_get">get</a></li>
+<li><a href="#function_set_default">set_default</a></li>
+</ul>
+<h2 id="information_about_an_object">Information about an&nbsp;object</h2>
+<h3 id="function_hasp">Function&nbsp;hasp</h3>
+<pre><code>(obj:Object, key:String) ↦ Boolean
+</code></pre>
+<p>Checks if a key is defined directly in an object. That is, if the given
+<code>key</code> is an <strong>own</strong> property of the&nbsp;object.</p>
+<h3 id="function_emptyp">Function&nbsp;emptyp</h3>
+<pre><code>(obj:Object) ↦ Boolean
+</code></pre>
+<p>Checks if an object has any <strong>own</strong> enumerable&nbsp;properties.</p>
+<p>Own properties are properties defined directly in the object, rather
+than inherited from the prototype. This function consider empty any
+object that has no such&nbsp;properties.</p>
+<p>For example, the following object is empty:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">emptyp</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">emptyp</span><br />&nbsp;<br /><span class="c1">// empty literal is empty</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">emptyp</span><span class="p">({</span> <span class="p">})</span><br />&nbsp;<br /><span class="c1">// so is a newly constructed native Object, given the constructor hasn&#39;t</span><br /><span class="nx">been</span> <span class="nx">touched</span><span class="p">,</span> <span class="nx">that</span> <span class="nx">is</span><span class="p">.</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">emptyp</span><span class="p">(</span><span class="k">new</span> <span class="nb">Object</span><span class="p">)</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<p>Objects that only inherit properties from their prototypes are also
+considered empty. That&#8217;s kinda given with the literal notation, since
+the resulting object inherits properties from <code>Object.prototype</code>. In any
+case, that holds true for any other kind of object.
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">my_object</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">})</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">emptyp</span><span class="p">(</span><span class="nx">my_object</span><span class="p">)</span><br /><span class="kc">true</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<p>Objects with own properties, but non-enumerables are not considered,
+since you can&#8217;t backport such checks to non ECMAScript 5
+platforms. Therefore, the following object is also considered empty:
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">my_object</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">my_object</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">})</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">emptyp</span><span class="p">(</span><span class="nx">my_object</span><span class="p">)</span><br /><span class="kc">true</span><br />&nbsp;<br /><span class="c1">// The property is defined directly (own) in the object nonetheless</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">my_object</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span><br /><span class="kc">true</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h3 id="function_size">Function&nbsp;size</h3>
+<pre><code>(obj:Object) ↦ Number
+</code></pre>
+<p>Returns the number of <strong>own enumerable</strong> properties in the&nbsp;object.</p>
+<p>This will count any property defined directly in the object (enumerable
+properties, that is), whether they have a value or&nbsp;not.</p>
+<h3 id="function_proto">Function&nbsp;proto</h3>
+<pre><code>(obj:Object) ↦ Object
+</code></pre>
+<p>Returns the internal <code>〖Prototype〗</code> of the&nbsp;object.</p>
+<p>The <code>〖Prototype〗</code> is an internal reference to an object, from which
+the current object inherits its behaviours. For example, in the case of
+a simple object literal: <code>{}</code>; its <code>〖Prototype〗</code> points to
+<code>Object.prototype</code>.</p>
+<p>This is a direct alias of <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf">Object.getPrototypeOf</a></p>
+<h2 id="key_and_property_lists">Key and property&nbsp;lists</h2>
+<h3 id="function_keys">Function&nbsp;keys</h3>
+<pre><code>(obj:Object) ↦ Array
+</code></pre>
+<p>Returns a list of all <strong>own enumerable</strong> property names in an&nbsp;object.</p>
+<p>This is a direct alias of <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys">Object.keys</a></p>
+<h3 id="function_own_props">Function&nbsp;own_props</h3>
+<pre><code>(obj:Object) ↦ Array
+</code></pre>
+<p>Returns a list of all <strong>own</strong> property names in an object, enumerable or&nbsp;not.</p>
+<p>This is a direct alias of&nbsp;[Object.getOwnPropertyNames][]</p>
+<p><strong>Warning</strong></p>
+<blockquote>
+<p>This function can&#8217;t be back-ported to implementations that don&#8217;t
+support ECMAScript&nbsp;5.</p>
+</blockquote>
+<p><strong>See&nbsp;also:</strong></p>
+<ul>
+<li><a href="#function_keys">keys</a></li>
+</ul>
+<h3 id="function_values">Function&nbsp;values</h3>
+<pre><code>(obj:Object) ↦ Array
+</code></pre>
+<p>Return a list of values for all <strong>own enumerable</strong> properties
+of an&nbsp;object.</p>
+<p><strong>Example:</strong>
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">my_object</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">my_object</span><span class="p">)</span><br /><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h3 id="function_items">Function&nbsp;items</h3>
+<pre><code>(obj:Object) ↦ Array
+</code></pre>
+<p>Return a list of tuples (key/value pairs) for all <strong>own enumerable</strong>
+properties of an&nbsp;object.</p>
+<p><strong>Example:</strong>
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">my_object</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">items</span><span class="p">(</span><span class="nx">my_object</span><span class="p">)</span><br /><span class="p">[[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><br /><span class="p">,[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h2 id="properties_of_an_object">Properties of an&nbsp;object</h2>
+<h3 id="function_get">Function&nbsp;get</h3>
+<pre><code>(obj:Object, key:String[, default][, pred:Function]) ↦ *mixed*
+</code></pre>
+<p>Return the given property in the&nbsp;object.</p>
+<p>If the property with the given key cannot be found, it&#8217;ll return the
+value passed in as <code>default</code>, otherwise&nbsp;undefined.</p>
+<p>A predicate function may be passed to the function to fine-tuning how
+checking for the validity of the property. By default, the function does
+an existence check <code>key in object</code>, but this also considers properties
+that get inherited from other objects via the prototype&nbsp;chain.</p>
+<p>The predicate could be used to, for example, allow only properties
+defined directly in the object, or only properties of a certain type to
+be considered&nbsp;valid.</p>
+<p>In any case, the predicate function is called with three parameters: the
+value stored in the key (a <code>*mixed*</code>), the key itself (a <code>String</code>) and
+a reference to the&nbsp;object.</p>
+<p><strong>Example:</strong>
+<figure class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kd">function</span> <span class="nx">ownp</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">get</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">get</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">obj1</span><span class="p">,</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}})</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">get</span><span class="p">(</span><span class="nx">obj1</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span><br /><span class="mi">2</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">get</span><span class="p">(</span><span class="nx">obj2</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span><br /><span class="mi">2</span><br /><span class="o">&gt;&gt;&gt;</span> <span class="nx">get</span><span class="p">(</span><span class="nx">obj2</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;--bar--&#39;</span><span class="p">,</span> <span class="nx">ownp</span><span class="p">)</span><br /><span class="s1">&#39;--bar--&#39;</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<h3 id="function_pop">Function&nbsp;pop</h3>
+<pre><code>(obj:Object, key:String[, default][pred:Function]) ↦ *mixed*
+</code></pre>
+<p>Removes the property from the object, then return the value of the&nbsp;property.</p>
+<p>Pop works similarly to <a href="#function_get">get</a>, with the single difference
+that it&#8217;ll also remove the property from the object if it&nbsp;exists.</p>
+<p><strong>warning:</strong> <em>side-effects</em></p>
+<blockquote>
+<p>The property is <strong>actually removed</strong> from the given&nbsp;object.</p>
+</blockquote>
+<p><strong>See&nbsp;also:</strong></p>
+<ul>
+<li><a href="#function_get">get</a></li>
+</ul>
+<h3 id="function_set_default">Function&nbsp;set_default</h3>
+<pre><code>(obj:Object, key:String, value[, pred:Function]) ↦ *mixed*
+</code></pre>
+<p>Sets the property only if it doesn&#8217;t already exist in the object (or
+does not pass the predicate test for that matter). Returns the new value
+of the&nbsp;property.</p>
+<p>The default behaviour considers only properties that exist in the
+object, through the <a href="#function_hasp">hasp</a> function. The behaviour can
+be changed by providing a custom predicate&nbsp;function.</p>
+<p>If a predicate is given, it&#8217;ll be called with three parameters: the
+value stored in the property, the property name and a reference to the
+object&nbsp;itself.</p>
+<p>The predicate is expected to return true if the property is considered
+valid, and therefore shouldn&#8217;t be changed, and false&nbsp;otherwise.</p>
+<p><strong>Example:</strong></p>
+<h3 id="function_nextend">Function&nbsp;nextend</h3>
+<pre><code>(target:Object, sources:Object...) ↦ Object
+</code></pre>
+<p>Extends an object with the <strong>own enumerable</strong> properties of multiple
+source objects, then return the first object passed to the&nbsp;function.</p>
+<p><strong>Warning:</strong> <em>side-effects</em></p>
+<blockquote>
+<p>The <code>target</code> object is modified&nbsp;in-place.</p>
+</blockquote>
+<p><strong>See&nbsp;also:</strong></p>
+<ul>
+<li><a href="#function_extend">extend</a> - The pure version of this&nbsp;function.</li>
+</ul>
+<h3 id="function_extend">Function&nbsp;extend</h3>
+<pre><code>(target:Object, sources:Object...) ↦ Object
+</code></pre>
+<p>Extends an object with the <strong>own enumerable</strong> properties of multiple
+source objects, then return the first object passed to the&nbsp;function.</p>
+<p>The <code>target</code> object is not touched. An entirely new object will be
+created, though it will not inherit neither the prototype nor the
+non-enumerable properties of the&nbsp;object.</p>
+<h3 id="function_copy">Function&nbsp;copy</h3>
+<pre><code>(obj:Object) ↦ Object
+</code></pre>
+<p>Creates a shallow copy of the&nbsp;object.</p>
+<p>Currently, just an alias for <a href="#function_extend">extend</a>, though the idea
+is that it&#8217;ll support deep copies on the 1.0&nbsp;release.</p>    </article>
+    <aside>
+        <ul class="toc">
+        <li><mark class="version">Version: 0.2</mark></li>
+        <li class="topic" id="topic1">
+                        <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/index.html">
+                    Overview</a><li>
+                <a                     title=""
+                    href="/licence.html">
+                    Licence</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic2">
+            <h2 class="">Overview</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/overview/why.html">
+                    Why use&nbsp;Black</a><li>
+                <a                     title=""
+                    href="/overview/supported.html">
+                    Supported&nbsp;Platforms</a><li>
+                <a                     title=""
+                    href="/overview/installing.html">
+                    Installing</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic3">
+            <h2 class=" active">Reference</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/api/core.html">
+                    Getting&nbsp;Started</a><li>
+                <a                     title=""
+                    href="/api/types.html">
+                    Types</a><li>
+                <a class="active"                    title=""
+                    href="/api/obj.html">
+                    Objects</a>                </li>
+            </ul>
+        </li>        </ul>
+        <nav class="prevnext">
+            <a
+                class="prev"
+                title="Types"
+                href="/api/types.html">
+                &larr;Previous
+            </a>                        <br class="clear">
+        </nav>
+    </aside>
+</div>
+<footer>
+<p><a href="https://github.com/hyde/hyde">smelted with hyde</a> &mdash;
+<a href="https://github.com/killdream/Black">fork <span class="amp">&amp;</span> hack away</a><br>
+—Design mostly based on <a href="http://hyde.github.com/">Hyde&nbsp;docs</a></p></footer>      </div>
+      <footer>
+    </footer>
+      </div> <!--! end of #container -->
+      <!-- Javascript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/media/js/libs/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+  
+    
+      
+  </body>
+</html>
