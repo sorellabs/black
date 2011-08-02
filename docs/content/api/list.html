@@ -1,0 +1,179 @@
+===
+title: List
+subtitle: Sequence manipulation and iteration
+created: 2011-07-28 23:40:26
+toc: reference
+index: 4
+===
+
+§§ blurb
+
+The `list` module introduces functions to work with Arrays and other
+general sequence objects, maintaining a pure way. They expand a little
+on the JavaScript's Array methods, which are supposed to be generic, and
+add a few more.
+
+§§ /blurb
+
+[TOC]
+
+
+## Load the module
+
+On [Node.js][] you just need to require the package, and get a reference
+to the exported `list` module:
+~~~js~~~
+var list = require('/path/to/black').list
+~~~~~~~~
+
+On browsers things are a bit more complicated. You need to first include
+the appropriate script tags, in the right order. This module depends on
+the `core` and `type` modules:
+
+~~~html~~~
+<!-- include black modules -->
+<script src="/path/to/black/core.js"></script>
+<script src="/path/to/black/type.js"></script>
+<script src="/path/to/black/list.js"></script>
+~~~~~~~~~~
+
+After doing such, you just need to get a reference to the `list` module
+exported in the global `black` object. You can use it as `black.list` if
+you want, of course.
+
+~~~js~~~
+var list = black.list
+~~~~~~~~
+
+[Node.js]: http://nodejs.org/
+
+
+## Unpacking
+
+The module will unpack generic functions to the `Array` constructor. Own
+methods inside `Array.prototype`, so that all arrays will get them (not
+all sequence objects though). And utilities in the usual global object.
+
+The following function are exported as utilities:
+
+- [make_array](#function_make_array)
+- [range](#function_range)
+- [to_array](#function_to_array)
+- [first](#function_first)
+- [last](#function_last)
+- [nth](#function_nth)
+- [but_last](#function_but_last)
+- [drop](#function_drop)
+- [keep](#function_keep)
+- [sorted](#function_sorted)
+- [reversed](#function_reversed)
+- [flatten](#function_flatten)
+- [zip](#function_zip)
+- [map](#function_map)
+- [each](#function_each)
+- [filter](#function_filter)
+- [reduce](#function_reduce)
+- [reduce_right](#function_reduce_right)
+- [some](#function_some)
+- [every](#function_every)
+- [pluck](#function_pluck)
+- [invoke](#function_invoke)
+
+
+## Making lists
+
+### Function make_array
+
+    (size:Number[, default]) ↦ Array
+    
+Allocates an array with the given size, optionally filled with the
+default value.
+
+If a default value is not given, the array will be filled with empty
+strings.
+
+
+### Function range
+
+    (start:Number, end:Number[, step:Number]) ↦ Array
+    
+Makes an array with numeric values ranging from `start` to `end`.
+
+`end` is not included in the resulting array.
+
+
+### Function to_array
+
+    (obj:+Sequence) ↦ Array
+    
+Returns an *actual* array from any sequence object.
+
+
+### Function copy
+
+    (obj:+Sequence) ↦ Array
+    
+Returns a shallow copy of the sequence as an array.
+
+Currently this does this by naïvely aliasing the
+[slice](#function_slice) function. However, it still does not support
+deep cloning.
+
+
+## Information about a list and its elements
+
+### Function size
+
+    (seq:+Sequence) ↦ Number
+    
+Returns the size of a sequence.
+
+Note that this is not the same as the number of elements inside an array
+because JavaScript has things like [sparse arrays][], that is, arrays
+where not all indexes are actually set.
+
+Instead, it'll return the highest numeric index that is set in the
+array (1-based)
+
+
+### Function emptyp
+
+    (seq:+Sequence) ↦ Boolean
+
+Returns whether the sequence's size is larger than 0.
+
+
+### Function hasp
+
+    (seq:+Sequence, value[, predicate:Function]) ↦ Boolean
+
+Checks if a sequence contains the given value or not.
+
+The comparison is done using the strict equality comparison operator
+(`===`), unless a different predicate function is given.
+
+If a predicate function is given, it'll be called for each element in
+the sequence with three parameters: the value of the sequence item, the
+index that where that item is stored in the sequence, and the sequence
+itself.
+
+Note that the predicate function does not work with `null` values.
+
+**See also:**
+
+- [find_first](#function_find_first)
+
+
+### Function count
+
+    (seq:+Sequence, value[, predicate:Function]) ↦ Number
+
+Returns the number of occurrences of `value` in the given sequence,
+optionally filtered by a predicate function.
+
+If a predicate function is not given, it'll check for occurrences using
+the strict equality comparison operator (`===`). Otherwise, the function
+will be called for each element in the sequence with two parameters: the
+expected value and the current item.
+
+
