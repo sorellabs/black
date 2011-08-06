@@ -58,8 +58,8 @@ void function (root) {
     //
     //   (fn:Fn[, wrapper:Fn]) ↦ Fn
     //
-    // Returns a function that passes the given function as the first
-    // argument for any other function.
+    // Returns a function that passes the given `wrapper` as the first
+    // argument for `fn`.
     //
     function wrap(fn, wrapper) {
         if (!wrapper)
