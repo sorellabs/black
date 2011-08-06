@@ -9,7 +9,7 @@
 /// Module list ////////////////////////////////////////////////////////////////
 void function (root) {
 
-    var list
+    var list, undefined
 
     // Imports
     , type = typeof require == 'function'?  require('./type') : black.type
@@ -179,7 +179,7 @@ void function (root) {
     //
     function first(seq) {
         return sequencep(seq)?  seq[0]
-        :                   null
+        :                   undefined
     }
 
     ///// Function last ////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ void function (root) {
     //
     function last(seq) {
         return sequencep(seq)?  seq[seq.length - 1]
-        :                   null
+        :                   undefined
     }
 
     ///// Function nth /////////////////////////////////////////////////////////
@@ -201,7 +201,7 @@ void function (root) {
     //
     function nth(seq, index) {
         return sequencep(seq)?  seq[index]
-        :                   null
+        :                   undefined
     }
 
     ///// Function find_first //////////////////////////////////////////////////
@@ -225,7 +225,7 @@ void function (root) {
             if (i in seq && pred.call(ctx, seq[i], i, seq))
                 return seq[i]
 
-        return null
+        return undefined
     }
 
     ///// Function find_last ///////////////////////////////////////////////////
@@ -249,7 +249,7 @@ void function (root) {
             if (i in seq && pred.call(ctx, seq[i], i, seq))
                 return seq[i]
 
-        return null
+        return undefined
     }
 
 
@@ -316,7 +316,7 @@ void function (root) {
     // Returns a array with just the first `num` elements.
     //
     function keep(seq, num) {
-        return slice(seq, 0, num < 0? void num : num)
+        return slice(seq, 0, num < 0? undefined : num)
     }
 
 
@@ -519,7 +519,7 @@ void function (root) {
     //
     function each(seq, pred, ctx) {
         return sequencep(seq)?  __each.call(seq, pred, ctx)
-        :                  void 0
+        :                  undefined
     }
 
     ///// Function filter //////////////////////////////////////////////////////
@@ -608,7 +608,7 @@ void function (root) {
     function pluck(seq, attr) {
         return map(seq, function(value) {
             return objp(value)?  value[attr]
-            :                void 0 })
+            :                undefined })
     }
 
     ///// Function invoke //////////////////////////////////////////////////////
@@ -624,9 +624,9 @@ void function (root) {
         args = slice(arguments, 2)
 
         return map(seq, function(value) {
-            return nilp(value)?               void 0
+            return nilp(value)?               undefined
             : callablep(value[method])?  value[method].apply(value, args)
-            :                            void 0 })
+            :                            undefined })
     }
 
 
