@@ -319,6 +319,41 @@ void function (root) {
         return slice(seq, 0, num < 0? void num : num)
     }
 
+
+    //// -Extending lists //////////////////////////////////////////////////////
+
+    ///// Function insert //////////////////////////////////////////////////////
+    //
+    //   (seq:Sequence, index:Num[, values...]) ↦ Array
+    //
+    // Returns a array with the given elements inserted at the given
+    // index.
+    //
+    function insert(seq, index) { var values, result
+        values = slice(arguments, 2)
+        result = copy(seq)
+        result.splice.apply(result, [index, 0].concat(values))
+
+        return result
+    }
+
+    ///// Function cat /////////////////////////////////////////////////////////
+    //
+    //   (seq[, seqs...]) ↦ Array
+    //
+    // Returns an array with the given sequencess concatened.
+    //
+    function cat() {
+        return reduce(arguments, function(result, seq) {
+            if (!arrayp(result))                result = slice(result)
+            if (!arrayp(seq) && sequencep(seq))  seq    = slice(seq)
+
+            return result.concat(seq) })
+    }
+
+
+    //// -Structure handling ///////////////////////////////////////////////////
+
     ///// Function remove //////////////////////////////////////////////////////
     //
     //   (seq:Sequence, index:Num) ↦ Array
@@ -356,42 +391,6 @@ void function (root) {
     function compact(seq) {
         return filter(seq, not_nilp)
     }
-
-
-
-    //// -Extending lists //////////////////////////////////////////////////////
-
-    ///// Function insert //////////////////////////////////////////////////////
-    //
-    //   (seq:Sequence, index:Num[, values...]) ↦ Array
-    //
-    // Returns a array with the given elements inserted at the given
-    // index.
-    //
-    function insert(seq, index) { var values, result
-        values = slice(arguments, 2)
-        result = copy(seq)
-        result.splice.apply(result, [index, 0].concat(values))
-
-        return result
-    }
-
-    ///// Function cat /////////////////////////////////////////////////////////
-    //
-    //   (seq[, seqs...]) ↦ Array
-    //
-    // Returns an array with the given sequencess concatened.
-    //
-    function cat() {
-        return reduce(arguments, function(result, seq) {
-            if (!arrayp(result))                result = slice(result)
-            if (!arrayp(seq) && sequencep(seq))  seq    = slice(seq)
-
-            return result.concat(seq) })
-    }
-
-
-    //// -Structure handling ///////////////////////////////////////////////////
 
     ///// Function replace /////////////////////////////////////////////////////
     //
