@@ -624,8 +624,8 @@ void function (root) {
         args = slice(arguments, 2)
 
         return map(seq, function(value) {
-            return !value?                    void 0
-            : callablep(value[method])?  value[method].apply(this, args)
+            return nilp(value)?               void 0
+            : callablep(value[method])?  value[method].apply(value, args)
             :                            void 0 })
     }
 
