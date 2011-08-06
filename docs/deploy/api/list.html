@@ -1,0 +1,488 @@
+<!doctype html>
+<!-- https://github.com/paulirish/html5-boilerplate/blob/master/index.html -->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- encoding must be specified within the first 512 bytes
+        www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#charset -->
+
+  <!-- meta element for compatibility mode needs to be before
+        all elements except title & meta
+        msdn.microsoft.com/en-us/library/cc288325(VS.85).aspx -->
+  <!-- Chrome Frame is only invoked if meta element for
+        compatibility mode is within the first 1K bytes
+        code.google.com/p/chromium/issues/detail?id=23003 -->
+
+  <title>List</title>
+  <meta name="description" content="">
+  <meta name="author" content="Quildreen Motta">
+
+  <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Place favicon.ico & apple-touch-icon.png
+        in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+    <link rel="stylesheet" href="/media/css/site.css">
+  <link rel="stylesheet" href="/media/css/syntax.css">
+  
+    <!-- All JavaScript at the bottom, except for Modernizr which
+        enables HTML5 elements & feature detects -->
+    <script src="/media/js/libs/modernizr-1.6.min.js"></script>
+    </head>
+<body id="list">
+    <div id="container">
+            <div id="main" role="main">
+          <header class="banner clearfix">
+          <img src="/media/img/project-logo.png">
+            <h1>Black</h1>
+            <h3>Extensions to the base objects from the core JS library.</h3>          </header>
+          <div class="doc">
+    <article>
+    <hgroup>
+        <h1 class="title">List</h1>
+        <h3 class="subtitle">Sequence manipulation and iteration</h3>
+    </hgroup>
+    <p>The <code>list</code> module introduces functions to work with Arrays and other
+general sequence objects, maintaining a pure way. They expand a little
+on the JavaScript&#8217;s Array methods, which are supposed to be generic, and
+add a few&nbsp;more.</p>
+<p>Note that this module relies on a correct ECMAScript implementation of
+Array generics, which do take into account <a href="http://es5.github.com/#x15.4">sparse arrays</a>. Note also
+that some of the <span class="caps">ES5</span> fallback libraries have
+<a href="https://gist.github.com/1120592">issues with sparse arrays</a> amongst other&nbsp;things.</p>
+<p>This module depends on the <a href="type.html">type</a>&nbsp;module.</p>
+<div class="toc">
+<ul>
+<li><a href="#unpacking">Unpacking</a></li>
+<li><a href="#making_lists">Making lists</a><ul>
+<li><a href="#function_make_array">Function&nbsp;make_array</a></li>
+<li><a href="#function_range">Function&nbsp;range</a></li>
+<li><a href="#function_to_array">Function&nbsp;to_array</a></li>
+<li><a href="#function_copy">Function&nbsp;copy</a></li>
+</ul>
+</li>
+<li><a href="#information_about_a_list_and_its_elements">Information about a list and its elements</a><ul>
+<li><a href="#function_size">Function&nbsp;size</a></li>
+<li><a href="#function_emptyp">Function&nbsp;emptyp</a></li>
+<li><a href="#function_hasp">Function&nbsp;hasp</a></li>
+<li><a href="#function_count">Function&nbsp;count</a></li>
+</ul>
+</li>
+<li><a href="#acessing_individual_elements">Acessing individual elements</a><ul>
+<li><a href="#function_first">Function&nbsp;first</a></li>
+<li><a href="#function_last">Function&nbsp;last</a></li>
+<li><a href="#function_nth">Function&nbsp;nth</a></li>
+<li><a href="#function_find_first">Function&nbsp;find_first</a></li>
+<li><a href="#function_find_last">Function&nbsp;find_last</a></li>
+</ul>
+</li>
+<li><a href="#extracting_sections_of_a_list">Extracting sections of a list</a><ul>
+<li><a href="#function_slice">Function&nbsp;slice</a></li>
+<li><a href="#function_rest">Function&nbsp;rest</a></li>
+<li><a href="#function_but_last">Function&nbsp;but_last</a></li>
+<li><a href="#function_drop">Function&nbsp;drop</a></li>
+<li><a href="#function_keep">Function&nbsp;keep</a></li>
+</ul>
+</li>
+<li><a href="#extending_lists">Extending lists</a><ul>
+<li><a href="#function_insert">Function&nbsp;insert</a></li>
+<li><a href="#function_cat">Function&nbsp;cat</a></li>
+</ul>
+</li>
+<li><a href="#structure_handling">Structure handling</a><ul>
+<li><a href="#function_remove">Function&nbsp;remove</a></li>
+<li><a href="#function_without">Function&nbsp;without</a></li>
+<li><a href="#function_compact">Function&nbsp;compact</a></li>
+<li><a href="#function_replace">Function&nbsp;replace</a></li>
+<li><a href="#function_replace_at">Function&nbsp;replace_at</a></li>
+<li><a href="#function_sorted">Function&nbsp;sorted</a></li>
+<li><a href="#function_reversed">Function&nbsp;reversed</a></li>
+<li><a href="#function_flatten">Function&nbsp;flatten</a></li>
+<li><a href="#function_zip">Function&nbsp;zip</a></li>
+</ul>
+</li>
+<li><a href="#iteration_through_a_list">Iteration through a list</a><ul>
+<li><a href="#function_map">Function&nbsp;map</a></li>
+<li><a href="#function_each">Function&nbsp;each</a></li>
+<li><a href="#function_filter">Function&nbsp;filter</a></li>
+<li><a href="#function_reduce">Function&nbsp;reduce</a></li>
+<li><a href="#function_reduce_right">Function&nbsp;reduce_right</a></li>
+<li><a href="#function_some">Function&nbsp;some</a></li>
+<li><a href="#function_every">Function&nbsp;every</a></li>
+</ul>
+</li>
+<li><a href="#special_mapping_functions">Special mapping functions</a><ul>
+<li><a href="#function_pluck">Function&nbsp;pluck</a></li>
+<li><a href="#function_invoke">Function&nbsp;invoke</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="unpacking">Unpacking</h2>
+<p>By loading the <code>core</code> module you can <a href="core.html#unpacking_functions_and_own_methods">unpack</a> this module&#8217;s functions
+to use them in a less crippled&nbsp;way.</p>
+<p>The module will unpack generic functions to the <code>Array</code> constructor, own
+methods inside <code>Array.prototype</code>, so that all arrays will get them (not
+all sequence objects though), and utilities in the usual global&nbsp;object.</p>
+<p>The following function are exported as&nbsp;utilities:</p>
+<ul>
+<li><a href="#function_make_array">make_array</a></li>
+<li><a href="#function_range">range</a></li>
+<li><a href="#function_to_array">to_array</a></li>
+<li><a href="#function_first">first</a></li>
+<li><a href="#function_last">last</a></li>
+<li><a href="#function_nth">nth</a></li>
+<li><a href="#function_but_last">but_last</a></li>
+<li><a href="#function_drop">drop</a></li>
+<li><a href="#function_keep">keep</a></li>
+<li><a href="#function_sorted">sorted</a></li>
+<li><a href="#function_reversed">reversed</a></li>
+<li><a href="#function_flatten">flatten</a></li>
+<li><a href="#function_zip">zip</a></li>
+<li><a href="#function_map">map</a></li>
+<li><a href="#function_each">each</a></li>
+<li><a href="#function_filter">filter</a></li>
+<li><a href="#function_reduce">reduce</a></li>
+<li><a href="#function_reduce_right">reduce_right</a></li>
+<li><a href="#function_some">some</a></li>
+<li><a href="#function_every">every</a></li>
+<li><a href="#function_pluck">pluck</a></li>
+<li><a href="#function_invoke">invoke</a></li>
+</ul>
+<h2 id="making_lists">Making&nbsp;lists</h2>
+<h3 id="function_make_array">Function&nbsp;make_array</h3>
+<pre><code>(size:Number[, default]) ↦ Array
+</code></pre>
+<p>Allocates an array with the given size, optionally filled with the
+default&nbsp;value.</p>
+<p>If a default value is not given, the array will be filled with empty&nbsp;strings.</p>
+<h3 id="function_range">Function&nbsp;range</h3>
+<pre><code>(start:Number, end:Number[, step:Number]) ↦ Array
+</code></pre>
+<p>Makes an array with numeric values ranging from <code>start</code> to <code>end</code>.</p>
+<p><code>end</code> is not included in the resulting&nbsp;array.</p>
+<h3 id="function_to_array">Function&nbsp;to_array</h3>
+<pre><code>(obj:+Sequence) ↦ Array
+</code></pre>
+<p>Returns an <em>actual</em> array from any sequence&nbsp;object.</p>
+<h3 id="function_copy">Function&nbsp;copy</h3>
+<pre><code>(obj:+Sequence) ↦ Array
+</code></pre>
+<p>Returns a shallow copy of the sequence as an&nbsp;array.</p>
+<p>Currently this does this by naïvely aliasing the
+<a href="#function_slice">slice</a> function. However, it still does not support
+deep&nbsp;cloning.</p>
+<h2 id="information_about_a_list_and_its_elements">Information about a list and its&nbsp;elements</h2>
+<h3 id="function_size">Function&nbsp;size</h3>
+<pre><code>(seq:+Sequence) ↦ Number
+</code></pre>
+<p>Returns the size of a&nbsp;sequence.</p>
+<p>Note that this is not the same as the number of elements inside an array
+because JavaScript has things like <a href="http://es5.github.com/#x15.4">sparse arrays</a>, that is, arrays
+where not all indexes are actually&nbsp;set.</p>
+<p>Instead, it&#8217;ll return the highest numeric index that is set in the
+array&nbsp;(1-based)</p>
+<h3 id="function_emptyp">Function&nbsp;emptyp</h3>
+<pre><code>(seq:+Sequence) ↦ Boolean
+</code></pre>
+<p>Returns whether the sequence&#8217;s size is larger than&nbsp;0.</p>
+<h3 id="function_hasp">Function&nbsp;hasp</h3>
+<pre><code>(seq:+Sequence, value[, predicate:Function]) ↦ Boolean
+</code></pre>
+<p>Checks if a sequence contains the given value or&nbsp;not.</p>
+<p>The comparison is done using the strict equality comparison operator
+(<code>===</code>), unless a different predicate function is&nbsp;given.</p>
+<p>If a predicate function is given, it&#8217;ll be called for each element in
+the sequence with three parameters: the value of the sequence item, the
+index that where that item is stored in the sequence, and the sequence&nbsp;itself.</p>
+<p>Note that the predicate function does not work with <code>null</code> values.</p>
+<p><strong>See&nbsp;also:</strong></p>
+<ul>
+<li><a href="#function_find_first">find_first</a></li>
+</ul>
+<h3 id="function_count">Function&nbsp;count</h3>
+<pre><code>(seq:+Sequence, value[, predicate:Function]) ↦ Number
+</code></pre>
+<p>Returns the number of occurrences of <code>value</code> in the given sequence,
+optionally filtered by a predicate&nbsp;function.</p>
+<p>If a predicate function is not given, it&#8217;ll check for occurrences using
+the strict equality comparison operator (<code>===</code>). Otherwise, the function
+will be called for each element in the sequence with two parameters: the
+expected value and the current&nbsp;item.</p>
+<h2 id="acessing_individual_elements">Acessing individual&nbsp;elements</h2>
+<h3 id="function_first">Function&nbsp;first</h3>
+<pre><code>(seq:+Sequence) ↦ *mixed*
+</code></pre>
+<p>Returns the first element of the&nbsp;sequence.</p>
+<p>Returns <code>null</code> if the passed object does not implement the
+<a href="types.html#function_sequencep">Sequence</a>&nbsp;interface.</p>
+<h3 id="function_last">Function&nbsp;last</h3>
+<pre><code>(seq:+Sequence) ↦ *mixed*
+</code></pre>
+<p>Returns the last element of the&nbsp;sequence.</p>
+<p>Returns <code>null</code> if the passed object does not implement the
+<a href="types.html#function_sequencep">Sequence</a>&nbsp;interface.</p>
+<h3 id="function_nth">Function&nbsp;nth</h3>
+<pre><code>(seq:+Sequence, index:Number) ↦ *mixed*
+</code></pre>
+<p>Returns the element at the given index in the&nbsp;sequence.</p>
+<p>Returns <code>null</code> if the passed object does not implement the
+<a href="types.html#function_sequence">Sequence</a>&nbsp;interface.</p>
+<h3 id="function_find_first">Function&nbsp;find_first</h3>
+<pre><code>(seq:+Sequence[, predicate:Function][, context:Object]) ↦ *mixed*
+</code></pre>
+<p>Returns the first element of the sequence to pass the predicate&nbsp;test.</p>
+<p>If a predicate is not given, the function will return the first non-nil
+element from the&nbsp;sequence.</p>
+<p>A context may be given as the last argument; if so, the predicate will
+be called with the given element as <code>this</code>.</p>
+<h3 id="function_find_last">Function&nbsp;find_last</h3>
+<pre><code>(seq:+Sequence[, predicate:Function][, context:Object]) ↦ *mixed*
+</code></pre>
+<p>Returns the last element of the sequence to pass the predicate&nbsp;function.</p>
+<p>If the predicate is not given, the function will return the last non-nil
+element from the&nbsp;sequence.</p>
+<p>A context may be given as the last argument; if so, the predicate
+function will be called with the given element as <code>this</code>.</p>
+<h2 id="extracting_sections_of_a_list">Extracting sections of a&nbsp;list</h2>
+<h3 id="function_slice">Function&nbsp;slice</h3>
+<pre><code>(seq:+Sequence[, start:Number][, end:Number]) ↦ Array
+</code></pre>
+<p>Extracts a subsection of the sequence that goes from <code>start</code> to <code>end</code>.</p>
+<p>When <code>start</code> is not given, the algorithm assumes the beginning of the
+sequence. When <code>end</code> is not given, the algorithm assumes the last item
+of the&nbsp;sequence.</p>
+<p>At any rate, <code>start</code> and <code>end</code> are included in the resulting&nbsp;sublist.</p>
+<p>If negative indexes are passed as either <code>start</code> or <code>end</code>, they&#8217;re taken
+as the difference from the length of the sequence. That is, a -1 index
+means the last element, -2 the one before the last, and so&nbsp;on.</p>
+<p><strong>Alias&nbsp;for:</strong></p>
+<ul>
+<li>[Array.prototype.slice][]</li>
+</ul>
+<h3 id="function_rest">Function&nbsp;rest</h3>
+<pre><code>(seq:+Sequence) ↦ Array
+</code></pre>
+<p>Returns a new array without the first&nbsp;element.</p>
+<h3 id="function_but_last">Function&nbsp;but_last</h3>
+<pre><code>(seq:+Sequence) ↦  Array
+</code></pre>
+<p>Returns a new array without the last&nbsp;element.</p>
+<h3 id="function_drop">Function&nbsp;drop</h3>
+<pre><code>(seq:+Sequence, num:Number) ↦ Array
+</code></pre>
+<p>Returns a new array without the first <code>num</code> elements.</p>
+<h3 id="function_keep">Function&nbsp;keep</h3>
+<pre><code>(seq:+Sequence, num:Number) ↦ Array
+</code></pre>
+<p>Returns a new array with just the first <code>num</code> elements.</p>
+<h2 id="extending_lists">Extending&nbsp;lists</h2>
+<h3 id="function_insert">Function&nbsp;insert</h3>
+<pre><code>(seq:+Sequence, index:Number[, values...]) ↦  Array
+</code></pre>
+<p>Returns a new array with the given <code>values</code> inserted at the given
+<code>index</code>.</p>
+<h3 id="function_cat">Function&nbsp;cat</h3>
+<pre><code>(seq:+Sequence[, seqs...]) ↦ Array
+</code></pre>
+<p>Returns a new array with the given sequences&nbsp;concatenated.</p>
+<h2 id="structure_handling">Structure&nbsp;handling</h2>
+<h3 id="function_remove">Function&nbsp;remove</h3>
+<pre><code>(seq:+Sequence, index:Number) ↦ Array
+</code></pre>
+<p>Returns a new array without the item at <code>index</code>.</p>
+<h3 id="function_without">Function&nbsp;without</h3>
+<pre><code>(seq:+Sequence, value[, predicate:Function]) ↦  Array
+</code></pre>
+<p>Returns a new array without elements that match <code>value</code>, with the
+comparison optionally defined by a predicate&nbsp;funciton.</p>
+<p>If a predicate function is not given, the strict equality comparison
+operator (<code>===</code>) will be&nbsp;used.</p>
+<h3 id="function_compact">Function&nbsp;compact</h3>
+<pre><code>(seq:+Sequence) ↦ Array
+</code></pre>
+<p>Returns a new array without <code>null</code> and <code>undefined</code> values in&nbsp;it.</p>
+<h3 id="function_replace">Function&nbsp;replace</h3>
+<pre><code>(seq:+Sequence, value, replacement[, predicate:Function]) ↦ Array
+</code></pre>
+<p>Returns a new array with the elements that match <code>value</code> replaced by
+<code>replacement</code>.</p>
+<p>If a predicate function is not given, the strict equality comparison
+operator (<code>===</code>) will be&nbsp;used.</p>
+<h3 id="function_replace_at">Function&nbsp;replace_at</h3>
+<pre><code>(seq:+Sequence, index:Number, replacement) ↦ Array
+</code></pre>
+<p>Returns a new array with the element at <code>index</code> replaced by the given
+<code>replacement</code>.</p>
+<h3 id="function_sorted">Function&nbsp;sorted</h3>
+<pre><code> (seq:+Sequence[, comparison:Function]) ↦ Array
+</code></pre>
+<p>Returns a new array, sorted according to the comparison&nbsp;function.</p>
+<p>If a comparison function is not given, the items will be sorted&nbsp;lexographically.</p>
+<h3 id="function_reversed">Function&nbsp;reversed</h3>
+<pre><code>(seq:+Sequence) ↦ Array
+</code></pre>
+<p>Returns the reversed representation of the given&nbsp;sequence.</p>
+<p>That is, last items first, first items&nbsp;last.</p>
+<h3 id="function_flatten">Function&nbsp;flatten</h3>
+<pre><code>(seq:+Sequence) ↦ Array
+</code></pre>
+<p>Returns an one dimensional array by in-lining all&nbsp;sublists.</p>
+<h3 id="function_zip">Function&nbsp;zip</h3>
+<pre><code>(seq:+Sequence) ↦ Array
+</code></pre>
+<p>Merges all sequences into one, such that any given index of the
+resulting sequence, is a sequence of the values at that index in all of
+the given&nbsp;sequences.</p>
+<p><strong><span class="caps">FIXME</span>:</strong></p>
+<blockquote>
+<p>Come up with a description that does not suck monkey&nbsp;balls.</p>
+</blockquote>
+<h2 id="iteration_through_a_list">Iteration through a&nbsp;list</h2>
+<h3 id="function_map">Function&nbsp;map</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, context:Object]) ↦ Array
+</code></pre>
+<p>Returns a new array with the elements transformed by the predicate&nbsp;function.</p>
+<h3 id="function_each">Function&nbsp;each</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, context:Object]) ↦ Array
+</code></pre>
+<p>Executes the predicate function for each item in the&nbsp;sequence.</p>
+<h3 id="function_filter">Function&nbsp;filter</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, context:Object]) ↦ Array
+</code></pre>
+<p>Returns a sequence without the elements that don&#8217;t pass the predicate&nbsp;test.</p>
+<h3 id="function_reduce">Function&nbsp;reduce</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, initial][, context:Object]) ↦ *mixed*
+</code></pre>
+<p>Apply the predicate against each pair in the array (left to right) so to
+return a single accumulated&nbsp;value.</p>
+<p>An starting value can be given, in which case the function will work as
+if the item was inserted as the first element of the given&nbsp;array.</p>
+<h3 id="function_reduce_right">Function&nbsp;reduce_right</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, initial][, context:Object]) ↦ *mixed*
+</code></pre>
+<p>Apply the predicate function against each pair in the array (right to
+left) so to return a single accumulated&nbsp;value.</p>
+<p>An starting value can be given, in which case the function will work as
+if the item was inserted as the last element of the given&nbsp;array.</p>
+<h3 id="function_some">Function&nbsp;some</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, context:Object]) ↦ Boolean
+</code></pre>
+<p>Checks whether some element in the sequence passes the predicate&nbsp;test.</p>
+<h3 id="function_every">Function&nbsp;every</h3>
+<pre><code>(seq:+Sequence, predicate:Function[, context:Object]) ↦ Boolean
+</code></pre>
+<p>Checks if all of the elements in the sequence passes the predicate&nbsp;test.</p>
+<h2 id="special_mapping_functions">Special mapping&nbsp;functions</h2>
+<h3 id="function_pluck">Function&nbsp;pluck</h3>
+<pre><code>(seq:+Sequence, attribute:String) ↦ Array
+</code></pre>
+<p>Returns a new array with all elements replaced by their <code>attribute</code>s&#8217;&nbsp;value.</p>
+<p>Non-object items are mapped to <code>undefined</code>.</p>
+<h3 id="function_invoke">Function&nbsp;invoke</h3>
+<pre><code>(seq:+Sequence, method:String[, args...]) ↦ Array
+</code></pre>
+<p>Returns a new array with all elements replaced by the result of invoking
+the given named method for all&nbsp;objects.</p>
+<p>Items that have no such method, or that are not objects, will be mapped
+to <code>undefined</code>.</p>
+<p>The method will be called in the context of the object, optionally
+passing the additional arguments to&nbsp;it.</p>    </article>
+    <aside>
+        <ul class="toc">
+        <li><mark class="version">Version: 0.2</mark></li>
+        <li class="topic" id="topic1">
+                        <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/index.html">
+                    Overview</a><li>
+                <a                     title=""
+                    href="/licence.html">
+                    Licence</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic2">
+            <h2 class="">Overview</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/overview/why.html">
+                    Why use&nbsp;Black</a><li>
+                <a                     title=""
+                    href="/overview/supported.html">
+                    Supported&nbsp;Platforms</a><li>
+                <a                     title=""
+                    href="/overview/installing.html">
+                    Installing</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic3">
+            <h2 class=" active">Reference</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/api/core.html">
+                    Getting&nbsp;Started</a><li>
+                <a                     title=""
+                    href="/api/types.html">
+                    Types</a><li>
+                <a                     title=""
+                    href="/api/obj.html">
+                    Objects</a><li>
+                <a class="active"                    title=""
+                    href="/api/list.html">
+                    List</a><li>
+                <a                     title=""
+                    href="/api/str.html">
+                    String</a><li>
+                <a                     title=""
+                    href="/api/num.html">
+                    Number</a><li>
+                <a                     title=""
+                    href="/api/fn.html">
+                    Function</a>                </li>
+            </ul>
+        </li>        </ul>
+        <nav class="prevnext">
+            <a
+                class="prev"
+                title="Objects"
+                href="/api/obj.html">
+                &larr;Previous
+            </a>            <a
+                class="next"
+                title="String"
+                href="/api/str.html">
+                Next&rarr;
+            </a>            <br class="clear">
+        </nav>
+    </aside>
+</div>
+<footer>
+<p><a href="https://github.com/hyde/hyde">smelted with hyde</a> &mdash;
+<a href="https://github.com/killdream/Black">fork <span class="amp">&amp;</span> hack away</a><br>
+—Design mostly based on <a href="http://hyde.github.com/">Hyde&nbsp;docs</a></p></footer>      </div>
+      <footer>
+    </footer>
+      </div> <!--! end of #container -->
+      <!-- Javascript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/media/js/libs/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+  
+    
+      
+  </body>
+</html>

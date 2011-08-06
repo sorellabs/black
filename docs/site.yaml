@@ -20,6 +20,12 @@ context:
     providers:
         links: links.yaml
         project: project.yaml
+        es5: es5.yaml
+        Array: ref/arr.yaml
+        String: ref/str.yaml
+        Object: ref/obj.yaml
+        Function: ref/fn.yaml
+
 meta:
     extends: doc.j2
     default_block: doc

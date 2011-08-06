@@ -15,43 +15,21 @@ way (mostly).
 
 §§ /blurb
 
+This module depends on the [type][] module.
+
+[type]: type.html
+
 [TOC]
-
-
-## Load the module
-
-On [Node.js][] you just need to require the package, and get a reference
-to the exported `obj` module:
-~~~js~~~
-var obj = require('/path/to/black').obj
-~~~~~~~~
-
-On browsers things are a bit more complicated. You need to first include
-the appropriate script tags, in the right order. This module depends on
-the `core` module only:
-
-~~~html~~~
-<!-- Include black modules -->
-<script src="/path/to/black/core.js"></script>
-<script src="/path/to/black/obj.js"></script>
-~~~~~~~~~~
-
-After doing such, you just need to get a reference to the `obj` module
-exported in the global `black` object. You can use it as `black.obj` if
-you want, of course.
-
-~~~js~~~
-var obj = black.obj
-~~~~~~~~
-
-[Node.js]: http://nodejs.org/
 
 
 ## Unpacking
 
-The module will unpack generic functions over to the `Object`,
-constructor. Own methods inside `Object.prototype`, so that all created
-objects will get them. And utilities in the usual global object.
+By loading the `core` module you can [unpack][] this module's functions to
+use them in a less crippled way.
+
+The module will unpack generic functions over to the `Object`
+constructor, own methods inside `Object.prototype`, so that all created
+objects will get them, and utilities in the usual global object.
 
 The following functions are exported as utilities:
 
@@ -64,6 +42,8 @@ The following functions are exported as utilities:
 - [get](#function_get)
 - [set_default](#function_set_default)
 
+
+[unpack]: core.html#unpacking_functions_and_own_methods
 
 ## Information about an object
 

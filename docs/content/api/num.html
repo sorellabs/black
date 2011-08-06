@@ -1,0 +1,68 @@
+===
+title: Number
+subtitle: Numeric and mathematical utilities
+created: 2011-08-06 17:34:59
+toc: reference
+index: 6
+===
+
+§§ blurb
+
+The `num` module provides a few numeric and mathematical functions.
+
+§§ /blurb
+
+This module has no dependencies.
+
+[TOC]
+
+
+## Unpacking
+
+By loading the `core` module you can [unpack][] this module's functions
+to use them in a less crippled way.
+
+All generic functions in the `num` module are exported as utilities,
+generic methods are exported to the `Number` constructor, and own
+methods in the `Number.prototype` object.
+
+
+[unpack]: core.html#unpacking_functions_and_own_methods
+
+
+## Generic functions
+
+### Function clamp
+
+    (num:Number, min:Number, max:Number) ↦ Number
+   
+Returns the neares number within the given boundaries.
+
+
+### Function wrap
+
+    (num:Number, min:Number, max:Number) ↦ Number
+    
+Keeps a number within the given boundaries, but it fhe given number
+exceeds it, it wraps around.
+
+So, if you call `wrap(2, 5, 10)` you'll get `7`, as `2` is 3 units from
+the minimum value, that difference is reduced from the other end.
+
+**FIXME:**
+> Come up with a description that does not suck monkey balls.
+
+
+### Function snap
+
+    (num:Number, step:Number) ↦ Number
+    
+Snaps the number to the nearest number in the arithmetic progression
+defined by the `step` increment.
+
+
+### Function pad
+
+    (num:Number, size:Number) ↦ String
+    
+Prefixes a number with zeroes, such that it always has the given size.

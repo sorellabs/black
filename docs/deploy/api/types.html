@@ -63,9 +63,10 @@ some kind of <code>is-a</code> programming flow to JavaScript, both because the
 language is not fit for this, and because I think <code>is-a</code> is broken by&nbsp;design.</p>
 <p>At any rate, the type checking utilities are separated into three main
 categories: Type checking, interface testing and functionality&nbsp;testing.</p>
+<p>This module does not depend on any other Black&nbsp;module.</p>
 <div class="toc">
 <ul>
-<li><a href="#load_the_module">Load the&nbsp;module</a></li>
+<li><a href="#unpacking">Unpacking</a></li>
 <li><a href="#type_checking">Type checking</a><ul>
 <li><a href="#function_class_of">Function&nbsp;class_of</a></li>
 <li><a href="#function_nilp">Function&nbsp;nilp</a></li>
@@ -94,11 +95,11 @@ categories: Type checking, interface testing and functionality&nbsp;testing.</p>
 </li>
 </ul>
 </div>
-<h2 id="load_the_module">Load the&nbsp;module</h2>
-<p><figure class="code"><div class="highlight"><pre><span class="c1">// On Node.js</span><br /><span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;/path/to/black&#39;</span><span class="p">).</span><span class="nx">type</span><br />&nbsp;<br /><span class="c1">// On browsers (after including the proper script tags)</span><br /><span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">type</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
-<p>Optionally, you can unpack the utilities to the global scope. All
-generic functions in the <code>type</code> module are exported as utilities, and
-the built-in constructor for unpacking the methods is <code>Object</code>.</p>
+<h2 id="unpacking">Unpacking</h2>
+<p>By loading the <code>core</code> module you can <a href="core.html#unpacking_functions_and_own_methods">unpack</a> this module&#8217;s functions
+to use them in a less crippled&nbsp;way.</p>
+<p>All generic functions in the <code>type</code> module are exported as utilities,
+and these generic functions are also exported inside <code>Object</code>.</p>
 <p>None of the functions are exported into the&nbsp;prototype.</p>
 <h2 id="type_checking">Type&nbsp;checking</h2>
 <p>The type checking utilities let you be explicit about what kind of data
@@ -294,7 +295,22 @@ this&nbsp;definition.</p>
                     Getting&nbsp;Started</a><li>
                 <a class="active"                    title=""
                     href="/api/types.html">
-                    Types</a>                </li>
+                    Types</a><li>
+                <a                     title=""
+                    href="/api/obj.html">
+                    Objects</a><li>
+                <a                     title=""
+                    href="/api/list.html">
+                    List</a><li>
+                <a                     title=""
+                    href="/api/str.html">
+                    String</a><li>
+                <a                     title=""
+                    href="/api/num.html">
+                    Number</a><li>
+                <a                     title=""
+                    href="/api/fn.html">
+                    Function</a>                </li>
             </ul>
         </li>        </ul>
         <nav class="prevnext">
@@ -303,7 +319,12 @@ this&nbsp;definition.</p>
                 title="Getting Started"
                 href="/api/core.html">
                 &larr;Previous
-            </a>                        <br class="clear">
+            </a>            <a
+                class="next"
+                title="Objects"
+                href="/api/obj.html">
+                Next&rarr;
+            </a>            <br class="clear">
         </nav>
     </aside>
 </div>

@@ -22,7 +22,7 @@
         compatibility mode is within the first 1K bytes
         code.google.com/p/chromium/issues/detail?id=23003 -->
 
-  <title>Licence</title>
+  <title>Number</title>
   <meta name="description" content="">
   <meta name="author" content="Quildreen Motta">
 
@@ -44,7 +44,7 @@
         enables HTML5 elements & feature detects -->
     <script src="/media/js/libs/modernizr-1.6.min.js"></script>
     </head>
-<body id="licence">
+<body id="num">
     <div id="container">
             <div id="main" role="main">
           <header class="banner clearfix">
@@ -54,16 +54,54 @@
           <div class="doc">
     <article>
     <hgroup>
-        <h1 class="title">Licence</h1>
-        <h3 class="subtitle">sometimes called "legal faggotry"</h3>
+        <h1 class="title">Number</h1>
+        <h3 class="subtitle">Numeric and mathematical utilities</h3>
     </hgroup>
-    <p>Black is licensed under the permissive <code>MIT</code> licence,
-allowing you to share, modify, learn, copy, sell, blah-blah-blah the
-library. Though I don&#8217;t give you any warrant and ask for that delicious
-copyright message to be&nbsp;maintained.</p>
-<p>Simple, huh? I&#8217;ll leave the entire thing below for <code>less</code>
-information, though:
-<figure class="code"><div class="highlight"><pre><span class="nv">$ </span>less <span class="caps">LICENCE</span>.txt<br />&nbsp;<br /><span class="s1">&#39;</span><br /><span class="s1">The <span class="caps">MIT</span> License</span><br />&nbsp;<br /><span class="s1">Copyright (c) 2011 Quildreen Motta &lt;http://killdream.github.com/&gt;</span><br />&nbsp;<br /><span class="s1">Permission is hereby granted, free of charge, to any person obtaining a copy</span><br /><span class="s1">of this software and associated documentation files (the &quot;Software&quot;), to deal</span><br /><span class="s1">in the Software without restriction, including without limitation the rights</span><br /><span class="s1">to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span><br /><span class="s1">copies of the Software, and to permit persons to whom the Software is</span><br /><span class="s1">furnished to do so, subject to the following conditions:</span><br />&nbsp;<br /><span class="s1">The above copyright notice and this permission notice shall be included in</span><br /><span class="s1">all copies or substantial portions of the Software.</span><br />&nbsp;<br /><span class="s1"><span class="caps">THE</span> <span class="caps">SOFTWARE</span> <span class="caps">IS</span> <span class="caps">PROVIDED</span> &quot;<span class="caps">AS</span> <span class="caps">IS</span>&quot;, <span class="caps">WITHOUT</span> <span class="caps">WARRANTY</span> <span class="caps">OF</span> <span class="caps">ANY</span> <span class="caps">KIND</span>, <span class="caps">EXPRESS</span> <span class="caps">OR</span></span><br /><span class="s1"><span class="caps">IMPLIED</span>, <span class="caps">INCLUDING</span> <span class="caps">BUT</span> <span class="caps">NOT</span> <span class="caps">LIMITED</span> <span class="caps">TO</span> <span class="caps">THE</span> <span class="caps">WARRANTIES</span> <span class="caps">OF</span> <span class="caps">MERCHANTABILITY</span>,</span><br /><span class="s1"><span class="caps">FITNESS</span> <span class="caps">FOR</span> A <span class="caps">PARTICULAR</span> <span class="caps">PURPOSE</span> <span class="caps">AND</span> <span class="caps">NONINFRINGEMENT</span>. <span class="caps">IN</span> <span class="caps">NO</span> <span class="caps">EVENT</span> <span class="caps">SHALL</span> <span class="caps">THE</span></span><br /><span class="s1"><span class="caps">AUTHORS</span> <span class="caps">OR</span> <span class="caps">COPYRIGHT</span> <span class="caps">HOLDERS</span> <span class="caps">BE</span> <span class="caps">LIABLE</span> <span class="caps">FOR</span> <span class="caps">ANY</span> <span class="caps">CLAIM</span>, <span class="caps">DAMAGES</span> <span class="caps">OR</span> <span class="caps">OTHER</span></span><br /><span class="s1"><span class="caps">LIABILITY</span>, <span class="caps">WHETHER</span> <span class="caps">IN</span> <span class="caps">AN</span> <span class="caps">ACTION</span> <span class="caps">OF</span> <span class="caps">CONTRACT</span>, <span class="caps">TORT</span> <span class="caps">OR</span> <span class="caps">OTHERWISE</span>, <span class="caps">ARISING</span> <span class="caps">FROM</span>,</span><br /><span class="s1"><span class="caps">OUT</span> <span class="caps">OF</span> <span class="caps">OR</span> <span class="caps">IN</span> <span class="caps">CONNECTION</span> <span class="caps">WITH</span> <span class="caps">THE</span> <span class="caps">SOFTWARE</span> <span class="caps">OR</span> <span class="caps">THE</span> <span class="caps">USE</span> <span class="caps">OR</span> <span class="caps">OTHER</span> <span class="caps">DEALINGS</span> <span class="caps">IN</span></span><br /><span class="s1"><span class="caps">THE</span> <span class="caps">SOFTWARE</span>.</span><br /><span class="s1">&#39;</span><br /><span class="o">(</span><span class="caps">END</span><span class="o">)</span><br /></pre></div><br /><figcaption>Bash</figcaption></figure></p>    </article>
+    <p>The <code>num</code> module provides a few numeric and mathematical&nbsp;functions.</p>
+<p>This module has no&nbsp;dependencies.</p>
+<div class="toc">
+<ul>
+<li><a href="#unpacking">Unpacking</a></li>
+<li><a href="#generic_functions">Generic functions</a><ul>
+<li><a href="#function_clamp">Function&nbsp;clamp</a></li>
+<li><a href="#function_wrap">Function&nbsp;wrap</a></li>
+<li><a href="#function_snap">Function&nbsp;snap</a></li>
+<li><a href="#function_pad">Function&nbsp;pad</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="unpacking">Unpacking</h2>
+<p>By loading the <code>core</code> module you can <a href="core.html#unpacking_functions_and_own_methods">unpack</a> this module&#8217;s functions
+to use them in a less crippled&nbsp;way.</p>
+<p>All generic functions in the <code>num</code> module are exported as utilities,
+generic methods are exported to the <code>Number</code> constructor, and own
+methods in the <code>Number.prototype</code> object.</p>
+<h2 id="generic_functions">Generic&nbsp;functions</h2>
+<h3 id="function_clamp">Function&nbsp;clamp</h3>
+<pre><code>(num:Number, min:Number, max:Number) ↦ Number
+</code></pre>
+<p>Returns the neares number within the given&nbsp;boundaries.</p>
+<h3 id="function_wrap">Function&nbsp;wrap</h3>
+<pre><code>(num:Number, min:Number, max:Number) ↦ Number
+</code></pre>
+<p>Keeps a number within the given boundaries, but it fhe given number
+exceeds it, it wraps&nbsp;around.</p>
+<p>So, if you call <code>wrap(2, 5, 10)</code> you&#8217;ll get <code>7</code>, as <code>2</code> is 3 units from
+the minimum value, that difference is reduced from the other&nbsp;end.</p>
+<p><strong><span class="caps">FIXME</span>:</strong></p>
+<blockquote>
+<p>Come up with a description that does not suck monkey&nbsp;balls.</p>
+</blockquote>
+<h3 id="function_snap">Function&nbsp;snap</h3>
+<pre><code>(num:Number, step:Number) ↦ Number
+</code></pre>
+<p>Snaps the number to the nearest number in the arithmetic progression
+defined by the <code>step</code> increment.</p>
+<h3 id="function_pad">Function&nbsp;pad</h3>
+<pre><code>(num:Number, size:Number) ↦ String
+</code></pre>
+<p>Prefixes a number with zeroes, such that it always has the given&nbsp;size.</p>    </article>
     <aside>
         <ul class="toc">
         <li><mark class="version">Version: 0.2</mark></li>
@@ -73,7 +111,7 @@ information, though:
                 <a                     title=""
                     href="/index.html">
                     Overview</a><li>
-                <a class="active"                    title=""
+                <a                     title=""
                     href="/licence.html">
                     Licence</a>                </li>
             </ul>
@@ -91,7 +129,7 @@ information, though:
                     Installing</a>                </li>
             </ul>
         </li><li class="topic" id="topic3">
-            <h2 class="">Reference</h2>            <ul class="links">
+            <h2 class=" active">Reference</h2>            <ul class="links">
                 <li>
                 <a                     title=""
                     href="/api/core.html">
@@ -108,7 +146,7 @@ information, though:
                 <a                     title=""
                     href="/api/str.html">
                     String</a><li>
-                <a                     title=""
+                <a class="active"                    title=""
                     href="/api/num.html">
                     Number</a><li>
                 <a                     title=""
@@ -119,13 +157,13 @@ information, though:
         <nav class="prevnext">
             <a
                 class="prev"
-                title="Overview"
-                href="/index.html">
+                title="String"
+                href="/api/str.html">
                 &larr;Previous
             </a>            <a
                 class="next"
-                title="Why use Black"
-                href="/overview/why.html">
+                title="Function"
+                href="/api/fn.html">
                 Next&rarr;
             </a>            <br class="clear">
         </nav>

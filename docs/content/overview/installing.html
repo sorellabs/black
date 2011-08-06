@@ -8,11 +8,15 @@ index: 3
 
 §§ blurb
 
-On Node.js, just require it away:
+## Installing on Node.js
+
+Just require it away:
 
 ~~~js~~~
 var black = require('/path/to/black')
 ~~~~~~~~
+
+## Installing on the Browser
 
 In a browser, you'll need to either use [Browserify][] to emulate
 Node.js's require, or include each library separately:
@@ -34,9 +38,27 @@ Node.js's require, or include each library separately:
 </html>
 ~~~~~~~~~~
 
-[Browserify]: https://github.com/substack/node-browserify
-
 §§ /blurb
+
+
+Though since Black is built using a modular design, you can just include
+the modules you will use to reduce the overhead. Though you need to pay
+attention to the dependencies of each module (listed in the API
+documentation for each one).
+
+All modules expect the global `black` object to be present when they
+execute. You can do so by either including the `core` module (and in
+this case you'll also get unpacking utilities) or by just defining a
+fresh object before including the modules:
+
+~~~html~~~
+<script type="text/javascript">window.black = { }</script>
+<script src="/path/to/black/type.js"></script>
+<script src="/path/to/black/list.js"></script>
+<script type="text/javascript">/* use black.list here */</script>
+~~~~~~~~~~
+
+[Browserify]: https://github.com/substack/node-browserify
 
 
 ## Dependencies

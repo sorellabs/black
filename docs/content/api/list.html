@@ -15,49 +15,27 @@ add a few more.
 
 §§ /blurb
 
-[TOC]
-
 Note that this module relies on a correct ECMAScript implementation of
 Array generics, which do take into account [sparse arrays][]. Note also
 that some of the ES5 fallback libraries have
 [issues with sparse arrays][] amongst other things.
 
 
-## Load the module
+This module depends on the [type][] module.
 
-On [Node.js][] you just need to require the package, and get a reference
-to the exported `list` module:
-~~~js~~~
-var list = require('/path/to/black').list
-~~~~~~~~
+[type]: type.html
 
-On browsers things are a bit more complicated. You need to first include
-the appropriate script tags, in the right order. This module depends on
-the `core` and `type` modules:
-
-~~~html~~~
-<!-- include black modules -->
-<script src="/path/to/black/core.js"></script>
-<script src="/path/to/black/type.js"></script>
-<script src="/path/to/black/list.js"></script>
-~~~~~~~~~~
-
-After doing such, you just need to get a reference to the `list` module
-exported in the global `black` object. You can use it as `black.list` if
-you want, of course.
-
-~~~js~~~
-var list = black.list
-~~~~~~~~
-
-[Node.js]: http://nodejs.org/
+[TOC]
 
 
 ## Unpacking
 
-The module will unpack generic functions to the `Array` constructor. Own
+By loading the `core` module you can [unpack][] this module's functions
+to use them in a less crippled way.
+
+The module will unpack generic functions to the `Array` constructor, own
 methods inside `Array.prototype`, so that all arrays will get them (not
-all sequence objects though). And utilities in the usual global object.
+all sequence objects though), and utilities in the usual global object.
 
 The following function are exported as utilities:
 
@@ -84,6 +62,8 @@ The following function are exported as utilities:
 - [pluck](#function_pluck)
 - [invoke](#function_invoke)
 
+
+[unpack]: core.html#unpacking_functions_and_own_methods
 
 ## Making lists
 

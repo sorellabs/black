@@ -1,0 +1,322 @@
+<!doctype html>
+<!-- https://github.com/paulirish/html5-boilerplate/blob/master/index.html -->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- encoding must be specified within the first 512 bytes
+        www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#charset -->
+
+  <!-- meta element for compatibility mode needs to be before
+        all elements except title & meta
+        msdn.microsoft.com/en-us/library/cc288325(VS.85).aspx -->
+  <!-- Chrome Frame is only invoked if meta element for
+        compatibility mode is within the first 1K bytes
+        code.google.com/p/chromium/issues/detail?id=23003 -->
+
+  <title>String</title>
+  <meta name="description" content="">
+  <meta name="author" content="Quildreen Motta">
+
+  <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Place favicon.ico & apple-touch-icon.png
+        in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+    <link rel="stylesheet" href="/media/css/site.css">
+  <link rel="stylesheet" href="/media/css/syntax.css">
+  
+    <!-- All JavaScript at the bottom, except for Modernizr which
+        enables HTML5 elements & feature detects -->
+    <script src="/media/js/libs/modernizr-1.6.min.js"></script>
+    </head>
+<body id="str">
+    <div id="container">
+            <div id="main" role="main">
+          <header class="banner clearfix">
+          <img src="/media/img/project-logo.png">
+            <h1>Black</h1>
+            <h3>Extensions to the base objects from the core JS library.</h3>          </header>
+          <div class="doc">
+    <article>
+    <hgroup>
+        <h1 class="title">String</h1>
+        <h3 class="subtitle">String utilities</h3>
+    </hgroup>
+    <p>The <code>str</code> module provides mostly generic functions for the ECMAScript&#8217;s
+String utilities, but also some additional generics sugar for usual
+regexp stuff and <span class="caps">CSS</span>/<span class="caps">JS</span>&nbsp;identifiers.</p>
+<p>This module depends on the <a href="type.html">type</a>&nbsp;module.</p>
+<div class="toc">
+<ul>
+<li><a href="#unpacking">Unpacking</a></li>
+<li><a href="#individual_character_handling">Individual character handling</a><ul>
+<li><a href="#function_char_code">Function&nbsp;char_code</a></li>
+<li><a href="#function_to_char">Function&nbsp;to_char</a></li>
+</ul>
+</li>
+<li><a href="#string_creation">String creation</a><ul>
+<li><a href="#function_make_str">Function&nbsp;make_str</a></li>
+<li><a href="#function_cat">Function&nbsp;cat</a></li>
+</ul>
+</li>
+<li><a href="#case_folding">Case folding</a><ul>
+<li><a href="#function_upcase">Function&nbsp;upcase</a></li>
+<li><a href="#function_downcase">Function&nbsp;downcase</a></li>
+<li><a href="#function_capitalise">Function&nbsp;capitalise</a></li>
+</ul>
+</li>
+<li><a href="#string_predicates">String predicates</a><ul>
+<li><a href="#function_starts_withp">Function&nbsp;starts_withp</a></li>
+<li><a href="#function_ends_withp">Function&nbsp;ends_withp</a></li>
+<li><a href="#function_hasp">Function&nbsp;hasp</a></li>
+</ul>
+</li>
+<li><a href="#identifier_mappings">Identifier mappings</a><ul>
+<li><a href="#function_dasherise">Function&nbsp;dasherise</a></li>
+<li><a href="#function_camelise">Function&nbsp;camelise</a></li>
+</ul>
+</li>
+<li><a href="#misc">Misc</a><ul>
+<li><a href="#function_trim">Function&nbsp;trim</a></li>
+<li><a href="#function_count">Function&nbsp;count</a></li>
+<li><a href="#function_find">Function&nbsp;find</a></li>
+<li><a href="#function_find_last">Function&nbsp;find_last</a></li>
+<li><a href="#function_slice">Function&nbsp;slice</a></li>
+<li><a href="#function_split">Function&nbsp;split</a></li>
+<li><a href="#function_match">Function&nbsp;match</a></li>
+<li><a href="#function_replace">Function&nbsp;replace</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="unpacking">Unpacking</h2>
+<p>By loading the <code>core</code> module you can <a href="core.html#unpacking_functions_and_own_methods">unpack</a> this module&#8217;s functions
+to use them in a less crippled&nbsp;way.</p>
+<p>The module will unpack generic functions over to the <code>String</code>
+constructor, own methods inside <code>String.prototype</code> so that all created
+strings will get them, and utilities in the usual global&nbsp;object.</p>
+<p>The following functions are exported as&nbsp;utilities:</p>
+<ul>
+<li><a href="#function_char_code">char_code</a></li>
+<li><a href="#function_to_char">to_char</a></li>
+<li><a href="#function_make_str">make_str</a></li>
+<li><a href="#function_upcase">upcase</a></li>
+<li><a href="#function_downcase">downcase</a></li>
+</ul>
+<h2 id="individual_character_handling">Individual character&nbsp;handling</h2>
+<h3 id="function_char_code">Function&nbsp;char_code</h3>
+<pre><code>(str:String[, index:Number]) ↦ Number
+</code></pre>
+<p>Converts a character to its character&nbsp;code.</p>
+<h3 id="function_to_char">Function&nbsp;to_char</h3>
+<pre><code>(code:Number...) ↦ String
+</code></pre>
+<p>Converts a numeric representation of a character to an actual 1-length
+String containing that&nbsp;character.</p>
+<p>Aliases <a href="http://es5.github.com/#x15.5.3.2">String.fromCharCode</a>.</p>
+<h2 id="string_creation">String&nbsp;creation</h2>
+<h3 id="function_make_str">Function&nbsp;make_str</h3>
+<pre><code>(str:String[, times:Number]) ↦ String
+</code></pre>
+<p>Returns an string by repeating <code>str</code> the given number of <code>times</code>.</p>
+<p>If <code>times</code> is not given, or is less or equal than zero, this will return
+an empty&nbsp;string.</p>
+<h3 id="function_cat">Function&nbsp;cat</h3>
+<pre><code>(strings:String...) ↦ String
+</code></pre>
+<p>Concatenates all of the given strings into&nbsp;one.</p>
+<h2 id="case_folding">Case&nbsp;folding</h2>
+<h3 id="function_upcase">Function&nbsp;upcase</h3>
+<pre><code>(str:String) ↦ String
+</code></pre>
+<p>Converts all characters in the given string to <span class="caps">UPPER</span>&nbsp;<span class="caps">CASE</span>.</p>
+<h3 id="function_downcase">Function&nbsp;downcase</h3>
+<pre><code>(str:String) ↦ String
+</code></pre>
+<p>Converts all characters in the given string to lower&nbsp;case.</p>
+<h3 id="function_capitalise">Function&nbsp;capitalise</h3>
+<pre><code>(str:String[, all_words:Boolean]) ↦ String
+</code></pre>
+<p>Capitalise the first letter of the given&nbsp;string.</p>
+<p>Alternatively, if <code>all_words</code> is true, capitalise the first letter of
+all words in the&nbsp;string.</p>
+<h2 id="string_predicates">String&nbsp;predicates</h2>
+<h3 id="function_starts_withp">Function&nbsp;starts_withp</h3>
+<pre><code>(str:String, substr:String) ↦ Boolean
+</code></pre>
+<p>Checks if a string starts with a certain piece of&nbsp;text.</p>
+<h3 id="function_ends_withp">Function&nbsp;ends_withp</h3>
+<pre><code>(str:String, substr:String) ↦ Boolean
+</code></pre>
+<p>Checks if a string ends with a certain piece of&nbsp;text.</p>
+<h3 id="function_hasp">Function&nbsp;hasp</h3>
+<pre><code>(str:String, substr:String) ↦ Boolean
+</code></pre>
+<p>Checks if a string contains a certain piece of&nbsp;text.</p>
+<h2 id="identifier_mappings">Identifier&nbsp;mappings</h2>
+<h3 id="function_dasherise">Function&nbsp;dasherise</h3>
+<pre><code>(str:String) ↦ String
+</code></pre>
+<p>Converts and collapses all whitespace into&nbsp;dashes.</p>
+<h3 id="function_camelise">Function&nbsp;camelise</h3>
+<pre><code>(str:String) ↦ String
+</code></pre>
+<p>Converts a string to a camelCased&nbsp;string.</p>
+<p>The first letter of each word is converted to upper case, and all
+whitespace is&nbsp;removed.</p>
+<h2 id="misc">Misc</h2>
+<h3 id="function_trim">Function&nbsp;trim</h3>
+<pre><code>(str:String) ↦ String
+</code></pre>
+<p>Removes all whitespace from both ends of the&nbsp;string.</p>
+<h3 id="function_count">Function&nbsp;count</h3>
+<pre><code>(str:String, substr:String[, start:Number][, end:Number]) ↦ Number
+</code></pre>
+<p>Counts the number of occurrences of the given <code>substr</code>.</p>
+<p>If <code>start</code> and, optionally, <code>end</code> are given, only that small part of the
+string will be&nbsp;searched.</p>
+<p><code>start</code> defaults to the beginning of the string, whereas <code>end</code> defaults
+to the end of the&nbsp;string.</p>
+<h3 id="function_find">Function&nbsp;find</h3>
+<pre><code>(str:String, substr:String[, start:Number]) ↦ Number
+</code></pre>
+<p>Returns the index of the first occurrence of <code>substr</code> in the given
+string, or -1 if it can&#8217;t find&nbsp;it.</p>
+<h3 id="function_find_last">Function&nbsp;find_last</h3>
+<pre><code>(str:String, substr:String[, start:Number]) ↦ Number
+</code></pre>
+<p>Returns the index of the last occurrence of <code>substr</code> in the given
+string, or -1 if it can&#8217;t find&nbsp;it.</p>
+<h3 id="function_slice">Function&nbsp;slice</h3>
+<pre><code>(str:String[, start:Number][, end:Number]) ↦ String
+</code></pre>
+<p>Returns a substring out of the given&nbsp;string.</p>
+<p>If <code>start</code> is not given, defaults to the beginning of the string,
+whereas <code>end</code> defaults to the end of the&nbsp;string.</p>
+<p>Aliases <a href="http://es5.github.com/#x15.5.4.13">String.prototype.slice</a>.</p>
+<h3 id="function_split">Function&nbsp;split</h3>
+<pre><code>(str:String[, separator:String][, limit:Number]) ↦ Array
+</code></pre>
+<p>Splits the string at each separator, up to the limit&nbsp;specified.</p>
+<p><strong>Warning:</strong> <em>unintuitive&nbsp;behaviour</em></p>
+<blockquote>
+<p>When it reaches the splitting limit, the last item will only
+contain the text <strong>up to the next separator</strong>, not up to the end of the
+String. This is to conform with the native JavaScript&#8217;s&nbsp;split.</p>
+</blockquote>
+<p>Aliases <a href="http://es5.github.com/#x15.5.4.14">String.prototype.split</a>.</p>
+<h3 id="function_match">Function&nbsp;match</h3>
+<pre><code>(str:String[, regex:RegExp]) ↦ Array
+</code></pre>
+<p>Returns an array of match groups from the given&nbsp;regexp.</p>
+<p>Aliases <a href="http://es5.github.com/#x15.5.4.10">String.prototype.match</a>.</p>
+<h3 id="function_replace">Function&nbsp;replace</h3>
+<pre><code>(str:String[, substr][, replacement]) ↦ String
+</code></pre>
+<p>Replaces the occurrences of <code>substr</code> across the string, using the given
+replacement String or Function&#8217;s&nbsp;result.</p>
+<p><code>substr</code> may be either a String or a Regular&nbsp;Expression.</p>
+<p><code>replacement</code> may be either a String (in the case of passing a regexp as
+the substring you can use the special replacement characters: <code>$1..$n</code>),
+or a&nbsp;Function.</p>
+<p>If a function is given, it&#8217;ll be called in the context of <code>str</code>, and
+the match array applied to&nbsp;it.</p>
+<p>Aliases <a href="http://es5.github.com/#x15.5.4.11">String.prototype.replace</a>.</p>    </article>
+    <aside>
+        <ul class="toc">
+        <li><mark class="version">Version: 0.2</mark></li>
+        <li class="topic" id="topic1">
+                        <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/index.html">
+                    Overview</a><li>
+                <a                     title=""
+                    href="/licence.html">
+                    Licence</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic2">
+            <h2 class="">Overview</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/overview/why.html">
+                    Why use&nbsp;Black</a><li>
+                <a                     title=""
+                    href="/overview/supported.html">
+                    Supported&nbsp;Platforms</a><li>
+                <a                     title=""
+                    href="/overview/installing.html">
+                    Installing</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic3">
+            <h2 class=" active">Reference</h2>            <ul class="links">
+                <li>
+                <a                     title=""
+                    href="/api/core.html">
+                    Getting&nbsp;Started</a><li>
+                <a                     title=""
+                    href="/api/types.html">
+                    Types</a><li>
+                <a                     title=""
+                    href="/api/obj.html">
+                    Objects</a><li>
+                <a                     title=""
+                    href="/api/list.html">
+                    List</a><li>
+                <a class="active"                    title=""
+                    href="/api/str.html">
+                    String</a><li>
+                <a                     title=""
+                    href="/api/num.html">
+                    Number</a><li>
+                <a                     title=""
+                    href="/api/fn.html">
+                    Function</a>                </li>
+            </ul>
+        </li>        </ul>
+        <nav class="prevnext">
+            <a
+                class="prev"
+                title="List"
+                href="/api/list.html">
+                &larr;Previous
+            </a>            <a
+                class="next"
+                title="Number"
+                href="/api/num.html">
+                Next&rarr;
+            </a>            <br class="clear">
+        </nav>
+    </aside>
+</div>
+<footer>
+<p><a href="https://github.com/hyde/hyde">smelted with hyde</a> &mdash;
+<a href="https://github.com/killdream/Black">fork <span class="amp">&amp;</span> hack away</a><br>
+—Design mostly based on <a href="http://hyde.github.com/">Hyde&nbsp;docs</a></p></footer>      </div>
+      <footer>
+    </footer>
+      </div> <!--! end of #container -->
+      <!-- Javascript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/media/js/libs/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
+  
+    
+      
+  </body>
+</html>

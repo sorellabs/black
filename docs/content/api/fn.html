@@ -1,0 +1,67 @@
+===
+title: Function
+subtitle: Function utilities
+created: 2011-08-06 17:45:27
+toc: reference
+index: 7
+===
+
+§§ blurb
+
+This module provides some functional tools for function composition and
+what-not.
+
+§§ /blurb
+
+This module have no dependencies.
+
+[TOC]
+
+
+## Unpacking
+
+By loading the `core` module you can [unpack][] this module's functions
+to use them in a less crippled way.
+
+All generic functions in the `fn` module are exported as utilities,
+generic methods are exported to the `Function` constructor, and own
+methods in the `Function.prototype` object.
+
+
+[unpack]: core.html#unpacking_functions_and_own_methods
+
+
+## Generic functions
+
+### Function partial
+
+    (fn:Function, args...) ↦ Function
+    
+Returns a function that'll always have the given arguments prepended to
+the function's argument list.
+
+
+### Function delay
+
+    (fn:Function, seconds:Number) ↦ Number
+    
+Calls the function after the given number of seconds.
+
+Returns the ID of the timer, such that the call to the function can be
+cancelled by passing that ID to `clearTimeout`.
+
+
+### Function defer
+
+    (fn:Function) ↦ Number
+    
+Same as [delay](#function_delay), but calls the function as soon as the
+engine is not busy doing other things.
+
+
+### Function wrap
+
+    (fn:Function[, wrapper:Function]) ↦ Function
+    
+Returns a function that passes the given `wrapper` as the first argument
+for `fn`.

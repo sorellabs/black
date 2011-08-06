@@ -19,29 +19,23 @@ categories: Type checking, interface testing and functionality testing.
 
 §§ /blurb
 
+This module does not depend on any other Black module.
 
 [TOC]
 
-## Load the module
 
-~~~js~~~
-// On Node.js
-var type = require('/path/to/black').type
+## Unpacking
 
-// On browsers
-// -- HTML
-<script src="/path/to/black/core.js"></script>
-<script src="/path/to/black/type.js"></script>
+By loading the `core` module you can [unpack][] this module's functions
+to use them in a less crippled way.
 
-// -- JS
-var type = black.type
-~~~~~~~~
-
-Optionally, you can unpack the utilities to the global scope. All
-generic functions in the `type` module are exported as utilities, and
-the built-in constructor for unpacking the methods is `Object`.
+All generic functions in the `type` module are exported as utilities,
+and these generic functions are also exported inside `Object`.
 
 None of the functions are exported into the prototype.
+
+
+[unpack]: core.html#unpacking_functions_and_own_methods
 
 
 ## Type checking

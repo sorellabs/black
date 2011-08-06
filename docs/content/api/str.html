@@ -1,0 +1,246 @@
+===
+title: String
+subtitle: String utilities
+created: 2011-08-06 13:17:12
+toc: reference
+index: 5
+===
+
+§§ blurb
+
+The `str` module provides mostly generic functions for the ECMAScript's
+String utilities, but also some additional generics sugar for usual
+regexp stuff and CSS/JS identifiers.
+
+§§ /blurb
+
+This module depends on the [type][] module.
+
+[type]: type.html
+
+[TOC]
+
+## Unpacking
+
+By loading the `core` module you can [unpack][] this module's functions
+to use them in a less crippled way.
+
+The module will unpack generic functions over to the `String`
+constructor, own methods inside `String.prototype` so that all created
+strings will get them, and utilities in the usual global object.
+
+The following functions are exported as utilities:
+
+- [char_code](#function_char_code)
+- [to_char](#function_to_char)
+- [make_str](#function_make_str)
+- [upcase](#function_upcase)
+- [downcase](#function_downcase)
+
+
+[unpack]: core.html#unpacking_functions_and_own_methods
+
+
+## Individual character handling
+
+### Function char_code
+
+    (str:String[, index:Number]) ↦ Number
+    
+Converts a character to its character code.
+
+
+### Function to_char
+
+    (code:Number...) ↦ String
+    
+Converts a numeric representation of a character to an actual 1-length
+String containing that character.
+
+Aliases [String.fromCharCode][].
+
+
+
+## String creation
+
+### Function make_str
+
+    (str:String[, times:Number]) ↦ String
+    
+Returns an string by repeating `str` the given number of `times`.
+
+If `times` is not given, or is less or equal than zero, this will return
+an empty string.
+
+
+### Function cat
+
+    (strings:String...) ↦ String
+    
+Concatenates all of the given strings into one.
+
+
+## Case folding
+
+### Function upcase
+
+    (str:String) ↦ String
+    
+Converts all characters in the given string to UPPER CASE.
+
+
+### Function downcase
+
+    (str:String) ↦ String
+    
+Converts all characters in the given string to lower case.
+
+
+### Function capitalise
+
+    (str:String[, all_words:Boolean]) ↦ String
+    
+Capitalise the first letter of the given string.
+
+Alternatively, if `all_words` is true, capitalise the first letter of
+all words in the string.
+
+
+## String predicates
+
+### Function starts_withp
+
+    (str:String, substr:String) ↦ Boolean
+    
+Checks if a string starts with a certain piece of text.
+
+
+### Function ends_withp
+
+    (str:String, substr:String) ↦ Boolean
+    
+Checks if a string ends with a certain piece of text.
+
+
+### Function hasp
+
+    (str:String, substr:String) ↦ Boolean
+    
+Checks if a string contains a certain piece of text.
+
+
+## Identifier mappings
+
+### Function dasherise
+
+    (str:String) ↦ String
+    
+Converts and collapses all whitespace into dashes.
+
+
+### Function camelise
+
+    (str:String) ↦ String
+    
+Converts a string to a camelCased string.
+
+The first letter of each word is converted to upper case, and all
+whitespace is removed.
+
+
+## Misc
+
+### Function trim
+
+    (str:String) ↦ String
+    
+Removes all whitespace from both ends of the string.
+
+
+### Function count
+
+    (str:String, substr:String[, start:Number][, end:Number]) ↦ Number
+    
+Counts the number of occurrences of the given `substr`.
+
+If `start` and, optionally, `end` are given, only that small part of the
+string will be searched.
+
+`start` defaults to the beginning of the string, whereas `end` defaults
+to the end of the string.
+
+
+### Function find
+
+    (str:String, substr:String[, start:Number]) ↦ Number
+    
+Returns the index of the first occurrence of `substr` in the given
+string, or -1 if it can't find it.
+
+
+### Function find_last
+
+    (str:String, substr:String[, start:Number]) ↦ Number
+    
+Returns the index of the last occurrence of `substr` in the given
+string, or -1 if it can't find it.
+
+
+### Function slice
+
+    (str:String[, start:Number][, end:Number]) ↦ String
+    
+Returns a substring out of the given string.
+
+If `start` is not given, defaults to the beginning of the string,
+whereas `end` defaults to the end of the string.
+
+Aliases [String.prototype.slice][].
+
+
+### Function split
+
+    (str:String[, separator:String][, limit:Number]) ↦ Array
+    
+Splits the string at each separator, up to the limit specified.
+
+**Warning:** *unintuitive behaviour*
+> When it reaches the splitting limit, the last item will only
+> contain the text **up to the next separator**, not up to the end of the
+> String. This is to conform with the native JavaScript's split.
+
+Aliases [String.prototype.split][].
+
+
+### Function match
+
+    (str:String[, regex:RegExp]) ↦ Array
+    
+Returns an array of match groups from the given regexp.
+
+Aliases [String.prototype.match][].
+
+
+### Function replace
+
+    (str:String[, substr][, replacement]) ↦ String
+    
+Replaces the occurrences of `substr` across the string, using the given
+replacement String or Function's result.
+
+`substr` may be either a String or a Regular Expression.
+
+`replacement` may be either a String (in the case of passing a regexp as
+the substring you can use the special replacement characters: `$1..$n`),
+or a Function.
+
+If a function is given, it'll be called in the context of `str`, and
+the match array applied to it.
+
+Aliases [String.prototype.replace][].
+
+[String.prototype.replace]: {{ es5.String.prototype.replace }}
+[String.prototype.match]: {{ es5.String.prototype.match }}
+[String.prototype.split]: {{ es5.String.prototype.split }}
+[String.prototype.slice]: {{ es5.String.prototype.slice }}
+[String.fromCharCode]: {{ es5.String.fromCharCode }}

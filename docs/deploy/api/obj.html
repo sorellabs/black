@@ -61,9 +61,9 @@
 as well as some aliases. The primary focus is to treat objects as sets
 of properties, and provide functions to manipulate these sets in a pure
 way&nbsp;(mostly).</p>
+<p>This module depends on the <a href="type.html">type</a>&nbsp;module.</p>
 <div class="toc">
 <ul>
-<li><a href="#load_the_module">Load the&nbsp;module</a></li>
 <li><a href="#unpacking">Unpacking</a></li>
 <li><a href="#information_about_an_object">Information about an object</a><ul>
 <li><a href="#function_hasp">Function&nbsp;hasp</a></li>
@@ -83,6 +83,9 @@ way&nbsp;(mostly).</p>
 <li><a href="#function_get">Function&nbsp;get</a></li>
 <li><a href="#function_pop">Function&nbsp;pop</a></li>
 <li><a href="#function_set_default">Function&nbsp;set_default</a></li>
+</ul>
+</li>
+<li><a href="#structure_handling_and_modifying">Structure handling and modifying</a><ul>
 <li><a href="#function_nextend">Function&nbsp;nextend</a></li>
 <li><a href="#function_extend">Function&nbsp;extend</a></li>
 <li><a href="#function_copy">Function&nbsp;copy</a></li>
@@ -90,22 +93,12 @@ way&nbsp;(mostly).</p>
 </li>
 </ul>
 </div>
-<h2 id="load_the_module">Load the&nbsp;module</h2>
-<p>On <a href="http://nodejs.org/">Node.js</a> you just need to require the package, and get a reference
-to the exported <code>obj</code> module:
-<figure class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;/path/to/black&#39;</span><span class="p">).</span><span class="nx">obj</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
-<p>On browsers things are a bit more complicated. You need to first include
-the appropriate script tags, in the right order. This module depends on
-the <code>core</code> module only:
-<figure class="code"><div class="highlight"><pre><span class="c">&lt;!-- Include black modules --&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
-<p>After doing such, you just need to get a reference to the <code>obj</code> module
-exported in the global <code>black</code> object. You can use it as <code>black.obj</code> if
-you want, of course.
-<figure class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">black</span><span class="p">.</span><span class="nx">obj</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
 <h2 id="unpacking">Unpacking</h2>
-<p>The module will unpack generic functions over to the <code>Object</code>,
-constructor. Own methods inside <code>Object.prototype</code>, so that all created
-objects will get them. And utilities in the usual global&nbsp;object.</p>
+<p>By loading the <code>core</code> module you can <a href="core.html#unpacking_functions_and_own_methods">unpack</a> this module&#8217;s functions to
+use them in a less crippled&nbsp;way.</p>
+<p>The module will unpack generic functions over to the <code>Object</code>
+constructor, own methods inside <code>Object.prototype</code>, so that all created
+objects will get them, and utilities in the usual global&nbsp;object.</p>
 <p>The following functions are exported as&nbsp;utilities:</p>
 <ul>
 <li><a href="#function_extend">extend</a></li>
@@ -238,6 +231,7 @@ object&nbsp;itself.</p>
 <p>The predicate is expected to return true if the property is considered
 valid, and therefore shouldn&#8217;t be changed, and false&nbsp;otherwise.</p>
 <p><strong>Example:</strong></p>
+<h2 id="structure_handling_and_modifying">Structure handling and&nbsp;modifying</h2>
 <h3 id="function_nextend">Function&nbsp;nextend</h3>
 <pre><code>(target:Object, sources:Object...) ↦ Object
 </code></pre>
@@ -302,7 +296,19 @@ is that it&#8217;ll support deep copies on the 1.0&nbsp;release.</p>    </articl
                     Types</a><li>
                 <a class="active"                    title=""
                     href="/api/obj.html">
-                    Objects</a>                </li>
+                    Objects</a><li>
+                <a                     title=""
+                    href="/api/list.html">
+                    List</a><li>
+                <a                     title=""
+                    href="/api/str.html">
+                    String</a><li>
+                <a                     title=""
+                    href="/api/num.html">
+                    Number</a><li>
+                <a                     title=""
+                    href="/api/fn.html">
+                    Function</a>                </li>
             </ul>
         </li>        </ul>
         <nav class="prevnext">
@@ -311,7 +317,12 @@ is that it&#8217;ll support deep copies on the 1.0&nbsp;release.</p>    </articl
                 title="Types"
                 href="/api/types.html">
                 &larr;Previous
-            </a>                        <br class="clear">
+            </a>            <a
+                class="next"
+                title="List"
+                href="/api/list.html">
+                Next&rarr;
+            </a>            <br class="clear">
         </nav>
     </aside>
 </div>

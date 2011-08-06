@@ -1,0 +1,78 @@
+Array:
+    isArray: http://es5.github.com/#x15.4.3.2
+    prototype:
+        constructor: http://es5.github.com/#x15.4.4.1
+        toString: http://es5.github.com/#x15.4.4.2
+        toLocaleString: http://es5.github.com/#x15.4.4.3
+        concat: http://es5.github.com/#x15.4.4.4
+        join: http://es5.github.com/#x15.4.4.5
+        pop: http://es5.github.com/#x15.4.4.6
+        push: http://es5.github.com/#x15.4.4.7
+        reverse: http://es5.github.com/#x15.4.4.8
+        shift: http://es5.github.com/#x15.4.4.9
+        slice: http://es5.github.com/#x15.4.4.10
+        sort: http://es5.github.com/#x15.4.4.11
+        splice: http://es5.github.com/#x15.4.4.12
+        unshift: http://es5.github.com/#x15.4.4.13
+        indexOf: http://es5.github.com/#x15.4.4.14
+        lastIndexOf: http://es5.github.com/#x15.4.4.15
+        every: http://es5.github.com/#x15.4.4.16
+        some: http://es5.github.com/#x15.4.4.17
+        forEach: http://es5.github.com/#x15.4.4.18
+        map: http://es5.github.com/#x15.4.4.19
+        filter: http://es5.github.com/#x15.4.4.20
+        reduce: http://es5.github.com/#x15.4.4.21
+        reduceRight: http://es5.github.com/#x15.4.4.22
+
+Object:
+     getPrototypeOf: http://es5.github.com/#x15.2.3.2
+     getOwnPropertyDescriptor: http://es5.github.com/#x15.2.3.3
+     getOwnPropertyNames: http://es5.github.com/#x15.2.3.4
+     create: http://es5.github.com/#x15.2.3.5
+     defineProperty: http://es5.github.com/#x15.2.3.6
+     defineProperties: http://es5.github.com/#x15.2.3.7
+     seal: http://es5.github.com/#x15.2.3.8
+     freeze: http://es5.github.com/#x15.2.3.9
+     preventExtensions: http://es5.github.com/#x15.2.3.10
+     isSealed: http://es5.github.com/#x15.2.3.11
+     isFrozen: http://es5.github.com/#x15.2.3.12
+     isExtensible: http://es5.github.com/#x15.2.3.13
+     keys: http://es5.github.com/#x15.2.3.14
+     prototype:
+         constructor: http://es5.github.com/#x15.2.4.1
+         toString: http://es5.github.com/#x15.2.4.2
+         toLocaleString: http://es5.github.com/#x15.2.4.3
+         valueOf: http://es5.github.com/#x15.2.4.4
+         hasOwnProperty: http://es5.github.com/#x15.2.4.5
+         isPrototypeOf: http://es5.github.com/#x15.2.4.6
+         propertyIsEnumerable: http://es5.github.com/#x15.2.4.7
+
+Function:
+     length: http://es5.github.com/#x15.3.3.2
+     prototype:
+         apply: http://es5.github.com/#x15.3.4.3
+         call: http://es5.github.com/#x15.3.4.4
+         bind: http://es5.github.com/#x15.3.4.5
+
+String:
+    fromCharCode: http://es5.github.com/#x15.5.3.2
+    prototype:
+        constructor: http://es5.github.com/#x15.5.4.1
+        toString: http://es5.github.com/#x15.5.4.2
+        valueOf: http://es5.github.com/#x15.5.4.3
+        charAt: http://es5.github.com/#x15.5.4.4
+        charCodeAt: http://es5.github.com/#x15.5.4.5
+        concat: http://es5.github.com/#x15.5.4.6
+        indexOf: http://es5.github.com/#x15.5.4.7
+        lastIndexOf: http://es5.github.com/#x15.5.4.8
+        localeCompare: http://es5.github.com/#x15.5.4.9
+        match: http://es5.github.com/#x15.5.4.10
+        replace: http://es5.github.com/#x15.5.4.11
+        search: http://es5.github.com/#x15.5.4.12
+        slice: http://es5.github.com/#x15.5.4.13
+        split: http://es5.github.com/#x15.5.4.14
+        substring: http://es5.github.com/#x15.5.4.15
+        toLowerCase: http://es5.github.com/#x15.5.4.16
+        toLocaleLowerCase: http://es5.github.com/#x15.5.4.17
+        toUpperCase: http://es5.github.com/#x15.5.4.18
+        toLocaleUpperCase: http://es5.github.com/#x15.5.4.19

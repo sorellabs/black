@@ -74,9 +74,11 @@ objects and other core objects the functional&nbsp;way.</p>
 Chrome and Firefox. Just load it and hack&nbsp;away.</p>
 <p>&raquo; <a href="overview/supported.html">Details on platform&nbsp;support</a></p>
 <h2 id="installing">Installing</h2>
-<p>On Node.js, just require it away:
+<h2 id="installing_on_nodejs">Installing on&nbsp;Node.js</h2>
+<p>Just require it away:
 <figure class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">black</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;/path/to/black&#39;</span><span class="p">)</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
-<p>In a browser, you&#8217;ll need to either use <a href="https://github.com/substack/node-browserify">Browserify</a> to emulate
+<h2 id="installing_on_the_browser">Installing on the&nbsp;Browser</h2>
+<p>In a browser, you&#8217;ll need to either use [Browserify][] to emulate
 Node.js&#8217;s require, or include each library separately:
 <figure class="code"><div class="highlight"><pre><span class="cp">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span><br /><span class="nt">&lt;html&gt;</span><br /><span class="nt">&lt;head&gt;</span> <span class="c">&lt;!-- ... --&gt;</span> <span class="nt">&lt;/head&gt;</span><br /><span class="nt">&lt;body&gt;</span><br />    <span class="c">&lt;!-- ... --&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/num.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/fn.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script&gt;</span><span class="sr">/* Use Black here */</span><span class="nt">&lt;/script&gt;</span><br /><span class="nt">&lt;/body&gt;</span><br /><span class="nt">&lt;/html&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
 <p>&raquo; <a href="overview/installing.html">Details on how to install&nbsp;black</a></p>
@@ -119,7 +121,22 @@ any other stuff, you can probably nudge me on <a href="http://twitter.com/notSor
                     Getting&nbsp;Started</a><li>
                 <a                     title=""
                     href="/api/types.html">
-                    Types</a>                </li>
+                    Types</a><li>
+                <a                     title=""
+                    href="/api/obj.html">
+                    Objects</a><li>
+                <a                     title=""
+                    href="/api/list.html">
+                    List</a><li>
+                <a                     title=""
+                    href="/api/str.html">
+                    String</a><li>
+                <a                     title=""
+                    href="/api/num.html">
+                    Number</a><li>
+                <a                     title=""
+                    href="/api/fn.html">
+                    Function</a>                </li>
             </ul>
         </li>        </ul>
         <nav class="prevnext">
