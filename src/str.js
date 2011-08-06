@@ -41,7 +41,7 @@ void function (root) {
 
     ///// Function to_char /////////////////////////////////////////////////////
     //
-    //   (code:Num) ↦ String
+    //   (code:Num...) ↦ String
     //
     // Converts a numeric representation of a character to an actual
     // string with that character.
