@@ -123,23 +123,23 @@ void function (root) {
 
 
 
-    ///// Function starts_with /////////////////////////////////////////////////
+    ///// Function starts_withp ////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str) ↦ Bool
     //
     // Checks if a string starts with a piece of text.
     //
-    function starts_with(str, substr) {
+    function starts_withp(str, substr) {
         return find(str, substr) == 0
     }
 
-    ///// Function ends_with ///////////////////////////////////////////////////
+    ///// Function ends_withp //////////////////////////////////////////////////
     //
     //   (str:Str, substr:Str) ↦ Bool
     //
     // Checks if a string ends with a piece of text.
     //
-    function ends_with(str, substr) {
+    function ends_withp(str, substr) {
         return slice(str, str.length - substr.length) == substr
     }
 
@@ -271,26 +271,26 @@ void function (root) {
     str = typeof exports == 'undefined'?  root.black.str = { }
         :                                 exports
 
-    str.char_code   = char_code
-    str.to_char     = to_char
-    str.make_str    = make_str
-    str.cat         = cat
-    str.upcase      = upcase
-    str.downcase    = downcase
-    str.capitalise  = capitalise
-    str.trim        = trim
-    str.starts_with = starts_with
-    str.ends_with   = ends_with
-    str.hasp        = hasp
-    str.count       = count
-    str.find        = find
-    str.find_last   = find_last
-    str.slice       = slice
-    str.split       = split
-    str.match       = match
-    str.replace     = replace
-    str.dasherise   = dasherise
-    str.camelise    = camelise
+    str.char_code    = char_code
+    str.to_char      = to_char
+    str.make_str     = make_str
+    str.cat          = cat
+    str.upcase       = upcase
+    str.downcase     = downcase
+    str.capitalise   = capitalise
+    str.trim         = trim
+    str.starts_withp = starts_withp
+    str.ends_withp   = ends_withp
+    str.hasp         = hasp
+    str.count        = count
+    str.find         = find
+    str.find_last    = find_last
+    str.slice        = slice
+    str.split        = split
+    str.match        = match
+    str.replace      = replace
+    str.dasherise    = dasherise
+    str.camelise     = camelise
 
     str.$black_box   = String
     str.$black_proto = String.prototype
