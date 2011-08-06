@@ -17,6 +17,11 @@ add a few more.
 
 [TOC]
 
+Note that this module relies on a correct ECMAScript implementation of
+Array generics, which do take into account [sparse arrays][]. Note also
+that some of the ES5 fallback libraries have
+[issues with sparse arrays][] amongst other things.
+
 
 ## Load the module
 
@@ -177,3 +182,284 @@ will be called for each element in the sequence with two parameters: the
 expected value and the current item.
 
 
+## Acessing individual elements
+
+### Function first
+
+    (seq:+Sequence) ↦ *mixed*
+    
+Returns the first element of the sequence.
+
+Returns `null` if the passed object does not implement the
+[Sequence](types.html#function_sequencep) interface.
+
+
+### Function last
+
+    (seq:+Sequence) ↦ *mixed*
+    
+Returns the last element of the sequence.
+
+Returns `null` if the passed object does not implement the
+[Sequence](types.html#function_sequencep) interface.
+
+
+### Function nth
+
+    (seq:+Sequence, index:Number) ↦ *mixed*
+    
+Returns the element at the given index in the sequence.
+
+Returns `null` if the passed object does not implement the
+[Sequence](types.html#function_sequence) interface.
+
+
+### Function find_first
+
+    (seq:+Sequence[, predicate:Function][, context:Object]) ↦ *mixed*
+    
+Returns the first element of the sequence to pass the predicate test.
+
+If a predicate is not given, the function will return the first non-nil
+element from the sequence.
+
+A context may be given as the last argument; if so, the predicate will
+be called with the given element as `this`.
+
+
+### Function find_last
+
+    (seq:+Sequence[, predicate:Function][, context:Object]) ↦ *mixed*
+    
+Returns the last element of the sequence to pass the predicate
+function.
+
+If the predicate is not given, the function will return the last non-nil
+element from the sequence.
+
+A context may be given as the last argument; if so, the predicate
+function will be called with the given element as `this`.
+
+
+## Extracting sections of a list
+
+### Function slice
+
+    (seq:+Sequence[, start:Number][, end:Number]) ↦ Array
+    
+Extracts a subsection of the sequence that goes from `start` to `end`.
+
+When `start` is not given, the algorithm assumes the beginning of the
+sequence. When `end` is not given, the algorithm assumes the last item
+of the sequence.
+
+At any rate, `start` and `end` are included in the resulting sublist.
+
+If negative indexes are passed as either `start` or `end`, they're taken
+as the difference from the length of the sequence. That is, a -1 index
+means the last element, -2 the one before the last, and so on.
+
+
+**Alias for:**
+
+- [Array.prototype.slice][]
+
+
+### Function rest
+
+    (seq:+Sequence) ↦ Array
+    
+Returns a new array without the first element.
+
+
+### Function but_last
+
+    (seq:+Sequence) ↦  Array
+    
+Returns a new array without the last element.
+
+
+### Function drop
+
+    (seq:+Sequence, num:Number) ↦ Array
+    
+Returns a new array without the first `num` elements.
+
+
+### Function keep
+
+    (seq:+Sequence, num:Number) ↦ Array
+    
+Returns a new array with just the first `num` elements.
+
+
+## Extending lists
+
+### Function insert
+
+    (seq:+Sequence, index:Number[, values...]) ↦  Array
+    
+Returns a new array with the given `values` inserted at the given
+`index`.
+
+
+### Function cat
+
+    (seq:+Sequence[, seqs...]) ↦ Array
+    
+Returns a new array with the given sequences concatenated.
+
+
+## Structure handling
+    
+### Function remove
+
+    (seq:+Sequence, index:Number) ↦ Array
+    
+Returns a new array without the item at `index`.
+
+
+### Function without
+
+    (seq:+Sequence, value[, predicate:Function]) ↦  Array
+    
+Returns a new array without elements that match `value`, with the
+comparison optionally defined by a predicate funciton.
+
+If a predicate function is not given, the strict equality comparison
+operator (`===`) will be used.
+
+
+### Function compact
+
+    (seq:+Sequence) ↦ Array
+    
+Returns a new array without `null` and `undefined` values in it.
+
+
+### Function replace
+
+    (seq:+Sequence, value, replacement[, predicate:Function]) ↦ Array
+    
+Returns a new array with the elements that match `value` replaced by
+`replacement`.
+
+If a predicate function is not given, the strict equality comparison
+operator (`===`) will be used.
+
+
+### Function replace_at
+
+    (seq:+Sequence, index:Number, replacement) ↦ Array
+    
+Returns a new array with the element at `index` replaced by the given
+`replacement`.
+
+
+### Function sorted
+
+     (seq:+Sequence[, comparison:Function]) ↦ Array
+     
+Returns a new array, sorted according to the comparison function.
+
+If a comparison function is not given, the items will be sorted
+lexographically.
+
+
+### Function reversed
+
+    (seq:+Sequence) ↦ Array
+    
+Returns the reversed representation of the given sequence.
+
+That is, last items first, first items last.
+
+
+### Function flatten
+
+    (seq:+Sequence) ↦ Array
+    
+Returns an one dimensional array by in-lining all sublists.
+
+
+### Function zip
+
+    (seq:+Sequence) ↦ Array
+    
+Merges all sequences into one, such that any given index of the
+resulting sequence, is a sequence of the values at that index in all of
+the given sequences.
+
+**FIXME:**
+> Come up with a description that does not suck monkey balls.
+
+
+## Iteration through a list
+
+### Function map
+
+    (seq:+Sequence, predicate:Function[, context:Object]) ↦ Array
+    
+Returns a new array with the elements transformed by the predicate
+function.
+
+
+### Function each
+
+    (seq:+Sequence, predicate:Function[, context:Object]) ↦ Array
+    
+Executes the predicate function for each item in the sequence.
+
+
+### Function filter
+
+    (seq:+Sequence, predicate:Function[, context:Object]) ↦ Array
+    
+Returns a sequence without the elements that don't pass the predicate
+test.
+
+
+### Function reduce
+
+    (seq:+Sequence, predicate:Function[, initial][, context:Object]) ↦ *mixed*
+    
+Apply the predicate against each pair in the array (left to right) so to
+return a single accumulated value.
+
+An starting value can be given, in which case the function will work as
+if the item was inserted as the first element of the given array.
+
+
+### Function reduce_right
+
+    (seq:+Sequence, predicate:Function[, initial][, context:Object]) ↦ *mixed*
+    
+Apply the predicate function against each pair in the array (right to
+left) so to return a single accumulated value.
+
+An starting value can be given, in which case the function will work as
+if the item was inserted as the last element of the given array.
+
+
+### Function some
+
+    (seq:+Sequence, predicate:Function[, context:Object]) ↦ Boolean
+    
+Checks whether some element in the sequence passes the predicate test.
+
+
+### Function every
+
+    (seq:+Sequence, predicate:Function[, context:Object]) ↦ Boolean
+    
+Checks if all of the elements in the sequence passes the predicate
+test.
+
+
+
+
+
+
+
+[issues with sparse arrays]: https://gist.github.com/1120592
+[sparse arrays]: http://es5.github.com/#x15.4
