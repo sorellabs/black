@@ -235,7 +235,7 @@ void function (root) {
     // Returns the last element of the sequence to pass the predicate
     // function.
     //
-    // If the predicate is not given, the function will return the first
+    // If the predicate is not given, the function will return the last
     // non-null element from the sequence.
     //
     // A context may be given as the last argument; if so, the predicate
