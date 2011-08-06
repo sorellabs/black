@@ -571,7 +571,7 @@ void function (root) {
 
     ///// Function some ////////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ *mixed*
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ Boolean
     //
     // Checks whether some element in the array passes the predicate
     // function's test.
@@ -583,7 +583,7 @@ void function (root) {
 
     ///// Function every ///////////////////////////////////////////////////////
     //
-    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ *mixed*
+    //   (seq:Sequence, pred:Fn[, ctx:Obj]) ↦ Boolean
     //
     // Checks whether all of the elements in the array passes the
     // predicate function's test.
