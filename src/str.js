@@ -23,6 +23,7 @@ void function (root) {
     , __match     = String.prototype.match
     , __replace   = String.prototype.replace
     , __split     = String.prototype.split
+    , __max       = Math.max
 
 
     , strp = type.strp
@@ -57,8 +58,8 @@ void function (root) {
     // Returns an string by repeating `str` the given number of times.
     //
     function make_str(str, times) {
-        return times <= 0?  ''
-        :             Array(times + 1).join(str)
+        return !__max(times, 0)?  ''
+        :                    Array(times + 1).join(str)
     }
 
     ///// Function cat /////////////////////////////////////////////////////////
