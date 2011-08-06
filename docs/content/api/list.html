@@ -456,7 +456,30 @@ Checks if all of the elements in the sequence passes the predicate
 test.
 
 
+## Special mapping functions
 
+### Function pluck
+
+    (seq:+Sequence, attribute:String) ↦ Array
+    
+Returns a new array with all elements replaced by their `attribute`s'
+value.
+
+Non-object items are mapped to `undefined`.
+
+
+### Function invoke
+
+    (seq:+Sequence, method:String[, args...]) ↦ Array
+    
+Returns a new array with all elements replaced by the result of invoking
+the given named method for all objects.
+
+Items that have no such method, or that are not objects, will be mapped
+to `undefined`.
+
+The method will be called in the context of the object, optionally
+passing the additional arguments to it.
 
 
 
