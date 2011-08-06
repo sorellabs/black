@@ -55,7 +55,7 @@ void function (root) {
 
         result = Array(size).join('0').split('0')
         return has_defaultp?  result.map(function(){ return default_value })
-        :                 result
+        :                result
     }
 
     ///// Function range ///////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ void function (root) {
     //
     function size(seq) {
         return sequencep(seq)?  seq.length || 0
-        :                   0
+        :                  0
     }
 
     ///// Function emptyp //////////////////////////////////////////////////////
@@ -124,7 +124,7 @@ void function (root) {
     //
     function emptyp(seq) {
         return sequencep(seq)?  !seq.length
-        :                   true
+        :                  true
     }
 
     ///// Function hasp ////////////////////////////////////////////////////////
@@ -142,8 +142,8 @@ void function (root) {
         pred = pred && pred.bind(this, value)
 
         return !sequencep(seq)?  false
-        : pred?              find_first(seq, pred) !== null
-        :                    !!~__index.call(seq, value)
+        : pred?             find_first(seq, pred) !== null
+        :                   !!~__index.call(seq, value)
     }
 
     ///// Function count ///////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ void function (root) {
     //
     function first(seq) {
         return sequencep(seq)?  seq[0]
-        :                   undefined
+        :                  undefined
     }
 
     ///// Function last ////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ void function (root) {
     //
     function last(seq) {
         return sequencep(seq)?  seq[seq.length - 1]
-        :                   undefined
+        :                  undefined
     }
 
     ///// Function nth /////////////////////////////////////////////////////////
@@ -201,7 +201,7 @@ void function (root) {
     //
     function nth(seq, index) {
         return sequencep(seq)?  seq[index]
-        :                   undefined
+        :                  undefined
     }
 
     ///// Function find_first //////////////////////////////////////////////////
@@ -379,7 +379,7 @@ void function (root) {
     function without(seq, value, pred) {
         return filter(seq, function(item, index) {
             return pred?  !pred(value, item, index, seq)
-            :         item !== value })
+            :        item !== value })
     }
 
     ///// Function compact /////////////////////////////////////////////////////
@@ -608,7 +608,7 @@ void function (root) {
     function pluck(seq, attr) {
         return map(seq, function(value) {
             return objp(value)?  value[attr]
-            :                undefined })
+            :               undefined })
     }
 
     ///// Function invoke //////////////////////////////////////////////////////

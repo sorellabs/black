@@ -58,7 +58,7 @@ void function (root) {
     //
     function make_str(str, times) {
         return times <= 0?  ''
-        :              Array(times + 1).join(str)
+        :             Array(times + 1).join(str)
     }
 
     ///// Function cat /////////////////////////////////////////////////////////

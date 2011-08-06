@@ -55,7 +55,7 @@ void function (root) {
     function pad(num, size) { var result
         result = String(num)
         return result.length >= size?  result
-        :                         Array(size).join('0') + result
+        :                        Array(size).join('0') + result
     }
 
 

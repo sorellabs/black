@@ -118,7 +118,7 @@ void function (root) {
     //
     function get(obj, key, default_value, pred) {
         return pred?    pred(obj[key], key, obj) && obj[key]
-                                             || default_value
+                                            || default_value
         : key in obj?  obj[key]
         :              default_value
     }
