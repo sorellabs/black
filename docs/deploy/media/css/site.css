@@ -376,12 +376,6 @@ table th, table td {
 table th {
   border-bottom-width: 3px;
 }
-/* 
-Buda
-Philosopher
-Expletus Sans
-Rosario
-*/
 .blurb {
   background-color: #d4ffe3;
 }
@@ -402,7 +396,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Philosopher;
+  font-family: "Expletus Sans";
 }
 code, .highlight pre {
   font-family: "Courier New", courier, monospace;
@@ -638,6 +632,7 @@ article h1.title {
 }
 article h3.subtitle {
   color: #453f19;
+  font-family: Philosopher;
   font-size: 18px;
   font-weight: normal;
   padding-left: 6px;
