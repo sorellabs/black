@@ -33,7 +33,9 @@ Node.js's require, or include each library separately:
     <script src="/path/to/black/list.js"></script>
     <script src="/path/to/black/num.js"></script>
     <script src="/path/to/black/fn.js"></script>
-    <script>/\* Use Black here \*/</script>
+    <script>
+        /\* Use Black here \*/
+    </script>
 </body>
 </html>
 ~~~~~~~~~~
@@ -52,10 +54,14 @@ this case you'll also get unpacking utilities) or by just defining a
 fresh object before including the modules:
 
 ~~~html~~~
-<script type="text/javascript">window.black = { }</script>
+<script type="text/javascript">
+    window.black = { }
+</script>
 <script src="/path/to/black/type.js"></script>
 <script src="/path/to/black/list.js"></script>
-<script type="text/javascript">/* use black.list here */</script>
+<script type="text/javascript">
+    /\* use black.list here \*/
+</script>
 ~~~~~~~~~~
 
 [Browserify]: https://github.com/substack/node-browserify

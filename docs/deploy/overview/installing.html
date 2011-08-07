@@ -34,16 +34,14 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-  
-    <link rel="stylesheet" href="/media/css/site.css">
+    <link href='http://fonts.googleapis.com/css?family=Buda:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Expletus+Sans:600' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/media/css/site.css">
   <link rel="stylesheet" href="/media/css/syntax.css">
   
-    <!-- All JavaScript at the bottom, except for Modernizr which
-        enables HTML5 elements & feature detects -->
-    <script src="/media/js/libs/modernizr-1.6.min.js"></script>
-    </head>
+      </head>
 <body id="installing">
     <div id="container">
             <div id="main" role="main">
@@ -63,7 +61,7 @@
 <h2 id="installing_on_the_browser">Installing on the&nbsp;Browser</h2>
 <p>In a browser, you&#8217;ll need to either use <a href="https://github.com/substack/node-browserify">Browserify</a> to emulate
 Node.js&#8217;s require, or include each library separately:
-<figure class="code"><div class="highlight"><pre><span class="cp">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span><br /><span class="nt">&lt;html&gt;</span><br /><span class="nt">&lt;head&gt;</span> <span class="c">&lt;!-- ... --&gt;</span> <span class="nt">&lt;/head&gt;</span><br /><span class="nt">&lt;body&gt;</span><br />    <span class="c">&lt;!-- ... --&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/num.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/fn.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script&gt;</span><span class="sr">/* Use Black here */</span><span class="nt">&lt;/script&gt;</span><br /><span class="nt">&lt;/body&gt;</span><br /><span class="nt">&lt;/html&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
+<figure class="code"><div class="highlight"><pre><span class="cp">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span><br /><span class="nt">&lt;html&gt;</span><br /><span class="nt">&lt;head&gt;</span> <span class="c">&lt;!-- ... --&gt;</span> <span class="nt">&lt;/head&gt;</span><br /><span class="nt">&lt;body&gt;</span><br />    <span class="c">&lt;!-- ... --&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/core.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/obj.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/num.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/fn.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br />    <span class="nt">&lt;script&gt;</span><br />        <span class="sr">/* Use Black here */</span><br />    <span class="nt">&lt;/script&gt;</span><br /><span class="nt">&lt;/body&gt;</span><br /><span class="nt">&lt;/html&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
 <p>Though since Black is built using a modular design, you can just include
 the modules you will use to reduce the overhead. Though you need to pay
 attention to the dependencies of each module (listed in the <span class="caps">API</span>
@@ -72,7 +70,7 @@ documentation for each&nbsp;one).</p>
 execute. You can do so by either including the <code>core</code> module (and in
 this case you&#8217;ll also get unpacking utilities) or by just defining a
 fresh object before including the modules:
-<figure class="code"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span><span class="nb">window</span><span class="p">.</span><span class="nx">black</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span><span class="nt">&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span><span class="cm">/<em> use black.list here </em>/</span><span class="nt">&lt;/script&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
+<figure class="code"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span><br />    <span class="nb">window</span><span class="p">.</span><span class="nx">black</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span><br /><span class="nt">&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/type.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/black/list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span><br /><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span><br />    <span class="sr">/* use black.list here */</span><br /><span class="nt">&lt;/script&gt;</span><br /></pre></div><br /><figcaption><span class="caps">HTML</span></figcaption></figure></p>
 <h2 id="dependencies">Dependencies</h2>
 <p>You can run it in non-ECMAScript 5-compliant environments by supplying the
 appropriate fallbacks. Since black does not rely on any method that can&#8217;t be
@@ -180,10 +178,7 @@ the global scope, you can resolve the conflict by calling
     </footer>
       </div> <!--! end of #container -->
       <!-- Javascript at the bottom for fast page loading -->
-    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/media/js/libs/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
-  
+
     
       
   </body>

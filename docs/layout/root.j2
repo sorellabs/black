@@ -37,20 +37,16 @@
   <link rel="apple-touch-icon" href="{{ media_url('/apple-touch-icon.png') }}">
   {% endblock favicons %}
 
-  {% block typekit %}
-  <script type="text/javascript" src="http://use.typekit.com/hyw1bsz.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-  {% endblock %}
-
   {% block css %}
+  <link href='http://fonts.googleapis.com/css?family=Buda:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Expletus+Sans:600' rel='stylesheet' type='text/css'>
+
   <link rel="stylesheet" href="{{ media_url('css/site.css') }}">
   <link rel="stylesheet" href="{{ media_url('css/syntax.css') }}">
   {% endblock css %}
 
   {% block headjs %}
-  <!-- All JavaScript at the bottom, except for Modernizr which
-        enables HTML5 elements & feature detects -->
-    <script src="{{ media_url('js/libs/modernizr-1.6.min.js') }}"></script>
   {% endblock headjs %}
   {% block endhead %}{% endblock endhead %}
 </head>
@@ -75,11 +71,6 @@
   {% endblock content%}
   {% block js %}
   <!-- Javascript at the bottom for fast page loading -->
-  {% block jquery %}
-  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="{{ media_url('js/libs/jquery-1.4.4.min.js') }}"%3E%3C/script%3E'))</script>
-  {% endblock jquery %}
 
   {% block scripts %}
   {% endblock scripts %}

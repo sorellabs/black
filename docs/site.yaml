@@ -65,3 +65,4 @@ markdown:
         - headerid
         - footnotes
         - toc
+        - tables

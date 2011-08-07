@@ -159,8 +159,26 @@ article {
         font-size: @gutter * 1.5;
         font-weight: normal;
         padding-left: 6px;
+        padding-top: @gutter / 2;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         margin-bottom: @gutter * 2 - 2;
+    }
+
+    h3 {
+        font-size: @gutter * 1.8;
+    }
+    h4 {
+        font-size: @gutter * 1.6;
+    }
+    h5 {
+        font-size: @gutter * 1.5;
+    }
+    h6 {
+        font-size: @gutter * 1.4;
+    }
+
+    h3, h4, h5, h6 {
+        padding: 5px 0;
     }
 }
 
@@ -221,7 +239,7 @@ pre code {
 
 article > h3 {
     border-top: 3px solid #dfdfdf;
-    padding-top: 5px;
+    padding-top: @gutter;
     margin-top: @gutter;
     color: @shade;
 }
