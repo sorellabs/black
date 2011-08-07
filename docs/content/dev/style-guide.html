@@ -563,7 +563,7 @@ For example, it's used a lot for inheritance:
 inherits(Apprentice, Mage.prototype)
 function Apprentice(name) {
     Mage.call(this, name)
-    /* define Apprentice's properties here */
+    /\* define Apprentice's properties here \*/
 }
 ~~~~~~~
 
@@ -580,7 +580,7 @@ object:
 inherits(Apprentice, Mage.prototype)
 function Apprentice(name) {
     Mage.call(this, name)
-    /* instance definitions */
+    /\* instance definitions \*/
 }
 Apprentice.prototype = function() {
     return extend( Aprentice.prototype
@@ -592,13 +592,13 @@ Apprentice.prototype = function() {
 
 
     function cast() {
-        /* ... */
+        /\* ... \*/
     }
     function meditate() {
-        /* ... */
+        /\* ... \*/
     }
     function guard() {
-        /* ... */
+        /\* ... \*/
     }
 }()
 ~~~~~~~

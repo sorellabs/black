@@ -470,7 +470,7 @@ with a function, to come before the physical definition of
 such function in the source code. Kinda like Python&#8217;s <code>@decorators</code>,
 therefore making the flow of readability more&nbsp;natural.</p>
 <p>For example, it&#8217;s used a lot for inheritance:
-<figure class="code"><div class="highlight"><pre><span class="nx">inherits</span><span class="p">(</span><span class="nx">Apprentice</span><span class="p">,</span> <span class="nx">Mage</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span><br /><span class="kd">function</span> <span class="nx">Apprentice</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">Mage</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span><br />    <span class="cm">/<em> define Apprentice&#39;s properties here </em>/</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<figure class="code"><div class="highlight"><pre><span class="nx">inherits</span><span class="p">(</span><span class="nx">Apprentice</span><span class="p">,</span> <span class="nx">Mage</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span><br /><span class="kd">function</span> <span class="nx">Apprentice</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">Mage</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span><br />    <span class="o">/</span><span class="err">&lt;/span&gt;<span class="o"><em></span> <span class="nx">define</span> <span class="nx">Apprentice</span><span class="err">&#39;</span><span class="nx">s</span> <span class="nx">properties</span> <span class="nx">here</span> <span class="err">&lt;/span&gt;<span class="o"></em></span><span class="err">/</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
 <p>This allows you to quickly grasp that Apprentice inherits properties
 from Mage.prototype, which would not be as easy to notice if the
 inheritance declaration was somewhere 30 lines of code away from the
@@ -478,7 +478,7 @@ function&nbsp;declaration.</p>
 <p>It&#8217;s also used for defining function&#8217;s prototypes, so you have an
 easy list of properties that will actually end up in the constructed
 object:
-<figure class="code"><div class="highlight"><pre><span class="nx">inherits</span><span class="p">(</span><span class="nx">Apprentice</span><span class="p">,</span> <span class="nx">Mage</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span><br /><span class="kd">function</span> <span class="nx">Apprentice</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">Mage</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span><br />    <span class="cm">/<em> instance definitions </em>/</span><br /><span class="p">}</span><br /><span class="nx">Apprentice</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><br />    <span class="k">return</span> <span class="nx">extend</span><span class="p">(</span> <span class="nx">Aprentice</span><span class="p">.</span><span class="nx">prototype</span><br />                 <span class="p">,</span> <span class="nx">with_traits</span><span class="p">(</span><span class="nx">BlackMage</span><span class="p">)</span><br />                 <br />                 <span class="p">,</span> <span class="p">{</span> <span class="nx">cast</span><span class="o">:</span>     <span class="nx">cast</span><br />                   <span class="p">,</span> <span class="nx">meditate</span><span class="o">:</span> <span class="nx">meditate</span><br />                   <span class="p">,</span> <span class="nx">guard</span><span class="o">:</span>    <span class="nx">guard</span>  <span class="p">})</span><br />&nbsp;<br /><br />    <span class="kd">function</span> <span class="nx">cast</span><span class="p">()</span> <span class="p">{</span><br />        <span class="cm">/<em> ... </em>/</span><br />    <span class="p">}</span><br />    <span class="kd">function</span> <span class="nx">meditate</span><span class="p">()</span> <span class="p">{</span><br />        <span class="cm">/<em> ... </em>/</span><br />    <span class="p">}</span><br />    <span class="kd">function</span> <span class="nx">guard</span><span class="p">()</span> <span class="p">{</span><br />        <span class="cm">/<em> ... </em>/</span><br />    <span class="p">}</span><br /><span class="p">}()</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
+<figure class="code"><div class="highlight"><pre><span class="nx">inherits</span><span class="p">(</span><span class="nx">Apprentice</span><span class="p">,</span> <span class="nx">Mage</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span><br /><span class="kd">function</span> <span class="nx">Apprentice</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">Mage</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span><br />    <span class="o">/</span><span class="err">&lt;/span&gt;<span class="o"><em></span> <span class="nx">instance</span> <span class="nx">definitions</span> <span class="err">&lt;/span&gt;<span class="o"></em></span><span class="err">/</span><br /><span class="p">}</span><br /><span class="nx">Apprentice</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><br />    <span class="k">return</span> <span class="nx">extend</span><span class="p">(</span> <span class="nx">Aprentice</span><span class="p">.</span><span class="nx">prototype</span><br />                 <span class="p">,</span> <span class="nx">with_traits</span><span class="p">(</span><span class="nx">BlackMage</span><span class="p">)</span><br />                 <br />                 <span class="p">,</span> <span class="p">{</span> <span class="nx">cast</span><span class="o">:</span>     <span class="nx">cast</span><br />                   <span class="p">,</span> <span class="nx">meditate</span><span class="o">:</span> <span class="nx">meditate</span><br />                   <span class="p">,</span> <span class="nx">guard</span><span class="o">:</span>    <span class="nx">guard</span>  <span class="p">})</span><br />&nbsp;<br /><br />    <span class="kd">function</span> <span class="nx">cast</span><span class="p">()</span> <span class="p">{</span><br />        <span class="sr">/* ... */</span><br />    <span class="p">}</span><br />    <span class="kd">function</span> <span class="nx">meditate</span><span class="p">()</span> <span class="p">{</span><br />        <span class="sr">/* ... */</span><br />    <span class="p">}</span><br />    <span class="kd">function</span> <span class="nx">guard</span><span class="p">()</span> <span class="p">{</span><br />        <span class="sr">/* ... */</span><br />    <span class="p">}</span><br /><span class="p">}()</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></p>
 <h3 id="blank_lines">Blank&nbsp;lines</h3>
 <p>Use blank lines sparingly to group related group of functionality.
 Doing such makes both it easier to spot what kind of stuff is related
@@ -487,7 +487,7 @@ breath a little while reading some&nbsp;code.</p>
 <p>You could say it&#8217;s analogous to paragraphs in your usual fiction&nbsp;books.</p>    </article>
     <aside>
         <ul class="toc">
-        <li><mark class="version">Version: 0.2</mark></li>
+        <li><mark class="version">Version: 0.3</mark></li>
         <li class="topic" id="topic1">
                         <ul class="links">
                 <li>
@@ -512,6 +512,16 @@ breath a little while reading some&nbsp;code.</p>
                     Installing</a>                </li>
             </ul>
         </li><li class="topic" id="topic3">
+            <h2 class=" active">Development</h2>            <ul class="links">
+                <li>
+                <a class="active"                    title=""
+                    href="/dev/style-guide.html">
+                    Style&nbsp;Guide</a><li>
+                <a                     title=""
+                    href="/dev/contributing.html">
+                    Contributing</a>                </li>
+            </ul>
+        </li><li class="topic" id="topic4">
             <h2 class="">Reference</h2>            <ul class="links">
                 <li>
                 <a                     title=""
@@ -538,7 +548,17 @@ breath a little while reading some&nbsp;code.</p>
             </ul>
         </li>        </ul>
         <nav class="prevnext">
-                                    <br class="clear">
+            <a
+                class="prev"
+                title="Installing"
+                href="/overview/installing.html">
+                &larr;Previous
+            </a>            <a
+                class="next"
+                title="Contributing"
+                href="/dev/contributing.html">
+                Next&rarr;
+            </a>            <br class="clear">
         </nav>
     </aside>
 </div>

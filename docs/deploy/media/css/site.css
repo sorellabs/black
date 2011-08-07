@@ -314,9 +314,9 @@ body {
   color: #010202;
 }
 blockquote {
-  border-left: 3px solid #555555;
+  border-left: 3px solid #999;
   padding: 0px 24px;
-  color: #555555;
+  color: #888;
   margin: -1em 0 1.5em 0;
 }
 body {
@@ -545,8 +545,8 @@ header.banner h3::before {
 }
 aside {
   line-height: 24px;
-  position: fixed;
-  left: 940px;
+  position: absolute;
+  left: 740px;
   width: 200px;
   font-size: 12px;
 }
@@ -586,11 +586,20 @@ aside ul.toc {
 aside ul.toc li {
   list-style-type: none;
 }
+aside ul.toc li a {
+  border-left: 5px solid #ccc;
+  border-bottom: 1px solid #ddd;
+  display: block;
+}
+aside ul.toc li a.active {
+  border-color: #555;
+}
+aside ul.toc li a:hover {
+  border-color: #92637c;
+  background: ;
+}
 aside a:before {
   content: '\00a0\00a0';
-}
-aside a.active:before {
-  content: '\00AB';
 }
 aside h2 {
   margin: 4px 0;

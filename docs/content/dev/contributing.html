@@ -1,0 +1,128 @@
+===
+title: Contributing
+subtitle: How to make Black better
+created: 2011-08-06 23:46:18
+toc: development
+index: 2
+===
+
+§§ blurb
+
+Black is a part of the [OrpheOS][] project and a [free software][][^1]
+project (**not** associated to the FSF, though). As such, we really welcome
+contributions of any sort to the project:
+
+[TOC]
+
+§§ /blurb
+
+[OrpheOS]: http://killdream.github.com/projects/orpheos
+[free software]: http://www.fsf.org/about/what-is-free-software
+[^1]: Note that my views on freedom differ a little from Stallman's. I
+      believe freedom cannot be enforced, and therefore am not
+      comfortable with the GPL licence. Even if the terms in the licence
+      are intended to guarantee the user's freedom (and it does great in
+      that).
+      
+      But well, I'm just a bit too much of an idealist ;3
+
+
+## Writing documentation and tutorials
+
+Documentation is good. Tutorials are good. No, seriously, they are the
+**good**, and most of the time overlooked. Good documentation is
+essential for any software that's meant to be used by someone.
+
+There's no rule for writing about the project elsewhere, of course. But
+for writing documentation that you want to include in the project's
+distribution, there are a few guidelines to follow:
+
+-   All documentation is written in [Markdown][]. [Hyde][] is used to
+    generate the HTML files from all the markdown, and it uses
+    [python markdown][] library for rendering.
+    
+
+-   API documentation should follow Calliope's guidelines. Basically,
+    the API documentation consists of the documented item as a header, a
+    piece of plain text with the function's signature, if it's a
+    function, and a description of what the function does, along with
+    any additional information, warnings and such:
+    
+        ## Function something
+    
+            (times:Number) ↦ Number
+        
+        Do something the given number of `times`.
+
+-   Code examples should follow OrpheOS's [javascript style-guide][].
+
+[markdown]: http://daringfireball.net/projects/markdown/
+[hyde]: http://hyde.github.com/
+[python markdown]: http://www.freewisdom.org/projects/python-markdown/
+[javascript style-guide]: style-guide.html
+
+
+## Filling bug reports
+
+The project uses Github [tracker][] for tracking bugs, features and
+such. All tickets are assigned a developer and a milestone to be
+properly addressed.
+
+Bug reports should contain at least the following information:
+
+-   **What the problem is**
+
+    > A short description of what is happening.
+    
+-   **What is the intended behaviour**
+
+    > A short descripton of what **should** be happening.
+
+-   **JavaScript environment and version**
+
+    > The environment where the script has failed to execute
+    > properly. Might be a Browser (IE, Firefox, Opera, Chrome...), or a
+    > server-side environment (Node.js, RingoJS, Narwhal, ...).
+    
+-   **OS and OS version**
+
+    > The operating system where the environment was being ran.
+    
+-   **All steps necessary to reproduce the issue**
+
+    > Really, this is one of the most essential information of all, and
+    > will really help the bug to be sorted out quicker.
+    
+Before reporting a bug, please take a little time to search the bug
+tracker and see whether that issue has been addressed before or not. If
+you can't do that, report the bug nonetheless. It's always better to
+just mark the bug as duplicate latter than risk losing potential bug
+reports :3
+
+[tracker]: {{ project.tracker }}
+
+## Requesting new features
+
+Features are also requested as tickets in the Github's [tracker][]. When
+requesting a new feature, just be sure to include a reasonable amount of
+information on how the intended behaviour of the feature :3
+
+
+## Writing patches
+
+Patches are handled through pull requests. If you want to include a
+patch, fork the project, do your changes, then send me a pull
+request. It's interesting to include some information about which
+changes you're doing in the pull request's description too.
+
+
+## Writing test cases
+
+Test cases should be written using the [Claire][] library. Inclusion in
+the project follows the same guidelines of
+[writing patches](#writing_patches), though.
+
+
+[Claire]: http://github.com/killdream/Claire
+
+

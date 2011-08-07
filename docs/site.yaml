@@ -55,6 +55,7 @@ grouper:
                 hide_name: True
                 groups:
                     - name: overview
+                    - name: development
                     - name: reference
 
 less:
