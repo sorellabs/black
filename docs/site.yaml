@@ -1,6 +1,6 @@
 mode: development
 media_root:: media
-media_url: media
+media_url: /Black/docs/deploy/media
 base_url: /Black/docs/deploy
 template: hyde.ext.templates.jinja.Jinja2Template
 plugins:
