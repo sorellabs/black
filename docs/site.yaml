@@ -1,7 +1,7 @@
 mode: development
 media_root:: media
-media_url: /media
-base_url: /
+media_url: media
+base_url: /docs/deploy
 template: hyde.ext.templates.jinja.Jinja2Template
 plugins:
     - hyde.ext.plugins.meta.MetaPlugin
