@@ -248,7 +248,7 @@ void function (root) {
     // Converts and collapses all whitespace into dashes.
     //
     function dasherise(str) {
-        return replace(str, /\s+/g, '-')
+        return replace(trim(str), /\s+/g, '-')
     }
 
     ///// Function camelise ////////////////////////////////////////////////////
