@@ -36,7 +36,7 @@ void function (root) {
     // Converts a character to its numeric representation.
     //
     function char_code(str, index) {
-        return __char_code.call(str, index || 0)
+        return __char_code.call(str, index)
     }
 
     ///// Function to_char /////////////////////////////////////////////////////
