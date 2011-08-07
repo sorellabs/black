@@ -145,8 +145,8 @@ void function (root) {
     //
     function set_default(obj, key, value, pred) {
         function valid_keyp(){
-            return (pred && pred(obj[key], key, obj))
-            || !(hasp(obj, key)) }
+            return pred?  pred(obj[key], key, obj)
+            :        hasp(obj, key) }
 
         if (!valid_keyp())  obj[key] = value
         return obj[key]
