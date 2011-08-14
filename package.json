@@ -1,2 +1,8 @@
 { "name": "black"
+, "version": "0.3.0"
+, "homepage": "http://killdream.github.com/Black"
+, "author": "Quildreen Motta (http://killdream.github.com/)"
+, "description": "Provides functionality missing from JS core in pure and functional style."
+, "repository": { "type": "git"
+                , "url": "http://github.com/killdream/Black.git" }
 , "main": "./src/black.js" }
