@@ -1,0 +1,93 @@
+#+FILETAGS: @orpheos
+#+TITLE: Black
+
+* PROJECT Black
+** Features
+*** TODO Optimise =to_array= for array-like and array objects
+    :PROPERTIES:
+    :Effort:   1:00
+    :Milestone: 0.4
+    :END:
+*** TODO Make =copy= do deep cloning
+    :PROPERTIES:
+    :Effort:   0:30
+    :Milestone: 0.4
+    :END:
+*** TODO String formatting and interpolation
+    :PROPERTIES:
+    :Milestone: 1.0
+    :END:
+*** TODO Group sequpence by a grouping function
+    :PROPERTIES:
+    :Milestone: 1.0
+    :END:
+*** TODO Remove duplicated entries from a sequence
+    :PROPERTIES:
+    :Milestone: 1.0
+    :END:
+*** TODO Include associative array utils
+    :PROPERTIES:
+    :Milestone: 1.0
+    :END:
+    - find_by_key, associate, has_key, delete_key
+*** TODO Include set handling utils
+    :PROPERTIES:
+    :Milestone: 1.0
+    :END:
+    - union, intersection, join, difference
+*** TODO Use =postMessage= for =fn.defer=
+    :PROPERTIES:
+    :Milestone: 0.4
+    :END:
+*** TODO Allow fine pdefinition of unpacked functions
+    :PROPERTIES:
+    :Milestone: 0.4
+    :END:
+    - $black_own and $black_generic for defining functions to be unpacked.
+*** TODO Throw an error on unpacking conflicts
+    :PROPERTIES:
+    :Milestone: 0.4
+    :END:
+    - Silently rewriting functions is meh.
+
+** Tests
+*** TODO Write tests for =num= module
+    :PROPERTIES:
+    :Effort:   1:00
+    :Milestone: 1.0
+    :END:  
+*** TODO Write tests for =fn= module
+    :PROPERTIES:
+    :Effort:   1:00
+    :Milestone: 1.0
+    :END:
+
+** Documentation
+*** TODO Fix doc-comments to the new Calliope standards
+    :PROPERTIES:
+    :Milestone: 0.4
+    :END:
+*** TODO Rewrite docupmentation as Org files.
+    :PROPERTIES:
+    :Milestone: 1.0
+    :END:
+*** TODO Write documentation for unpackers
+    :PROPERTIES:
+    :Milestone: 0.4
+    :END:
+
+** Misc
+*** DONE Write release entry for version 0.3
+    - State "DONE"       from "STARTED"    [2011-08-15 Mon 00:03]
+    CLOCK: [2011-08-14 Sun 22:12]--[2011-08-15 Mon 00:03] =>  1:51
+    CLOCK: [2011-08-14 Sun 11:00]--[2011-08-14 Sun 11:39] =>  0:39
+    :PROPERTIES:
+    :Effort:   2:00
+    :Assignee: killdream
+    :END:
+*** DONE Publish version 0.3 on NPM
+    - State "DONE"       from "TODO"       [2011-08-14 Sun 10:45]
+    :PROPERTIES:
+    :Effort:   0:30
+    :Assignee: killdream
+    :END:
