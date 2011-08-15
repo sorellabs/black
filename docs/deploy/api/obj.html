@@ -146,18 +146,18 @@ properties, that is), whether they have a value or&nbsp;not.</p>
 the current object inherits its behaviours. For example, in the case of
 a simple object literal: <code>{}</code>; its <code>〖Prototype〗</code> points to
 <code>Object.prototype</code>.</p>
-<p>This is a direct alias of <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf">Object.getPrototypeOf</a></p>
+<p>This is a direct alias of <a href="http://es5.github.com/#x15.2.3.2">Object.getPrototypeOf</a></p>
 <h2 id="key_and_property_lists">Key and property&nbsp;lists</h2>
 <h3 id="function_keys">Function&nbsp;keys</h3>
 <pre><code>(obj:Object) ↦ Array
 </code></pre>
 <p>Returns a list of all <strong>own enumerable</strong> property names in an&nbsp;object.</p>
-<p>This is a direct alias of <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys">Object.keys</a></p>
+<p>This is a direct alias of&nbsp;[Object.keys][]</p>
 <h3 id="function_own_props">Function&nbsp;own_props</h3>
 <pre><code>(obj:Object) ↦ Array
 </code></pre>
 <p>Returns a list of all <strong>own</strong> property names in an object, enumerable or&nbsp;not.</p>
-<p>This is a direct alias of&nbsp;[Object.getOwnPropertyNames][]</p>
+<p>This is a direct alias of <a href="http://es5.github.com/#x15.2.3.4">Object.getOwnPropertyNames</a></p>
 <p><strong>Warning</strong></p>
 <blockquote>
 <p>This function can&#8217;t be back-ported to implementations that don&#8217;t
@@ -228,7 +228,10 @@ value stored in the property, the property name and a reference to the
 object&nbsp;itself.</p>
 <p>The predicate is expected to return true if the property is considered
 valid, and therefore shouldn&#8217;t be changed, and false&nbsp;otherwise.</p>
-<p><strong>Example:</strong></p>
+<p><strong>Warning:</strong> <em>side-effects</em></p>
+<blockquote>
+<p>The property is set directly in the&nbsp;object.</p>
+</blockquote>
 <h2 id="structure_handling_and_modifying">Structure handling and&nbsp;modifying</h2>
 <h3 id="function_nextend">Function&nbsp;nextend</h3>
 <pre><code>(target:Object, sources:Object...) ↦ Object
@@ -256,7 +259,8 @@ non-enumerable properties of the&nbsp;object.</p>
 </code></pre>
 <p>Creates a shallow copy of the&nbsp;object.</p>
 <p>Currently, just an alias for <a href="#function_extend">extend</a>, though the idea
-is that it&#8217;ll support deep copies on the 1.0&nbsp;release.</p>    </article>
+is that it&#8217;ll support deep copies on the 1.0&nbsp;release.</p>
+<p>[Object.keys]: <built-in method keys of dict object at 0x94540b4></p>    </article>
     <aside>
         <ul class="toc">
         <li><mark class="version">Version: 0.3</mark></li>

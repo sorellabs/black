@@ -127,7 +127,6 @@ a simple object literal: `{}`; its `〖Prototype〗` points to
 
 This is a direct alias of [Object.getPrototypeOf][]
 
-[Object.getPrototypeOf]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf
 
 
 ## Key and property lists
@@ -139,8 +138,6 @@ This is a direct alias of [Object.getPrototypeOf][]
 Returns a list of all **own enumerable** property names in an object.
 
 This is a direct alias of [Object.keys][]
-
-[Object.keys]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys
 
 
 ### Function own_props
@@ -269,7 +266,8 @@ object itself.
 The predicate is expected to return true if the property is considered
 valid, and therefore shouldn't be changed, and false otherwise.
 
-**Example:**
+**Warning:** *side-effects*
+> The property is set directly in the object.
 
 
 ## Structure handling and modifying
@@ -312,6 +310,7 @@ is that it'll support deep copies on the 1.0 release.
 
 
 
-
-
+[Object.getPrototypeOf]: {{ es5.Object.getPrototypeOf }}
+[Object.keys]: {{ es5.Object.keys }}
+[Object.getOwnPropertyNames]: {{ es5.Object.getOwnPropertyNames }}
 
