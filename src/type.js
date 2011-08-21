@@ -11,7 +11,7 @@ void function (root) {
 
     var type
 
-      , __class = Object.prototype.toString
+    , __class = Object.prototype.toString
 
 
     //// -Type checking ////////////////////////////////////////////////////////
@@ -174,7 +174,7 @@ void function (root) {
     //
     function sequencep(obj) {
         return not_nilp(obj)
-        && typeof obj.length == 'number'
+            && typeof obj.length == 'number'
     }
 
 
@@ -188,7 +188,7 @@ void function (root) {
     //
     function sliceablep(obj) {
         return not_nilp(obj)
-        && typeof obj.slice == 'function'
+            && typeof obj.slice == 'function'
     }
 
     ///// Function searchablep /////////////////////////////////////////////////
@@ -204,8 +204,8 @@ void function (root) {
     //
     function searchablep(obj) {
         return not_nilp(obj)
-        && typeof obj.indexOf     == 'function'
-        && typeof obj.lastIndexOf == 'function'
+            && typeof obj.indexOf     == 'function'
+            && typeof obj.lastIndexOf == 'function'
     }
 
     ///// Function testablep ///////////////////////////////////////////////////
@@ -218,7 +218,7 @@ void function (root) {
     //
     function testablep(obj) {
         return not_nilp(obj)
-        && typeof obj.test == 'function'
+            && typeof obj.test == 'function'
     }
 
 
@@ -261,5 +261,5 @@ void function (root) {
                         , sliceablep   : sliceablep
                         , searcheablep : searchablep
                         , testablep    : testablep }
-                          
+
 }(this)

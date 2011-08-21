@@ -21,7 +21,8 @@ void function (root) {
     //
     function partial(fn) {
         var args = slice.call(arguments, 1)
-        return function() { return fn.apply(this, args.concat(slice.call(arguments))) }
+        return function() {
+            return fn.apply(this, args.concat(slice.call(arguments))) }
     }
 
 
@@ -72,7 +73,7 @@ void function (root) {
 
     ///// Exports //////////////////////////////////////////////////////////////
     fn = typeof exports == 'undefined'?  root.black.fn = { }
-       :                                 exports
+                                      :  exports
 
     fn.partial = partial
     fn.delay   = delay
